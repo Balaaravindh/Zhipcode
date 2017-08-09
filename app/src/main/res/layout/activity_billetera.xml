@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_billetera"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    tools:context="com.falconnect.zipcode.BilleteraActivity">
+
+
+    <!--Header-->
+    <RelativeLayout
+        android:id="@+id/header_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/nav_icon_drawer"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/nav_icon" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/logo" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/header_search_list"
+        android:background="#414141">
+
+        <RelativeLayout
+            android:id="@+id/second_rate"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#000">
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="BILLETERA"
+                android:textColor="#FFF"
+                android:textSize="18dp"
+                app:font="sanz.ttf" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/circle_black">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/walletwhite" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp">
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/billetera_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="SALDO ACUMULADO"
+                android:textColor="#FFF"
+                android:textSize="14dp"
+                app:font="sanz.ttf" />
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/amount_bill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/billetera_name"
+                android:gravity="center"
+                android:text="1550"
+                android:textColor="#FFF"
+                android:textSize="18dp"
+                app:font="sanz.ttf" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frame_layout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="#FFF">
+
+                <RelativeLayout
+                    android:id="@+id/first_bigbox"
+                    android:layout_width="210dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center">
+
+                    <RelativeLayout
+                        android:id="@+id/frst_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp">
+
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                            android:id="@+id/banco"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:text="BANCO:"
+                            android:textSize="14dp"
+                            app:font="sanz.ttf" />
+
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                            android:id="@+id/banco_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_toRightOf="@+id/banco"
+                            android:singleLine="true"
+                            android:text="ALLBANK PTY"
+                            android:textSize="14dp"
+                            app:font="sanz.ttf" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/second_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/frst_details">
+
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                            android:id="@+id/cuenta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:text="CUENTA:"
+                            android:textSize="14dp"
+                            app:font="sanz.ttf" />
+
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                            android:id="@+id/cuenta_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_toRightOf="@+id/cuenta"
+                            android:text="XXXXXX-630"
+                            android:textSize="14dp"
+                            app:font="sanz.ttf" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/bank_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/second_details"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/editar"
+                            android:src="@drawable/pencilblack" />
+
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                            android:id="@+id/editar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:text="EDITAR"
+                            android:textSize="13dp"
+                            app:font="sanz.ttf" />
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/view11"
+                    android:layout_width="1dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/first_bigbox"
+                    android:background="#414141" />
+
+                <RelativeLayout
+                    android:id="@+id/second_detailsss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/view11">
+
+
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                        android:id="@+id/recibir_pago"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="RECIBIR PAGO"
+                        android:textSize="16dp"
+                        app:font="sanz.ttf" />
+
+                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                        android:id="@+id/button_cobrar"
+                        android:layout_width="120dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/recibir_pago"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/shape_submit"
+                        android:gravity="center"
+                        android:text="COBRAR"
+                        android:textColor="#FFF"
+                        android:textSize="16dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/first_bigbox"
+                    android:layout_marginTop="5dp"
+                    android:background="#414141" />
+
+            </RelativeLayout>
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/ultimos_pagos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/details"
+                android:layout_marginTop="10dp"
+                android:background="#FFF"
+                android:gravity="center"
+                android:text="ULTIMOS PAGOS"
+                android:textSize="18dp"
+                app:font="sanz.ttf" />
+
+            <View
+                android:id="@+id/view31"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/ultimos_pagos"
+                android:layout_marginTop="5dp"
+                android:background="#414141" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/view31">
+
+                <ListView
+                    android:id="@+id/date_billetera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@null"/>
+
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                    android:id="@+id/textview_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:text="Billetera is empty"
+                    android:textColor="#414141"
+                    android:textSize="16dp"
+                    android:visibility="gone"
+                    app:font="sanz.ttf" />
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/below"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="#333333"
+                android:visibility="gone">
+
+                <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                    android:id="@+id/ver_todos"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/billetera_button"
+                    android:text="VER TODOS"
+                    android:textColor="#FA2608"
+                    app:font="sanz.ttf" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/white_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF"/>
+
+    </FrameLayout>
+
+</RelativeLayout>

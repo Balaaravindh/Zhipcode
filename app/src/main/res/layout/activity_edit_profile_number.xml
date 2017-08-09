@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.falconnect.zipcode.ProfileActivity">
+
+    <!--Header-->
+    <RelativeLayout
+        android:id="@+id/header_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/nav_icon_drawer"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/nav_icon" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/logo" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_search_list"
+        android:background="#414141">
+
+        <RelativeLayout
+            android:id="@+id/second_rate"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#000">
+
+            <LinearLayout
+                android:id="@+id/back"
+                android:layout_width="45dp"
+                android:layout_height="45dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/back_arrow" />
+
+            </LinearLayout>
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EDITAR TELEFONO"
+                android:textColor="#FFF"
+                android:textSize="16dp"
+                app:font="sanz.ttf"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="130dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/profile_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/default_avatar" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp">
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#414141"
+        android:layout_below="@+id/frame_layout">
+
+    <com.falconnect.zipcode.CustomWidgets.CEditText
+        android:id="@+id/number_key"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:hint="+56 123456789"
+        android:textColor="#FFF"
+        android:textAlignment="center"
+        android:maxLength="13"
+        android:inputType="number"/>
+
+    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+        android:id="@+id/guardar"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/profile_number_button"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/number_key"
+        android:layout_marginTop="20dp"
+        android:textColor="#000"
+        android:text="GUARDAR" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

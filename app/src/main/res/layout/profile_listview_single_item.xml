@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:id="@+id/category_item"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+
+        <ImageView
+            android:id="@+id/call_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/single_del" />
+        
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/call_image"
+            android:text="+56 9 51341300"
+            android:textColor="#000"
+            android:textSize="16dp"
+            app:font="sanz.ttf" />
+        
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/edit_image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/pencilblack"/>
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/editor"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="#000"
+                android:text="EDITAR"
+                android:layout_marginLeft="10dp"
+                app:font="sanz.ttf"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/edit_image"
+                android:textSize="10dp"/>
+
+
+        </RelativeLayout>
+        
+    </RelativeLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/view2"
+        android:background="#C0C0C0"
+        android:layout_below="@+id/category_item"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,243 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#FFF">
+
+    <RelativeLayout
+        android:id="@+id/header_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF">
+
+        <RelativeLayout
+            android:id="@+id/close_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/close" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pb_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/amount_total"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true">
+
+       <ImageView
+           android:layout_width="195dp"
+           android:layout_height="195dp"
+           android:background="@drawable/green_stroke"/>
+
+        <ImageView
+            android:id="@+id/images"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+        android:id="@+id/seconds_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pb_layout"
+        android:gravity="center"
+        android:text="SOLICITUD REFERENCE NUMBER - 10 MIN"
+        android:layout_marginTop="5dp"
+        android:textColor="#000"
+        android:textSize="15dp"
+        app:font="sanz.ttf" />
+
+    <RelativeLayout
+        android:id="@+id/delivery_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seconds_reminder"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:id="@+id/origin_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <RelativeLayout
+                android:id="@+id/origin_values_layout"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_stroke">
+
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                    android:id="@+id/origin_values"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="0"
+                    app:font="sanz.ttf"
+                    android:textColor="#F34335"
+                    android:textSize="18dp" />
+
+            </RelativeLayout>
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/origin_text"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/origin_values_layout"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                app:font="sanz.ttf" />
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/origin"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/origin_text"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/origin_values_layout"
+                android:singleLine="true"
+                android:text="ORIGEN"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:font="sanz.ttf" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/views"
+            android:layout_width="3dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/origin_layout"
+            android:layout_marginLeft="13dp"
+            android:background="#39B54A" />
+
+        <RelativeLayout
+            android:id="@+id/destination_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/views"
+            android:layout_centerHorizontal="true">
+
+
+            <RelativeLayout
+                android:id="@+id/values_layout"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_stroke">
+
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                    android:id="@+id/destination_values"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="1"
+                    app:font="sanz.ttf"
+                    android:textColor="#F34335"
+                    android:textSize="18dp" />
+
+            </RelativeLayout>
+
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/destination_last"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/values_layout"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:font="sanz.ttf" />
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/destination"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/destination_last"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/values_layout"
+                android:singleLine="true"
+                android:text="DESTINO"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:font="sanz.ttf" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+        android:id="@+id/volver"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/delivery_details"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="VOLVER"
+        android:background="@drawable/volver"
+        android:textColor="#000"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:font="sanz.ttf" />
+
+    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+        android:id="@+id/grand_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/header_search_list"
+        android:gravity="center"
+        android:text="GANA"
+        android:textColor="#000"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:font="sanz.ttf" />
+
+    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+        android:id="@+id/amount_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#FA2608"
+        android:textSize="28dp"
+        android:textStyle="bold"
+        app:font="sanz.ttf"
+        android:layout_below="@+id/grand_total"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

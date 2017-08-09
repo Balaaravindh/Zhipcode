@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_ranking"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.falconnect.zipcode.RankingActivity">
+
+    <!--Header-->
+    <RelativeLayout
+        android:id="@+id/header_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/nav_icon_drawer"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/nav_icon" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/logo" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/header_search_list"
+        android:background="#FFF">
+
+        <RelativeLayout
+            android:id="@+id/second_rate"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#000">
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="85dp"
+                android:layout_toRightOf="@+id/back"
+                android:text="RANKING"
+                android:textColor="#FFF"
+                android:textSize="16dp"
+                app:font="sanz.ttf" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/circle_black">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/rankingwhite" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frame_layout"
+        android:layout_marginTop="5dp">
+
+        <RelativeLayout
+            android:id="@+id/ranking_titlesss"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff">
+
+            <RelativeLayout
+                android:id="@+id/ranking_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                    android:id="@+id/tu_ranking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="Tu Ranking:"
+                    android:textSize="18dp"
+                    android:textColor="#000"
+                    android:textAllCaps="false"
+                    app:font="sanz.ttf" />
+
+
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                    android:id="@+id/ranking_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tu_ranking"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="18dp"
+                    app:font="sanz.ttf" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/ranking_title"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp">
+
+
+                <ImageView
+                    android:id="@+id/image_thumbsup"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/like" />
+
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                    android:id="@+id/rank_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_thumbsup"
+                    android:layout_marginTop="20dp"
+                    android:text="75"
+                    android:textColor="#000"
+                    android:textSize="16dp"
+                    app:font="sanz.ttf" />
+
+
+                <ImageView
+                    android:id="@+id/image_thumbsdown"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/dislike" />
+
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                    android:id="@+id/rank_disrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/image_thumbsdown"
+                    android:layout_marginTop="20dp"
+                    android:text="25"
+                    android:textColor="#000"
+                    android:textSize="16dp"
+                    app:font="sanz.ttf" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/white_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF"/>
+
+    </FrameLayout>
+
+</RelativeLayout>

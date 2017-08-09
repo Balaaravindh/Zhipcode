@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="260dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/header_image"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="#000"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/profile_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_avatar"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/default_avatar"
+                    app:civ_border_color="#FF000000"/>
+
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@+id/profile_avatar"
+                    android:text="ADONAY LIZARDO"
+                    android:textColor="#FFF"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    app:font="sanz.ttf" />
+
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                    android:id="@+id/profile_name_editor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_name"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/profile_avatar"
+                    android:text="editor"
+                    android:textColor="#FFF"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:font="sanz.ttf" />
+            </RelativeLayout>
+
+            <ToggleButton
+                android:id="@+id/toggleButton1"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/toggle_selector"
+                android:checked="false"
+                android:text=""
+                android:textOff=""
+                android:textOn="" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/second_layout"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_below="@+id/header_image"
+            android:background="#414141">
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/second_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="ADONAY LIZARDO"
+                android:textColor="#FFF"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:font="sanz.ttf" />
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/second_name_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/second_name"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="3dp"
+                android:text="1550"
+                android:textColor="#FFF"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                app:font="sanz.ttf" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/nav_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/second_layout"
+            android:layout_marginBottom="50dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10sp"/>
+
+        <RelativeLayout
+            android:id="@+id/view_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:id="@+id/status_odsds"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="#000">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/multi_del" />
+
+                        <ToggleButton
+                            android:id="@+id/single_status"
+                            android:layout_width="45dp"
+                            android:layout_height="40dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/toggle_selector"
+                            android:checked="false"
+                            android:text=""
+                            android:textOff=""
+                            android:textOn="" />
+
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                            android:id="@+id/entregas_single"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ENTREGAS"
+                            android:textColor="#FFF"
+                            android:textSize="11dp"
+                            app:font="sanz.ttf"
+                            android:layout_marginRight="5dp"
+                            android:layout_above="@+id/single_status"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:background="#C0C0C0"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/multi_del" />
+
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                            android:id="@+id/multi_single"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MULTIDESTINO"
+                            android:textColor="#FFF"
+                            android:layout_marginRight="5dp"
+                            android:textSize="11dp"
+                            app:font="sanz.ttf"
+                            android:layout_above="@+id/multi_status"
+                            android:layout_alignParentRight="true"/>
+
+                        <ToggleButton
+                            android:id="@+id/multi_status"
+                            android:layout_width="45dp"
+                            android:layout_height="40dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/toggle_selector"
+                            android:checked="false"
+                            android:text=""
+                            android:textOff=""
+                            android:textOn="" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/status_odsds"
+                android:background="#333333">
+
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                    android:id="@+id/acera_De"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ACERCA DE"
+                    android:layout_centerVertical="true"
+                    android:textSize="14dp"
+                    app:font="sanz.ttf"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#9D9D9C"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

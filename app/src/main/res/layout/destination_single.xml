@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/origin_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <View
+            android:id="@id/view1"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="15dp"
+            android:background="#39B54A" />
+
+        <RelativeLayout
+            android:id="@+id/origin_values_layout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/view1"
+            android:layout_centerVertical="true"
+            android:background="@drawable/circle_stroke">
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/origin_values_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="0"
+                android:textColor="#F34335"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/origin_text"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/origin_values_layout"
+            android:singleLine="true"
+            android:text="ALTAMIRA"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:font="sanz.ttf" />
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/origin"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/origin_text"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/origin_values_layout"
+            android:singleLine="true"
+            android:text="ORIGEN"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:font="sanz.ttf" />
+
+        <View
+            android:id="@id/view2"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@+id/origin"
+            android:background="#39B54A" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

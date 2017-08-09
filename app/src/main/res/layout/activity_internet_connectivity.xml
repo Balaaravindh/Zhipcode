@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_histrorial"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    tools:context="com.falconnect.zipcode.HistrorialActivity">
+
+    <!--Header-->
+    <RelativeLayout
+        android:id="@+id/header_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/logo" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/second_rate"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/header_search_list"
+        android:background="#000">
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/back"
+            android:text="ERROR"
+            android:textColor="#FFF"
+            android:textSize="16dp"
+            app:font="sanz.ttf" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/second_rate">
+
+        <RelativeLayout
+            android:id="@+id/texts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
+
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/estas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="ESTAS DESCONECTADO"
+                android:textColor="#414141"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                app:font="sanz_bold.ttf" />
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/estas"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:textAlignment="center"
+                android:layout_marginTop="30dp"
+                android:text="VERIFICA TU CONEXION DATOS Y REFRESCA EL APP PARA INTENTAR DE NUEVO"
+                android:textColor="#414141"
+                app:font="sanz.ttf"
+                android:textSize="16dp" />
+
+        </RelativeLayout>
+
+        <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+            android:id="@+id/refresh_button"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="REFRESCAR"
+            android:textSize="16dp"
+            android:layout_marginBottom="50dp"
+            android:layout_alignParentBottom="true"
+            android:textColor="#FFF"
+            android:background="#39B54A"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

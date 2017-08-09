@@ -1,0 +1,67 @@
+{
+  "result": 1,
+  "message": "Success",
+  "bank_code": [
+    {
+      "bank_id": "012",
+      "bank_name": "Tarjeta Cuenta RUT"
+    },{
+      "bank_id": "001",
+      "bank_name": "Banco de Chile / Banco Edwards"
+    },{
+      "bank_id": "009",
+      "bank_name": "Banco Internacional"
+    },{
+      "bank_id": "014",
+      "bank_name": "Scotiabank Chile"
+    },{
+      "bank_id": "016",
+      "bank_name": "Banco de Credito e Inversiones"
+    },{
+      "bank_id": "027",
+      "bank_name": "Corpbanca"
+    },{
+      "bank_id": "028",
+      "bank_name": "Banco Bice"
+    },{
+      "bank_id": "031",
+      "bank_name": "HSBC Bank"
+    },{
+      "bank_id": "037",
+      "bank_name": "Banco Santander-Chile / Banefe"
+    },{
+      "bank_id": "039",
+      "bank_name": "Banco Itaú Chile"
+    },{
+      "bank_id": "046",
+      "bank_name": "Banco Sudamericano"
+    },{
+      "bank_id": "049",
+      "bank_name": "Banco Security"
+    },{
+      "bank_id": "051",
+      "bank_name": "Banco Falabella"
+    },{
+      "bank_id": "052",
+      "bank_name": "Deutsche Bank"
+    },{
+      "bank_id": "053",
+      "bank_name": "Banco Ripley"
+    },{
+      "bank_id": "054",
+      "bank_name": "Rabobank Chile"
+    },{
+      "bank_id": "055",
+      "bank_name": "Banco Consorcio"
+    },{
+      "bank_id": "056",
+      "bank_name": "Banco Penta"
+    },{
+      "bank_id": "057",
+      "bank_name": "Banco Paris"
+    },{
+      "bank_id": "504",
+      "bank_name": "BBVA Chile"
+    }
+  ]
+}

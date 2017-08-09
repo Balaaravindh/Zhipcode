@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    tools:context="com.falconnect.zipcode.MainActivity">
+
+    <!--Header-->
+    <RelativeLayout
+        android:id="@+id/header_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/nav_icon_drawer"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/nav_icon" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/logo" />
+
+        <RelativeLayout
+            android:id="@+id/refresh"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="5dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/refresh" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/second_rate"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/header_search_list"
+        android:background="#000">
+
+        <ImageView
+            android:id="@+id/wallet_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/walletdashboard" />
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/rate_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/wallet_image"
+            android:text="1050"
+            android:textColor="#FFF"
+            android:textSize="16dp"
+            app:font="sanz.ttf" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/third"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/second_rate">
+
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:text="SOLICITUDES"
+            android:textColor="#696969"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/third">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF">
+
+
+            <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                android:id="@+id/origen"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/buttons_chage"
+                android:text="ORIGEN"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+
+            <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                android:id="@+id/destino"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/buttons_chage"
+                android:text="DESTINO"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listcontents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttons"
+        android:background="#9D9D9D"
+        android:divider="#FFF"
+        android:dividerHeight="1dp" />
+
+</RelativeLayout>

@@ -1,0 +1,440 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#FFF"
+    tools:context="com.falconnect.zipcode.MapsActivity">
+
+
+    <!--Header-->
+    <RelativeLayout
+        android:id="@+id/header_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="180dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/logo" />
+
+        <RelativeLayout
+            android:id="@+id/ruta"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/logo"
+            android:background="#000">
+
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/ruta_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:text="RUTA"
+                android:textColor="#FFF"
+                android:textSize="16dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/question"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/ruta"
+            android:background="#000">
+
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/question_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:text="\?"
+                android:textColor="#FFF"
+                android:textSize="16dp"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/indexs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_search_list">
+
+        <RelativeLayout
+            android:id="@+id/image_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:background="#29ABE2">
+
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                android:id="@+id/destination_position"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:text="0"
+                android:textColor="#FFF"
+                android:textSize="16dp"
+                app:font="sanz.ttf"
+                android:gravity="center_horizontal|center_vertical"/>
+
+            <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                android:id="@+id/mNavigation"
+                android:layout_width="60dp"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:background="#173E84"
+                android:text="NAV"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                android:textSize="16dp"
+                app:font="sanz.ttf" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/details_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/image_blue">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/index1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp">
+
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                        android:id="@+id/directions_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DIRECCION"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        app:font="sanz.ttf" />
+
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                        android:id="@+id/address_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/directions_text"
+                        android:text="Shasitiri Nagar, Adayar, Chennai, Tamil Nadu, India, 600 010"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        app:font="sanz.ttf" />
+
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/index1"
+                    android:background="#C0C0C0" />
+
+                <RelativeLayout
+                    android:id="@+id/index2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp">
+
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                        android:id="@+id/directions_text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PUNTOS DE REFERENCIA"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        app:font="sanz.ttf" />
+
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                        android:id="@+id/address_text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/directions_text1"
+                        android:text="Diagonal al Sambil. Frente a Mundo Madera. Residencia de rejas verdes."
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        app:font="sanz.ttf" />
+
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/index2"
+                    android:background="#C0C0C0" />
+
+                <RelativeLayout
+                    android:id="@+id/index3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view2"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp">
+
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                        android:id="@+id/directions_text11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="INSTRUCCIONES"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        app:font="sanz.ttf" />
+
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                        android:id="@+id/address_text11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/directions_text11"
+                        android:text="Preguntar al vigilante por el paquete de Carmen men Electra, debe firmar planilla de recibo. Cualquier cosa ilamar."
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        app:font="sanz.ttf" />
+
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/index3"
+                    android:background="#C0C0C0" />
+
+                <RelativeLayout
+                    android:id="@+id/index4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view3"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp">
+
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                        android:id="@+id/directions_text4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CLIENETE TITULAR"
+                        android:textColor="#000"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        app:font="sanz.ttf" />
+
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                        android:id="@+id/address_text4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/directions_text4"
+                        android:text=""
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        app:font="sanz.ttf" />
+
+                    <RelativeLayout
+                        android:id="@+id/call_layout"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#000"
+                        android:layout_alignParentRight="true">
+
+                        <ImageView
+                            android:id="@+id/call_above"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/callingwhite"
+                            />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/index3"
+                    android:background="#C0C0C0" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/map_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@+id/indexs"
+        android:layout_marginTop="5dp">
+
+     <!--   <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+-->
+        <com.mapbox.mapboxsdk.views.MapView
+            android:id="@+id/mapview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            mapbox:access_token="@string/access_token" />
+
+
+        <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+            android:id="@+id/red_button"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/shape_submit"
+            android:text="PEDIDO RECOGIDO"
+            android:textColor="#FFF"
+            android:textSize="16dp"
+            app:font="sanz.ttf" />
+
+        <LinearLayout
+            android:id="@+id/buttons_layouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:visibility="gone">
+
+            <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                android:id="@+id/green_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:background="#39B54A"
+                android:text="PEDIDO REALIZADO"
+                android:textColor="#FFF"
+                android:layout_weight="1.0"
+                android:textSize="16dp" />
+
+            <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                android:id="@+id/gray_button"
+                android:layout_width="match_parent"
+                android:layout_weight="1.0"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/green_button"
+                android:background="#C0C0C0"
+                android:text="NO ENTREGADo"
+                android:textColor="#FFF"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/map_fragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                android:id="@+id/contacto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:textColor="#000"
+                android:layout_marginLeft="5dp"
+                android:background="#FFF"
+                android:text="CONTACTO "/>
+
+            <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                android:id="@+id/zhipcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="5dp"
+                android:textColor="#C0C0C0"
+                android:background="#414141"
+                android:text="ZHIPCODE"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/call_image"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1.0"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/call"/>
+
+            <ImageView
+                android:id="@+id/sms_image"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1.0"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/sms"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

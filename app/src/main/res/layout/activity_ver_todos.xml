@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#FFF">
+
+    <RelativeLayout
+        android:id="@+id/header_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF">
+
+        <RelativeLayout
+            android:id="@+id/close_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/close" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+        android:id="@+id/grand_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/header_search_list"
+        android:gravity="center"
+        android:text="GANA"
+        android:textColor="#000"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:font="sanz.ttf" />
+
+    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+        android:id="@+id/amount_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grand_total"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="1000"
+        android:textColor="#FA2608"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:font="sanz.ttf" />
+
+    <ListView
+        android:id="@+id/destination_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/amount_total"
+        android:divider="@null"
+        android:dividerHeight="-10.1dp"
+        android:layout_marginBottom="55dp"/>
+
+    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+        android:id="@+id/next"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:background="@drawable/shape_submit"
+        android:text="TOMAR SOLICITUD"
+        android:textColor="#FFF"
+        android:textSize="14dp"
+        app:font="sanz.ttf"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
