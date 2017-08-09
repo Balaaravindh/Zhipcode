@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "433067770408",
+    "firebase_url": "https://zhipcode-2f27c.firebaseio.com",
+    "project_id": "zhipcode-2f27c",
+    "storage_bucket": "zhipcode-2f27c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433067770408:android:adcca979fcaa36d8",
+        "android_client_info": {
+          "package_name": "com.zipcode.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433067770408-j35m1cp53f0853v4cjtg4k9te188gf7h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBewq_ZK2Md5IYkGzRV0ri03B0KIkeCdW0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
