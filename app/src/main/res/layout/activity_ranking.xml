@@ -62,7 +62,7 @@
                 android:text="RANKING"
                 android:textColor="#FFF"
                 android:textSize="16dp"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
         </RelativeLayout>
 
@@ -108,11 +108,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="Tu Ranking:"
+                    android:text="Tu Ranking"
                     android:textSize="18dp"
                     android:textColor="#000"
                     android:textAllCaps="false"
-                    app:font="sanz.ttf" />
+                    app:Customfont="sanz.ttf" />
 
 
                 <com.falconnect.zipcode.CustomWidgets.CustomTextView
@@ -124,7 +124,7 @@
                     android:text=""
                     android:textColor="#000"
                     android:textSize="18dp"
-                    app:font="sanz.ttf" />
+                    app:Customfont="sanz.ttf" />
 
             </RelativeLayout>
 
@@ -154,7 +154,7 @@
                     android:text="75"
                     android:textColor="#000"
                     android:textSize="16dp"
-                    app:font="sanz.ttf" />
+                    app:Customfont="sanz.ttf" />
 
 
                 <ImageView
@@ -176,7 +176,7 @@
                     android:text="25"
                     android:textColor="#000"
                     android:textSize="16dp"
-                    app:font="sanz.ttf" />
+                    app:Customfont="sanz.ttf" />
 
 
             </RelativeLayout>

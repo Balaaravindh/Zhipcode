@@ -5,4 +5,4 @@
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:textStyle="normal"
-    app:font="sanz.ttf" />
+    app:Customfont="sanz.ttf" />

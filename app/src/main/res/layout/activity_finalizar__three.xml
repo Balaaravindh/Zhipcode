@@ -37,7 +37,7 @@
         android:textColor="#000"
         android:textSize="14dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.CustomTextView
         android:id="@+id/ganancia_1000"
@@ -50,7 +50,7 @@
         android:textColor="#F34235"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.CustomTextView
         android:id="@+id/califica_al_cliente"
@@ -66,7 +66,7 @@
         android:text="iGRACIAS POR COMPARTIR TU OPINION CON NOSOTROS"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <RelativeLayout
         android:id="@+id/thumb_image"
@@ -101,7 +101,7 @@
             android:text="MANIFESTO DE ENTREGA"
             android:textSize="18dp"
             android:textStyle="bold"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
         <com.falconnect.zipcode.CustomWidgets.CustomTextView
             android:layout_width="match_parent"

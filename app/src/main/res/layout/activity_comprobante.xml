@@ -37,7 +37,7 @@
         android:text="COMPROBANTE"
         android:textColor="#FA2608"
         android:textSize="20dp"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.CustomTextView
         android:id="@+id/a_quien_entregaste"
@@ -48,7 +48,7 @@
         android:gravity="center"
         android:text="A QUIEN ENTREGASTE?"
         android:textSize="20dp"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.ButtonPlus
         android:id="@+id/titular"
@@ -62,7 +62,7 @@
         android:textColor="#38B2E7"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.ButtonPlus
         android:id="@+id/conserje"
@@ -76,7 +76,7 @@
         android:textColor="#38B2E7"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.ButtonPlus
         android:id="@+id/otro"
@@ -90,7 +90,7 @@
         android:textColor="#38B2E7"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.CEditText
         android:id="@+id/observacion"
@@ -105,7 +105,7 @@
         android:singleLine="true"
         android:visibility="gone"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <RelativeLayout
         android:id="@+id/otro_textbox"
@@ -126,7 +126,7 @@
             android:textSize="16dp"
             android:singleLine="true"
             android:textStyle="bold"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
         <com.falconnect.zipcode.CustomWidgets.CEditText
             android:id="@+id/rut"
@@ -140,7 +140,7 @@
             android:gravity="center"
             android:textSize="16dp"
             android:textStyle="bold"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
         <com.falconnect.zipcode.CustomWidgets.CEditText
             android:id="@+id/telefono"
@@ -155,7 +155,7 @@
             android:gravity="center"
             android:textSize="16dp"
             android:textStyle="bold"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
         <com.falconnect.zipcode.CustomWidgets.CEditText
             android:id="@+id/observacion_otro"
@@ -169,7 +169,7 @@
             android:singleLine="true"
             android:textSize="16dp"
             android:textStyle="bold"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
     </RelativeLayout>
 
@@ -187,7 +187,7 @@
         android:textSize="18dp"
         android:visibility="gone"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
 
 </RelativeLayout>

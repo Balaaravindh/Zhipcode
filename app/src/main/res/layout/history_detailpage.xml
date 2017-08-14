@@ -63,8 +63,8 @@
         android:layout_marginTop="5dp"
         android:textColor="#000"
         android:textSize="15dp"
-        app:font="sanz.ttf" />
-
+        app:Customfont="sanz.ttf"/>
+    
     <RelativeLayout
         android:id="@+id/delivery_details"
         android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="0"
-                    app:font="sanz.ttf"
+                    app:Customfont="sanz.ttf"
                     android:textColor="#F34335"
                     android:textSize="18dp" />
 
@@ -110,7 +110,7 @@
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:textColor="#000"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
             <com.falconnect.zipcode.CustomWidgets.CustomTextView
                 android:id="@+id/origin"
@@ -124,7 +124,7 @@
                 android:text="ORIGEN"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
         </RelativeLayout>
 
@@ -158,7 +158,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="1"
-                    app:font="sanz.ttf"
+                    app:Customfont="sanz.ttf"
                     android:textColor="#F34335"
                     android:textSize="18dp" />
 
@@ -177,7 +177,7 @@
                 android:textColor="#000"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
             <com.falconnect.zipcode.CustomWidgets.CustomTextView
                 android:id="@+id/destination"
@@ -191,7 +191,7 @@
                 android:text="DESTINO"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
 
         </RelativeLayout>
@@ -211,7 +211,7 @@
         android:textColor="#000"
         android:textSize="14dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.CustomTextView
         android:id="@+id/grand_total"
@@ -225,7 +225,7 @@
         android:textColor="#000"
         android:textSize="14dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.CustomTextView
         android:id="@+id/amount_total"
@@ -236,7 +236,7 @@
         android:textColor="#FA2608"
         android:textSize="28dp"
         android:textStyle="bold"
-        app:font="sanz.ttf"
+        app:Customfont="sanz.ttf"
         android:layout_below="@+id/grand_total"
         android:layout_centerHorizontal="true" />
 

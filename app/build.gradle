@@ -1,19 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.falconnect.zipcode"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [onesignal_app_id: "4087e7eb-5b9a-429b-bbfa-91200db262ef",
-                                // Project number pulled from dashboard, local value is ignored.
                                 onesignal_google_project_number: "REMOTE"]
 
     }
@@ -26,21 +25,22 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile files('libs/simple-side-drawer2.jar')
 
-    compile 'de.hdodenhof:circleimageview:2.1.0'
+    //////////////////
+    compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
+
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.google.code.gson:gson:2.3'
-    compile 'com.android.support:support-v4:24.2.1'
     compile 'com.baoyz.swipemenulistview:library:1.3.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.google.android.gms:play-services-maps:10.2.0'
@@ -50,9 +50,7 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'org.hamcrest:hamcrest-core:1.3'
-
     compile 'com.onesignal:OneSignal:[3.5.3,4.0.0)'
-
     compile('com.mapbox.mapboxsdk:mapbox-android-sdk:2.2.0@aar') {
         transitive = true
     }

@@ -20,7 +20,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
-            app:font="sanz.ttf"/>
+            app:Customfont="sanz.ttf"/>
 
         <com.falconnect.zipcode.CustomWidgets.CustomTextView
             android:id="@+id/message2"
@@ -34,7 +34,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
-            app:font="sanz.ttf"/>
+            app:Customfont="sanz.ttf"/>
 
 
         <com.falconnect.zipcode.CustomWidgets.ButtonPlus

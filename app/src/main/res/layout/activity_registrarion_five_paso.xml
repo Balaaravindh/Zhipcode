@@ -44,7 +44,7 @@
             android:text="REGISTRO PASO 5"
             android:textColor="#FFF"
             android:textSize="18dp"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
     </RelativeLayout>
 
@@ -71,7 +71,7 @@
                 android:text="SELECCIONA TU BANCO"
                 android:textColor="#FFF"
                 android:textSize="16dp"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
             <FrameLayout
                 android:id="@+id/bank_layout"
@@ -87,7 +87,7 @@
                     android:layout_gravity="center_horizontal"
                     android:text="Sample"
                     android:textColor="#FFF"
-                    app:font="sanz.ttf"
+                    app:Customfont="sanz.ttf"
                     android:textAllCaps="true"
                     android:gravity="center_horizontal|center_vertical"
                     android:textSize="16dp" />
@@ -119,7 +119,7 @@
                 android:text="ESCRIBE TU NRO DE CUENTA"
                 android:textColor="#FFF"
                 android:textSize="16dp"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
             <com.falconnect.zipcode.CustomWidgets.CEditText
                 android:id="@+id/tu_apaellido_text"
@@ -146,7 +146,7 @@
                 android:text="GUARDAR"
                 android:textColor="#000"
                 android:textSize="16dp"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
         </RelativeLayout>
 

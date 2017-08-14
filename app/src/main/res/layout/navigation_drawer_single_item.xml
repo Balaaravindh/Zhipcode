@@ -29,7 +29,7 @@
             android:textColor="#000"
             android:layout_centerVertical="true"
             android:textSize="16dp"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
     </RelativeLayout>
 

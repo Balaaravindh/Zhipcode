@@ -2,13 +2,10 @@ package com.falconnect.zipcode;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.Image;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -100,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
     //Permission
     public static final int RequestPermissionCode = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         second_rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -350,6 +347,14 @@ public class MainActivity extends AppCompatActivity {
                 //Progress Bar
                 barProgressDialog = ProgressDialog.show(MainActivity.this, "Cargando...", "Por Favor Espera...", true);
                 dashboard_datas();
+                origins.clear();
+                errandids.clear();
+                destinatio_ids.clear();
+                destination_single.clear();
+                destination_multi_values.clear();
+                destinationsss.clear();
+                amount.clear();
+                errand_types.clear();
             }
         });
 
@@ -358,13 +363,9 @@ public class MainActivity extends AppCompatActivity {
         listnew = (ListView) mNav.findViewById(R.id.nav_list_view);
         listnew.setAdapter(adapter);
 
+        dashboard_datas();
 
-        if (isNetworkAvailable()) {
-            dashboard_datas();
-        } else {
-            Intent intent = new Intent(MainActivity.this, InternetConnectivity.class);
-            startActivity(intent);
-        }
+
     }
 
     private void status_check_multi() {
@@ -492,8 +493,12 @@ public class MainActivity extends AppCompatActivity {
                             destination_multi_values.add(destinations.length() + " " + "DESTINOS");
                         }
                     }
+
                     barProgressDialog.dismiss();
+
                     Log.e("errands", String.valueOf(errandids.size()));
+
+
                     homeListViewAdapter = new HomeListViewAdapter(MainActivity.this, origins, errandids,destinatio_ids, destination_single, destination_multi_values, destinationsss, amount, errand_types);
                     listview.setAdapter(homeListViewAdapter);
 
@@ -604,6 +609,7 @@ public class MainActivity extends AppCompatActivity {
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();
+
     }
 
     @Override
@@ -623,24 +629,5 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
-    // Check Internet Connection!!!
-    public boolean isNetworkAvailable() {
-        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity == null) {
-            return false;
-        } else {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null) {
-                for (int i = 0; i < info.length; i++) {
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
 }
 

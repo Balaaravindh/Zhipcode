@@ -44,7 +44,7 @@
                 android:text="TU EMAIL"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
             <com.falconnect.zipcode.CustomWidgets.CEditText
                 android:id="@+id/login_edittext"
@@ -58,7 +58,7 @@
                 android:text="Lio69vrb@tohlma.co"
                 android:inputType="textEmailAddress"
                 android:textSize="22dp"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
         </RelativeLayout>
 
@@ -78,7 +78,7 @@
                 android:text="TU CONTRASENA"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
             <com.falconnect.zipcode.CustomWidgets.CEditText
                 android:id="@+id/passwrd_edittext"
@@ -92,7 +92,7 @@
                 android:text="12345678"
                 android:inputType="textPassword"
                 android:textSize="22dp"
-                app:font="sanz.ttf" />
+                app:Customfont="sanz.ttf" />
 
         </RelativeLayout>
 
@@ -114,7 +114,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:textStyle="bold"
-                app:font="sanz.ttf"/>
+                app:Customfont="sanz.ttf"/>
 
             <com.falconnect.zipcode.CustomWidgets.ButtonPlus
                 android:id="@+id/login"

@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                app:font="sanz.ttf"
+                app:Customfont="sanz.ttf"
                 android:text="01/03/2017"
                 android:textSize="16dp"/>
 
@@ -47,7 +47,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                app:font="sanz.ttf"
+                app:Customfont="sanz.ttf"
                 android:textSize="16dp"
                 android:text="900" />
 

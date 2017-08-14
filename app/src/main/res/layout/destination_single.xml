@@ -48,7 +48,7 @@
             android:text="ALTAMIRA"
             android:textSize="14dp"
             android:textStyle="bold"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
         <com.falconnect.zipcode.CustomWidgets.CustomTextView
             android:id="@+id/origin"
@@ -61,7 +61,7 @@
             android:text="ORIGEN"
             android:textSize="14dp"
             android:textStyle="bold"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
         <View
             android:id="@id/view2"

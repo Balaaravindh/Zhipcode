@@ -71,7 +71,7 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="#FFF"
                     android:textSize="13dp"
-                    app:font="sanz.ttf" />
+                    app:Customfont="sanz.ttf" />
 
             </RelativeLayout>
 

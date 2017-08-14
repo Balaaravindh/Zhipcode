@@ -30,7 +30,7 @@
             android:text="+56 9 51341300"
             android:textColor="#000"
             android:textSize="16dp"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
         
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
                 android:textColor="#000"
                 android:text="EDITAR"
                 android:layout_marginLeft="10dp"
-                app:font="sanz.ttf"
+                app:Customfont="sanz.ttf"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/edit_image"
                 android:textSize="10dp"/>

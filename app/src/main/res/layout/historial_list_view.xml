@@ -18,7 +18,7 @@
             android:textAlignment="center"
             android:layout_gravity="center_vertical"
             android:textColor="#000"
-            app:font="sanz.ttf"/>
+            app:Customfont="sanz.ttf"/>
 
         <com.falconnect.zipcode.CustomWidgets.CustomTextView
             android:id="@+id/nro_data"
@@ -31,7 +31,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="30dp"
             android:textColor="#000"
-            app:font="sanz.ttf"/>
+            app:Customfont="sanz.ttf"/>
 
         <com.falconnect.zipcode.CustomWidgets.CustomTextView
             android:id="@+id/ganancia_data"
@@ -44,7 +44,7 @@
             android:textColor="#000"
             android:layout_weight="1.0"
             android:layout_gravity="center_vertical"
-            app:font="sanz.ttf"/>
+            app:Customfont="sanz.ttf"/>
         
         <ImageView
             android:id="@+id/search_image"

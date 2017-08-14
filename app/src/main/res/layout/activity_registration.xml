@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:text="REGISTRO PASO 1"
-            app:font="sanz.ttf"
+            app:Customfont="sanz.ttf"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
@@ -70,7 +70,7 @@
                 android:text="TU NUMERO DE TELEFONO"
                 android:textSize="16dp"
                 android:layout_marginTop="10dp"
-                app:font="sanz.ttf"
+                app:Customfont="sanz.ttf"
                 android:textColor="#FFF"
                 android:gravity="center"/>
 
@@ -94,7 +94,7 @@
                 android:gravity="center"
                 android:textSize="12dp"
                 android:textColor="#FFF"
-                app:font="sanz.ttf"
+                app:Customfont="sanz.ttf"
                 android:layout_marginBottom="5dp"
                 android:layout_above="@+id/terms" />
 
@@ -105,7 +105,7 @@
                 android:text="TERMINOS Y CONDICIONES"
                 android:gravity="center"
                 android:textSize="12dp"
-                app:font="sanz.ttf"
+                app:Customfont="sanz.ttf"
                 android:textColor="#FFF"
                 android:layout_above="@+id/confirm_button" />
 
@@ -114,7 +114,7 @@
                 android:layout_height="40dp"
                 android:layout_width="200dp"
                 android:text="CONFIRMAR"
-                app:font="sanz.ttf"
+                app:Customfont="sanz.ttf"
                 android:textColor="#000"
                 android:layout_marginTop="10dp"
                 android:textSize="16dp"

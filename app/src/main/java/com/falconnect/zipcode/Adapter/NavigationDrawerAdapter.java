@@ -59,7 +59,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<String>{
                     Intent intent = new Intent(context, RankingActivity.class);
                     context.startActivity(intent);
                     context.finish();
-                } else if(web[position].equals("TERMINOS")){
+                } else if(web[position].equals(String.valueOf("TÉRMINOS"))){
                     Intent intent = new Intent(context, TerminosActivity.class);
                     context.startActivity(intent);
                     context.finish();

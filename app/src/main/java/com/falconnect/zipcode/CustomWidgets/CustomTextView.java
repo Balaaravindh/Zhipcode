@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.falconnect.zipcode.R;
 
-
 public class CustomTextView extends TextView {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -37,8 +36,8 @@ public class CustomTextView extends TextView {
 
     private void init(AttributeSet attrs) {
         if (attrs != null) {
-            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomTextView);
-            String fontName = a.getString(R.styleable.CustomTextView_font);
+            TypedArray a = getContext().obtainStyledAttributes(attrs, R .styleable.CustomTextView);
+            String fontName = a.getString(R.styleable.CustomTextView_Customfont);
 
             try {
                 if (fontName != null) {

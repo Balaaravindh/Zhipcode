@@ -78,7 +78,7 @@
             android:text="1050"
             android:textColor="#FFF"
             android:textSize="16dp"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
     </RelativeLayout>
 

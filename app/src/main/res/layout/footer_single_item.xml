@@ -30,7 +30,7 @@
             android:textColor="#000"
             android:layout_marginTop="5dp"
             android:textSize="14dp"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
     </LinearLayout>
 
 </LinearLayout>

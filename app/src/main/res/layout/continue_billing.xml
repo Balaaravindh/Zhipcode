@@ -21,7 +21,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
-            app:font="sanz.ttf"/>
+            app:Customfont="sanz.ttf"/>
 
         <com.falconnect.zipcode.CustomWidgets.CustomTextView
             android:id="@+id/message1"
@@ -34,7 +34,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            app:font="sanz.ttf"/>
+            app:Customfont="sanz.ttf"/>
 
 
         <com.falconnect.zipcode.CustomWidgets.ButtonPlus
@@ -45,7 +45,7 @@
             android:layout_marginTop="10dp"
             android:text="CONTINUAR"
             android:layout_centerHorizontal="true"
-            app:font="sanz.ttf"
+            app:Customfont="sanz.ttf"
             android:background="@drawable/custom_alert_postive"/>
 
 

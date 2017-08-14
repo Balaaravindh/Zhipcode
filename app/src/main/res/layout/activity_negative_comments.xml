@@ -37,7 +37,7 @@
         android:textColor="#000"
         android:textSize="14dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.CustomTextView
         android:id="@+id/ganaste_1000"
@@ -50,7 +50,7 @@
         android:textColor="#F34235"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
     <com.falconnect.zipcode.CustomWidgets.CustomTextView
         android:id="@+id/califica_al_cliente"
@@ -66,7 +66,7 @@
         android:text="CUENTANOS BREVEMENTE POR QUE TU CALIFICACION ES NEGATIVA"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:font="sanz.ttf" />
+        app:Customfont="sanz.ttf" />
 
 
     <com.falconnect.zipcode.CustomWidgets.CEditText
@@ -76,7 +76,7 @@
         android:layout_below="@+id/califica_al_cliente"
         android:layout_marginTop="20dp"
         android:singleLine="true"
-        app:font="sanz.ttf"
+        app:Customfont="sanz.ttf"
         android:layout_centerHorizontal="true"/>
 
     <RelativeLayout
@@ -94,7 +94,7 @@
             android:text="ENVIAR OPINION"
             android:textColor="#fff"
             android:background="#39B54A"
-            app:font="sanz.ttf"
+            app:Customfont="sanz.ttf"
             android:textSize="16dp"
             android:layout_centerHorizontal="true"/>
 
@@ -115,7 +115,7 @@
             android:text="MANIFESTO DE ENTREGA"
             android:textSize="18dp"
             android:textStyle="bold"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
         <com.falconnect.zipcode.CustomWidgets.CustomTextView
             android:layout_width="match_parent"

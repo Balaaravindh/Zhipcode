@@ -41,7 +41,7 @@
             android:text="ERROR"
             android:textColor="#FFF"
             android:textSize="16dp"
-            app:font="sanz.ttf" />
+            app:Customfont="sanz.ttf" />
 
     </RelativeLayout>
 
@@ -66,7 +66,7 @@
                 android:textColor="#414141"
                 android:textSize="20dp"
                 android:layout_marginTop="20dp"
-                app:font="sanz_bold.ttf" />
+                app:Customfont="sanz_bold.ttf" />
 
             <com.falconnect.zipcode.CustomWidgets.CustomTextView
                 android:id="@+id/reason"
@@ -79,7 +79,7 @@
                 android:layout_marginTop="30dp"
                 android:text="VERIFICA TU CONEXION DATOS Y REFRESCA EL APP PARA INTENTAR DE NUEVO"
                 android:textColor="#414141"
-                app:font="sanz.ttf"
+                app:Customfont="sanz.ttf"
                 android:textSize="16dp" />
 
         </RelativeLayout>

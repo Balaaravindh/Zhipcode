@@ -29,7 +29,7 @@
                     android:maxLines="2"
                     android:textColor="#FFF"
                     android:textStyle="bold"
-                    app:font="sanz.ttf"
+                    app:Customfont="sanz.ttf"
                     android:textSize="14dp" />
 
                 <com.falconnect.zipcode.CustomWidgets.CustomTextView
@@ -40,7 +40,7 @@
                     android:layout_alignStart="@+id/altamira"
                     android:layout_below="@+id/altamira"
                     android:text="ENTREGAS"
-                    app:font="sanz.ttf"
+                    app:Customfont="sanz.ttf"
                     android:layout_marginTop="10dp"
                     android:textColor="#FFF"
                     android:textSize="12dp" />
@@ -64,7 +64,7 @@
                     android:layout_marginRight="10dp"
                     android:textStyle="bold"
                     android:textColor="#FFF"
-                    app:font="sanz.ttf"
+                    app:Customfont="sanz.ttf"
                     android:textAlignment="textEnd"
                     android:textSize="14dp" />
 

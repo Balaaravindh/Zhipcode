@@ -2,7 +2,6 @@ package com.falconnect.zipcode;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,52 +11,33 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.falconnect.zipcode.MapModules.DirectionFinder;
-import com.falconnect.zipcode.MapModules.DirectionFinderListener;
 import com.falconnect.zipcode.MapModules.GPSTracker;
-import com.falconnect.zipcode.MapModules.Route;
 import com.falconnect.zipcode.SessionManager.Orgin_destination_identy;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.views.MapView;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+public class MapsActivity extends AppCompatActivity {
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionFinderListener {
-
-    LatLng hcmus = null;
     String errand_ids;
-    List<Route> routes = new ArrayList<>();
-    ArrayList<String> destination_arrays = new ArrayList<>();
     String destination_id;
     HashMap<String, String> orgin_Datas;
     HashMap<String, String> datas_desti;
@@ -65,52 +45,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ArrayList<String> multi_lat;
     ArrayList<String> multi_long;
     String destination_size;
-    ///Button to navigation map
     Button mNavigation;
     Button red_button, green_button, gray_button;
     LinearLayout buttons_layouts;
     ArrayList<HashMap<Integer, ArrayList<String>>> values;
     TextView address_text, destination_position, address_text1, address_text11, address_text4;
     ImageView call_image, sms_image;
+
+    //MAp REZISE
+
+    RelativeLayout map_first_screen, map_second_screen;
+
     //
     GPSTracker gps;
-
     ArrayList<HashMap<Integer, ArrayList<String>>> new_all_datas;
 
     double latitude;
     double longitude;
     String origin, destination;
     RelativeLayout ruta, question, call_layout;
-    ArrayList<String> total_desti = new ArrayList<>();
-    private GoogleMap mMap;
-    private Button btnFindPath;
-    private EditText etOrigin;
-    int valuesss;
-    private EditText etDestination;
+
     String number;
-    private List<Marker> originMarkers = new ArrayList<>();
-    private List<Marker> destinationMarkers = new ArrayList<>();
 
     Orgin_destination_identy orgin_destination_identy;
     HashMap<String, String> identity_string;
 
-    HashMap<String, ArrayList<String>> all_datas;
-    MapView mapView;
-    //Relativi
-    private List<Polyline> polylinePaths = new ArrayList<>();
-    private ProgressDialog progressDialog;
+    MapView mapView, mapView_full;
+
+    RelativeLayout map_fragment, map_fragment_second;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-      /*  SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);*/
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
 
         mapView = (MapView) findViewById(R.id.mapview);
+        mapView_full = (MapView) findViewById(R.id.mapview__second);
         mapView.setStyleUrl(Style.MAPBOX_STREETS);
+        mapView_full.setStyleUrl(Style.MAPBOX_STREETS);
 
         orgin_destination_identy = new Orgin_destination_identy(MapsActivity.this);
         identity_string = orgin_destination_identy.getUserDetails();
@@ -173,6 +149,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         gray_button = (Button) findViewById(R.id.gray_button);
         ruta = (RelativeLayout) findViewById(R.id.ruta);
         question = (RelativeLayout) findViewById(R.id.question);
+        map_first_screen = (RelativeLayout) findViewById(R.id.map_first_screen);
+        map_second_screen = (RelativeLayout) findViewById(R.id.map_second_screen);
+
+        map_fragment = (RelativeLayout) findViewById(R.id.map_fragment);
+        map_fragment_second = (RelativeLayout) findViewById(R.id.map_fragment_second);
 
 
         address_text = (TextView) findViewById(R.id.address_text);
@@ -370,15 +351,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                     startActivity(intent);
                 } else {
-                    String uri = "http://maps.google.com/maps?saddr=" + latitude + "," + longitude
-                            + "&daddr=" + datas_desti_multi.get("latitude_desti").get(6) + "," +
-                            datas_desti_multi.get("longitude_desti").get(7);
+                    String uri = "http://maps.google.com/maps?saddr=" +  orgin_Datas.get("latitude") + "," +  orgin_Datas.get("longitude")
+                            + "&daddr=" + datas_desti_multi.get(0).get(6) + "," +
+                            datas_desti_multi.get(0).get(7);
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                     intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                     startActivity(intent);
                 }
             }
         });
+
+
+        mapView.setZoomLevel(13);
+        mapView.onCreate(savedInstanceState);
+
 
     }
 
@@ -425,130 +411,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             dialog.show();
         }
 
-       /* Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+        gps = new GPSTracker(MapsActivity.this);
+
+        if (gps.canGetLocation()) {
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+        } else {
+            gps.showSettingsAlert();
+        }
+
+        Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
 
         List<Address> addresses = null;
         try {
+
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
-            if (addresses != null) {
-                    Address returnedAddress = addresses.get(0);
-                    StringBuilder strReturnedAddress = new StringBuilder();
-                    for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
-                        strReturnedAddress.append(returnedAddress.getAddressLine(i));
-                    }
-                origin = strReturnedAddress.toString();
-            } else {
-                Log.e("sdasdas", "No Address returned!");
-            }
+            mapView.setCenterCoordinate(new com.mapbox.mapboxsdk.geometry.LatLng(latitude, longitude));
+
+            //Current Location Marker
+            mapView.addMarker(new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                    .position(new com.mapbox.mapboxsdk.geometry.LatLng(latitude, longitude)));
+
+            //Orgin Location
+            double orgin_latitude = Double.parseDouble(orgin_Datas.get("latitude"));
+            double orgin_longitude = Double.parseDouble(orgin_Datas.get("longitude"));
+
+            mapView.addMarker(new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                    .position(new com.mapbox.mapboxsdk.geometry.LatLng(orgin_latitude, orgin_longitude)));
+
+            final List<com.mapbox.mapboxsdk.geometry.LatLng> mListLatLng = new ArrayList<>();
+
+            mListLatLng.add(new com.mapbox.mapboxsdk.geometry.LatLng(latitude, longitude));
+            mListLatLng.add(new com.mapbox.mapboxsdk.geometry.LatLng(orgin_latitude, orgin_longitude));
+
+            com.mapbox.mapboxsdk.annotations.PolylineOptions polylineOptions = new com.mapbox.mapboxsdk.annotations.PolylineOptions()
+                    .color(Color.RED)
+                    .add(mListLatLng.toArray(new com.mapbox.mapboxsdk.geometry.LatLng[mListLatLng.size()]))
+                    .width(2);
+
+            mapView.addPolyline(polylineOptions);
 
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
-
-        //origin = latitude + "," + longitude;
-        //origin = orgin_Datas.get("community");
-
-        Log.e("origin", origin);
-        if (destination_size.equals("1")) {
-            destination = datas_desti_multi.get(0).get(0);
-        }else {
-            destination = datas_desti_multi.get(0).get(0);
         }
 
-        Log.e("destination", destination);
-
-        if (origin == null) {
-            Toast.makeText(this, "Please enter origin address!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (destination == null) {
-            Toast.makeText(this, "Please enter destination address!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        try {
-            new DirectionFinder(this, origin, destination).execute();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        for (Route route : routes) {
-            hcmus = new LatLng(route.Start_Lat, route.Start_Lng);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hcmus, 18));
-            originMarkers.add(mMap.addMarker(new MarkerOptions().title("Đại học Khoa học tự nhiên").position(hcmus)));
-        }
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mMap.setMyLocationEnabled(true);
-    }
-
-    @Override
-    public void onDirectionFinderStart() {
-        progressDialog = ProgressDialog.show(this, "Please wait.", "Finding direction..!", true);
-
-        if (originMarkers != null) {
-            for (Marker marker : originMarkers) {
-                marker.remove();
-            }
-        }
-
-        if (destinationMarkers != null) {
-            for (Marker marker : destinationMarkers) {
-                marker.remove();
-            }
-        }
-
-        if (polylinePaths != null) {
-            for (Polyline polyline : polylinePaths) {
-                polyline.remove();
-            }
-        }
-    }
-
-    @Override
-    public void onDirectionFinderSuccess(List<Route> routes) {
-        progressDialog.dismiss();
-        polylinePaths = new ArrayList<>();
-        originMarkers = new ArrayList<>();
-        destinationMarkers = new ArrayList<>();
-
-        for (Route route : routes) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 12.6f));
-
-            originMarkers.add(mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_addr))
-                    .title(route.startAddress)
-                    .position(route.startLocation)));
-            destinationMarkers.add(mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_zero))
-                    .title(route.endAddress)
-                    .position(route.endLocation)));
-
-            PolylineOptions polylineOptions = new PolylineOptions().
-                    geodesic(true).
-                    color(Color.parseColor("#691A99")).
-                    width(10);
-
-            for (int i = 0; i < route.points.size(); i++)
-                polylineOptions.add(route.points.get(i));
-
-            polylinePaths.add(mMap.addPolyline(polylineOptions));
-        }
     }
 
 }
+
