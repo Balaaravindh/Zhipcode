@@ -4,7 +4,7 @@ import static com.falconnect.zipcode.ConstantIP.CONSTANT_IP;
 
 public class ConstantAPI {
 
-    ///Login URL
+    //Login URL
     public static final String LOGIN_API = CONSTANT_IP + "messengers/login/";
 
     //Register
@@ -24,4 +24,5 @@ public class ConstantAPI {
     //SMS Verification
     public static final String SMS = CONSTANT_IP + "verifications/";
     public static final String VERIFY_SMS = CONSTANT_IP + "verifications/validate_code/";
+
 }

@@ -359,13 +359,9 @@ public class Delivery_Page extends AppCompatActivity {
 
                         Log.e("destination_size", destination_size);
                     }
-
-
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }, new Response.ErrorListener() {
 

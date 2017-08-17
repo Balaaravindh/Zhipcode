@@ -1,16 +1,23 @@
 package com.falconnect.zipcode;
 
+import android.util.Base64;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,13 +26,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.falconnect.zipcode.SessionManager.SessionManager;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ComprobanteActivity extends AppCompatActivity {
@@ -159,7 +165,10 @@ public class ComprobanteActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
+
 
     private void titular(){
         final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/destinations/" + destination_id + "/";
@@ -360,5 +369,7 @@ public class ComprobanteActivity extends AppCompatActivity {
         rut = (EditText) findViewById(R.id.rut);
         telefono = (EditText) findViewById(R.id.telefono);
         observacion_otro = (EditText) findViewById(R.id.observacion_otro);
+
     }
+
 }

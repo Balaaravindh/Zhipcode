@@ -120,15 +120,23 @@
             android:text="(OPCIONAL)"
             android:textSize="16dp" />
 
-        <ImageView
-            android:id="@+id/camera_image"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/opcional"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/camera" />
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/camera_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/camera"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

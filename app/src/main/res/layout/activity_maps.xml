@@ -86,15 +86,14 @@
 
     </RelativeLayout>
 
-
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/map_first_screen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header_search_list">
 
-
-        <RelativeLayout
-            android:id="@+id/map_first_screen"
+        <FrameLayout
+            android:id="@+id/frame_layout_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -111,7 +110,7 @@
 
                     <com.falconnect.zipcode.CustomWidgets.CustomTextView
                         android:id="@+id/destination_position"
-                        android:layout_width="60dp"
+                        android:layout_width="50dp"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="0"
@@ -119,17 +118,34 @@
                         android:textSize="16dp"
                         app:Customfont="sanz.ttf" />
 
-                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                    <RelativeLayout
                         android:id="@+id/mNavigation"
-                        android:layout_width="60dp"
-                        android:layout_height="45dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:background="#173E84"
-                        android:text="NAV"
-                        android:textAllCaps="false"
-                        android:textColor="#FFF"
-                        android:textSize="16dp"
-                        app:Customfont="sanz.ttf" />
+                        android:background="#173E84">
+
+
+                        <ImageView
+                            android:id="@+id/image_navigation"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="3dp"
+                            android:src="@drawable/navigation" />
+
+                        <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                            android:layout_width="50dp"
+                            android:layout_height="25dp"
+                            android:layout_below="@+id/image_navigation"
+                            android:background="#173E84"
+                            android:text="NAV"
+                            android:textAllCaps="false"
+                            android:textColor="#FFF"
+                            android:textSize="16dp"
+                            app:Customfont="sanz.ttf" />
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
@@ -326,167 +342,55 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/map_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/bottom1"
-                android:layout_below="@+id/indexs"
-                android:layout_marginTop="5dp">
-
-                <com.mapbox.mapboxsdk.views.MapView
-                    android:id="@+id/mapview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    mapbox:access_token="@string/access_token" />
-
-
-                <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                    android:id="@+id/red_button"
-                    android:layout_width="200dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/shape_submit"
-                    android:text="PEDIDO RECOGIDO"
-                    android:textColor="#FFF"
-                    android:textSize="16dp"
-                    app:Customfont="sanz.ttf" />
-
-                <LinearLayout
-                    android:id="@+id/buttons_layouts"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginRight="5dp"
-                    android:visibility="gone">
-
-                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                        android:id="@+id/green_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1.0"
-                        android:background="#39B54A"
-                        android:text="PEDIDO REALIZADO"
-                        android:textColor="#FFF"
-                        android:textSize="16dp" />
-
-                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                        android:id="@+id/gray_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/green_button"
-                        android:layout_weight="1.0"
-                        android:background="#C0C0C0"
-                        android:text="NO ENTREGADo"
-                        android:textColor="#FFF"
-                        android:textSize="16dp" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/bottom1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/bottom">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                        android:id="@+id/contacto"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1.0"
-                        android:background="#FFF"
-                        android:text="CONTACTO "
-                        android:textColor="#000" />
-
-                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                        android:id="@+id/zhipcode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1.0"
-                        android:background="#414141"
-                        android:text="ZHIPCODE"
-                        android:textColor="#C0C0C0" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/call_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.0"
-                        android:src="@drawable/call" />
-
-                    <ImageView
-                        android:id="@+id/sms_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.0"
-                        android:src="@drawable/sms" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/map_second_screen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <RelativeLayout
                 android:id="@+id/indexs_second"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:id="@+id/image_blue_second"
                     android:layout_width="wrap_content"
-                    android:layout_height="45dp"
+                    android:layout_height="60dp"
                     android:background="#29ABE2">
 
-                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                        android:id="@+id/mNavigation_second"
-                        android:layout_width="60dp"
-                        android:layout_height="45dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="#173E84"
-                        android:text="NAV"
-                        android:textAllCaps="false"
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+                        android:id="@+id/destination_position_second"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="0"
                         android:textColor="#FFF"
                         android:textSize="16dp"
                         app:Customfont="sanz.ttf" />
+
+                    <RelativeLayout
+                        android:id="@+id/mNavigation_second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="#173E84">
+
+
+                        <ImageView
+                            android:id="@+id/image_navigation_second"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="3dp"
+                            android:src="@drawable/navigation" />
+
+                        <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                            android:layout_width="50dp"
+                            android:layout_height="25dp"
+                            android:layout_below="@+id/image_navigation_second"
+                            android:background="#173E84"
+                            android:text="NAV"
+                            android:textAllCaps="false"
+                            android:textColor="#FFF"
+                            android:textSize="16dp"
+                            app:Customfont="sanz.ttf" />
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
@@ -501,9 +405,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-
                         <RelativeLayout
-                            android:id="@+id/index4_second"
+                            android:id="@+id/index_second"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -535,6 +438,7 @@
                                 android:layout_height="30dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginLeft="15dp"
+                                android:layout_marginTop="15dp"
                                 android:background="#000">
 
                                 <ImageView
@@ -556,142 +460,137 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/map_fragment_second"
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/map_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/frame_layout_main"
+            android:layout_above="@+id/bottom1"
+            android:layout_marginTop="5dp">
+
+            <com.mapbox.mapboxsdk.views.MapView
+                android:id="@+id/mapview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/bottom1_second"
-                android:layout_below="@+id/indexs_second"
-                android:layout_marginTop="3dp">
+                android:layout_height="wrap_content"
+                mapbox:access_token="@string/access_token" />
 
-                <com.mapbox.mapboxsdk.views.MapView
-                    android:id="@+id/mapview__second"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    mapbox:access_token="@string/access_token" />
 
+            <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                android:id="@+id/red_button"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/shape_submit"
+                android:text="PEDIDO RECOGIDO"
+                android:textColor="#FFF"
+                android:textSize="16dp"
+                app:Customfont="sanz.ttf" />
+
+            <LinearLayout
+                android:id="@+id/buttons_layouts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:visibility="gone">
 
                 <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                    android:id="@+id/red_button_second"
-                    android:layout_width="200dp"
+                    android:id="@+id/green_button"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/shape_submit"
-                    android:text="PEDIDO RECOGIDO"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1.0"
+                    android:background="#39B54A"
+                    android:text="PEDIDO REALIZADO"
                     android:textColor="#FFF"
-                    android:textSize="16dp"
-                    app:Customfont="sanz.ttf" />
+                    android:textSize="16dp" />
 
-                <LinearLayout
-                    android:id="@+id/buttons_layouts_second"
+                <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                    android:id="@+id/gray_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/green_button"
+                    android:layout_weight="1.0"
+                    android:background="#C0C0C0"
+                    android:text="NO ENTREGADo"
+                    android:textColor="#FFF"
+                    android:textSize="16dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                    android:id="@+id/contacto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1.0"
+                    android:background="#FFF"
+                    android:text="CONTACTO "
+                    android:textColor="#000" />
+
+                <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                    android:id="@+id/zhipcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
                     android:layout_marginRight="5dp"
-                    android:visibility="gone">
+                    android:layout_weight="1.0"
+                    android:background="#414141"
+                    android:text="ZHIPCODE"
+                    android:textColor="#C0C0C0" />
 
-                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                        android:id="@+id/green_button_second"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1.0"
-                        android:background="#39B54A"
-                        android:text="PEDIDO REALIZADO"
-                        android:textColor="#FFF"
-                        android:textSize="16dp" />
-
-                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                        android:id="@+id/gray_button_second"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/green_button"
-                        android:layout_weight="1.0"
-                        android:background="#C0C0C0"
-                        android:text="NO ENTREGADo"
-                        android:textColor="#FFF"
-                        android:textSize="16dp" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/bottom1_second"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/bottom_second"
-                android:layout_marginBottom="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                        android:id="@+id/contacto_second"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1.0"
-                        android:background="#FFF"
-                        android:text="CONTACTO "
-                        android:textColor="#000" />
-
-                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                        android:id="@+id/zhipcode_second"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1.0"
-                        android:background="#414141"
-                        android:text="ZHIPCODE"
-                        android:textColor="#C0C0C0" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/bottom_second"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/call_image_second"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_weight="1.0"
-                        android:src="@drawable/call" />
-
-                    <ImageView
-                        android:id="@+id/sms_image_second"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_weight="1.0"
-                        android:src="@drawable/sms" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
+            </LinearLayout>
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp">
 
-    </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/call_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.0"
+                    android:src="@drawable/call" />
+
+                <ImageView
+                    android:id="@+id/sms_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.0"
+                    android:src="@drawable/sms" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+</RelativeLayout>
 
 </RelativeLayout>

@@ -11,10 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.falconnect.zipcode.R;
-import com.falconnect.zipcode.RutaPageCutomClasses.ItemTouchHelperAdapter;
-import com.falconnect.zipcode.RutaPageCutomClasses.ItemTouchHelperViewHolder;
-import com.falconnect.zipcode.RutaPageCutomClasses.OnCustomerListChangedListener;
-import com.falconnect.zipcode.RutaPageCutomClasses.OnStartDragListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
