@@ -52,7 +52,7 @@
             android:layout_height="45dp"
             android:background="#000">
 
-            <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
                 android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="90dp">
 
-            <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
                 android:id="@+id/billetera_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 android:textSize="14dp"
                 app:Customfont="sanz.ttf" />
 
-            <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
                 android:id="@+id/amount_bill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,6 +118,7 @@
         android:layout_below="@+id/frame_layout">
 
         <RelativeLayout
+            android:id="@+id/total_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -141,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp">
 
-                        <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
                             android:id="@+id/banco"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -150,7 +151,7 @@
                             android:textSize="14dp"
                             app:Customfont="sanz.ttf" />
 
-                        <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
                             android:id="@+id/banco_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -169,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/frst_details">
 
-                        <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
                             android:id="@+id/cuenta"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -178,7 +179,7 @@
                             android:textSize="14dp"
                             app:Customfont="sanz.ttf" />
 
-                        <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
                             android:id="@+id/cuenta_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -206,7 +207,7 @@
                             android:layout_toRightOf="@+id/editar"
                             android:src="@drawable/pencilblack" />
 
-                        <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+                        <com.falconnect.zipcode.CustomWidgets.CustomTextView
                             android:id="@+id/editar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -238,7 +239,7 @@
                     android:layout_toRightOf="@+id/view11">
 
 
-                    <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+                    <com.falconnect.zipcode.CustomWidgets.CustomTextView
                         android:id="@+id/recibir_pago"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -248,7 +249,7 @@
                         android:textSize="16dp"
                         app:Customfont="sanz.ttf" />
 
-                    <com.falconnect.zipcode.CustomfontWidgets.ButtonPlus
+                    <com.falconnect.zipcode.CustomWidgets.ButtonPlus
                         android:id="@+id/button_cobrar"
                         android:layout_width="120dp"
                         android:layout_height="30dp"
@@ -272,7 +273,7 @@
 
             </RelativeLayout>
 
-            <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+            <com.falconnect.zipcode.CustomWidgets.CustomTextView
                 android:id="@+id/ultimos_pagos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -303,7 +304,7 @@
                     android:layout_height="wrap_content"
                     android:divider="@null"/>
 
-                <com.falconnect.zipcode.CustomfontWidgets.CustomfontTextView
+                <com.falconnect.zipcode.CustomWidgets.CustomTextView
                     android:id="@+id/textview_empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -325,7 +326,7 @@
                 android:background="#333333"
                 android:visibility="gone">
 
-                <com.falconnect.zipcode.CustomfontWidgets.ButtonPlus
+                <com.falconnect.zipcode.CustomWidgets.ButtonPlus
                     android:id="@+id/ver_todos"
                     android:layout_width="200dp"
                     android:layout_height="40dp"

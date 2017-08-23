@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/back"
-                android:text="TERMINOS Y CONDICIONES"
+                android:text="TÉRMINOS Y CONDICIONES"
                 android:layout_centerInParent="true"
                 android:textColor="#FFF"
                 android:textSize="16dp"

@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.falconnect.zipcode.SessionManager.SessionManager;
+import com.onesignal.OneSignal;
 
 import java.util.HashMap;
 
@@ -34,6 +35,11 @@ public class SplashScreen extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         startService(new Intent(this, MyService.class));
+
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
 
         session = new SessionManager(getApplicationContext());
         HashMap<String, String> user = session.getUserDetails();

@@ -11,10 +11,14 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        manifestPlaceholders = [onesignal_app_id: "4087e7eb-5b9a-429b-bbfa-91200db262ef",
+/*4087e7eb-5b9a-429b-bbfa-91200db262ef*/
+        manifestPlaceholders = [onesignal_app_id               : "8b28cab2-5f77-4fe4-8be6-e43e76772cf2",
                                 onesignal_google_project_number: "REMOTE"]
 
+    }
+
+    aaptOptions {
+        cruncherEnabled = false
     }
     buildTypes {
         release {
@@ -55,4 +59,15 @@ dependencies {
         transitive = true
     }
     testCompile 'junit:junit:4.12'
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.1'
+            }
+        }
+    }
 }

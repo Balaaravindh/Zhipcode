@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,8 +27,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.falconnect.zipcode.SessionManager.SessionManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +51,7 @@ public class ComprobanteActivity extends AppCompatActivity {
     HashMap<String, String> orgin_Datas;
     HashMap<String, String> datas_desti;
     HashMap<Integer, ArrayList<String>> datas_desti_multi;
-    HashMap<Integer, ArrayList<String>> datas_desti_multi_values= new HashMap<>();
+    HashMap<Integer, ArrayList<String>> datas_desti_multi_values = new HashMap<>();
     ArrayList<String> multi_lat;
     ArrayList<String> multi_long;
     EditText observacion_otro, rut, telefono, nombre;
@@ -58,6 +61,7 @@ public class ComprobanteActivity extends AppCompatActivity {
     SessionManager sessionManager;
     HashMap<String, String> user;
     int value;
+    JSONObject thumbs_user = new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +106,21 @@ public class ComprobanteActivity extends AppCompatActivity {
         } else {
         }
 
-        if(destination_size == null){
+        if (destination_size == null) {
 
-        }else{
+        } else {
+
+        }
+
+        if (errand_ids == null) {
+            errand_ids = datas_desti_multi.get(0).get(0);
+        } else {
+
+        }
+
+        if (destination_id == null) {
+            destination_id = datas_desti_multi.get(0).get(0);
+        } else {
 
         }
 
@@ -149,19 +165,40 @@ public class ComprobanteActivity extends AppCompatActivity {
         solicitud_finalzada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(value == 0){
-                    titular();
-                }else if(value == 1){
+                if (value == 0) {
+                    try {
+                        thumbs_user.put("was_delivered_to_watchman", true);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    api_function();
+                } else if (value == 1) {
                     observacion_text = observacion.getText().toString();
-                    vigilante_conserje_fun();
 
-                }else if (value == 2){
+                    try {
+                        thumbs_user.put("was_delivered_to_watchman", true);
+                        thumbs_user.put("delivery_remarks", observacion_text);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    api_function();
+                } else if (value == 2) {
                     nombre_text = nombre.getText().toString();
                     obse_text_otro = observacion_otro.getText().toString();
                     telefono_text = telefono.getText().toString();
                     rut_text = rut.getText().toString();
-                    otro_fun();
+
+                    try {
+                        thumbs_user.put("was_delivered_to_watchman", true);
+                        thumbs_user.put("delivery_contact_name", nombre_text);
+                        thumbs_user.put("delivery_contact_rut", rut_text);
+                        thumbs_user.put("delivery_contact_phone", telefono_text);
+                        thumbs_user.put("delivery_remarks", obse_text_otro);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    api_function();
                 }
             }
         });
@@ -170,40 +207,32 @@ public class ComprobanteActivity extends AppCompatActivity {
     }
 
 
-    private void titular(){
+    private void api_function() {
         final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/destinations/" + destination_id + "/";
 
-        JSONObject thumbs_user = new JSONObject();
-        try {
-            thumbs_user.put("was_delivered_to_watchman", true);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, thumbs_user, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.e("Response", response.toString());
                 Log.e("datas_desti_multi", datas_desti_multi.toString());
 
-                if (datas_desti_multi.size() != 0){
-
+                if (datas_desti_multi.size() != 0) {
                     datas_desti_multi.remove(0);
-
                     for (int i = 0; i < datas_desti_multi.size(); i++) {
-                        datas_desti_multi_values.put(i, datas_desti_multi.get(i+1));
+                        datas_desti_multi_values.put(i, datas_desti_multi.get(i + 1));
                     }
 
                     Log.e("datas_desti_multi", String.valueOf(datas_desti_multi_values.size()));
                     Log.e("datas_desti_multi", datas_desti_multi_values.toString());
                 }
-                if(datas_desti_multi.size() == 0){
+                if (datas_desti_multi.size() == 0) {
                     Intent intent = new Intent(ComprobanteActivity.this, CommentsActivity.class);
                     intent.putExtra("errand_ids", errand_ids);
                     intent.putExtra("destination_id", destination_id);
                     intent.putExtra("destination_size", destination_size);
                     startActivity(intent);
                     ComprobanteActivity.this.finish();
-                }else{
+                } else {
                     Intent intent = new Intent(ComprobanteActivity.this, MapsActivity.class);
                     intent.putExtra("errand_ids", errand_ids);
                     intent.putExtra("destination_id", destination_id);
@@ -238,124 +267,123 @@ public class ComprobanteActivity extends AppCompatActivity {
         requestQueue.add(req);
     }
 
-    private void otro_fun() {
+    /* private void otro_fun() {
 
-        final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/destinations/" + destination_id + "/";
+         final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/destinations/" + destination_id + "/";
 
-        JSONObject thumbs_user = new JSONObject();
-        try {
-            thumbs_user.put("was_delivered_to_watchman", true);
-            thumbs_user.put("delivery_contact_name", nombre_text);
-            thumbs_user.put("delivery_contact_rut", rut_text);
-            thumbs_user.put("delivery_contact_phone", telefono_text);
-            thumbs_user.put("delivery_remarks", obse_text_otro);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, thumbs_user, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.e("Response", response.toString());
-                if(destination_size.equals("1")){
-                    Intent intent = new Intent(ComprobanteActivity.this, CommentsActivity.class);
-                    intent.putExtra("errand_ids", errand_ids);
-                    intent.putExtra("destination_id", destination_id);
-                    intent.putExtra("destination_size", destination_size);
-                    startActivity(intent);
-                    ComprobanteActivity.this.finish();
-                }else{
-                    Intent intent = new Intent(ComprobanteActivity.this, MapsActivity.class);
-                    intent.putExtra("errand_ids", errand_ids);
-                    intent.putExtra("destination_id", destination_id);
-                    intent.putExtra("destination_size", destination_size);
-                    intent.putExtra("origin_datas", orgin_Datas);
-                    intent.putExtra("datas_desti_multi", datas_desti_multi);
-                    intent.putExtra("multi_lat", multi_lat);
-                    intent.putExtra("multi_long", multi_long);
-                    startActivity(intent);
-                    ComprobanteActivity.this.finish();
-                }
-            }
-        }, new Response.ErrorListener() {
+         JSONObject thumbs_user = new JSONObject();
+         try {
+             thumbs_user.put("was_delivered_to_watchman", true);
+             thumbs_user.put("delivery_contact_name", nombre_text);
+             thumbs_user.put("delivery_contact_rut", rut_text);
+             thumbs_user.put("delivery_contact_phone", telefono_text);
+             thumbs_user.put("delivery_remarks", obse_text_otro);
+         } catch (JSONException e) {
+             e.printStackTrace();
+         }
+         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, thumbs_user, new Response.Listener<JSONObject>() {
+             @Override
+             public void onResponse(JSONObject response) {
+                 Log.e("Response", response.toString());
+                 if(destination_size.equals("1")){
+                     Intent intent = new Intent(ComprobanteActivity.this, CommentsActivity.class);
+                     intent.putExtra("errand_ids", errand_ids);
+                     intent.putExtra("destination_id", destination_id);
+                     intent.putExtra("destination_size", destination_size);
+                     startActivity(intent);
+                     ComprobanteActivity.this.finish();
+                 }else{
+                     Intent intent = new Intent(ComprobanteActivity.this, MapsActivity.class);
+                     intent.putExtra("errand_ids", errand_ids);
+                     intent.putExtra("destination_id", destination_id);
+                     intent.putExtra("destination_size", destination_size);
+                     intent.putExtra("origin_datas", orgin_Datas);
+                     intent.putExtra("datas_desti_multi", datas_desti_multi);
+                     intent.putExtra("multi_lat", multi_lat);
+                     intent.putExtra("multi_long", multi_long);
+                     startActivity(intent);
+                     ComprobanteActivity.this.finish();
+                 }
+             }
+         }, new Response.ErrorListener() {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO Auto-generated method stub
-                Log.e("Error", error.toString());
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                user = sessionManager.getUserDetails();
-                headers.put("Authorization", "Token" + " " + user.get("token"));
-                Log.e("params", headers.toString());
-                return headers;
-            }
-        };
+             @Override
+             public void onErrorResponse(VolleyError error) {
+                 // TODO Auto-generated method stub
+                 Log.e("Error", error.toString());
+             }
+         }) {
+             @Override
+             public Map<String, String> getHeaders() throws AuthFailureError {
+                 HashMap<String, String> headers = new HashMap<String, String>();
+                 user = sessionManager.getUserDetails();
+                 headers.put("Authorization", "Token" + " " + user.get("token"));
+                 Log.e("params", headers.toString());
+                 return headers;
+             }
+         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(ComprobanteActivity.this);
-        requestQueue.add(req);
-    }
+         RequestQueue requestQueue = Volley.newRequestQueue(ComprobanteActivity.this);
+         requestQueue.add(req);
+     }
 
-    private void vigilante_conserje_fun() {
-        final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/destinations/" + destination_id + "/";
+     private void vigilante_conserje_fun() {
+         final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/destinations/" + destination_id + "/";
+         JSONObject thumbs_user = new JSONObject();
+         try {
+             thumbs_user.put("was_delivered_to_watchman", true);
+             thumbs_user.put("delivery_remarks", observacion_text);
+         } catch (JSONException e) {
+             e.printStackTrace();
+         }
+         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, thumbs_user, new Response.Listener<JSONObject>() {
+             @Override
+             public void onResponse(JSONObject response) {
+                 Log.e("Response", response.toString());
+                 if(destination_size.equals("1")){
+                     Intent intent = new Intent(ComprobanteActivity.this, CommentsActivity.class);
+                     intent.putExtra("errand_ids", errand_ids);
+                     intent.putExtra("destination_id", destination_id);
+                     intent.putExtra("destination_size", destination_size);
+                     startActivity(intent);
+                     ComprobanteActivity.this.finish();
+                 }else{
+                     Intent intent = new Intent(ComprobanteActivity.this, MapsActivity.class);
+                     intent.putExtra("errand_ids", errand_ids);
+                     intent.putExtra("destination_id", destination_id);
+                     intent.putExtra("destination_size", destination_size);
+                     intent.putExtra("origin_datas", orgin_Datas);
+                     intent.putExtra("datas_desti_multi", datas_desti_multi);
+                     intent.putExtra("multi_lat", multi_lat);
+                     intent.putExtra("multi_long", multi_long);
+                     startActivity(intent);
+                     ComprobanteActivity.this.finish();
+                 }
+             }
+         }, new Response.ErrorListener() {
 
-        JSONObject thumbs_user = new JSONObject();
-        try {
-            thumbs_user.put("was_delivered_to_watchman", true);
-            thumbs_user.put("delivery_remarks", observacion_text);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, thumbs_user, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.e("Response", response.toString());
-                if(destination_size.equals("1")){
-                    Intent intent = new Intent(ComprobanteActivity.this, CommentsActivity.class);
-                    intent.putExtra("errand_ids", errand_ids);
-                    intent.putExtra("destination_id", destination_id);
-                    intent.putExtra("destination_size", destination_size);
-                    startActivity(intent);
-                    ComprobanteActivity.this.finish();
-                }else{
-                    Intent intent = new Intent(ComprobanteActivity.this, MapsActivity.class);
-                    intent.putExtra("errand_ids", errand_ids);
-                    intent.putExtra("destination_id", destination_id);
-                    intent.putExtra("destination_size", destination_size);
-                    intent.putExtra("origin_datas", orgin_Datas);
-                    intent.putExtra("datas_desti_multi", datas_desti_multi);
-                    intent.putExtra("multi_lat", multi_lat);
-                    intent.putExtra("multi_long", multi_long);
-                    startActivity(intent);
-                    ComprobanteActivity.this.finish();
-                }
-            }
-        }, new Response.ErrorListener() {
+             @Override
+             public void onErrorResponse(VolleyError error) {
+                 // TODO Auto-generated method stub
+                 Log.e("Error", error.toString());
+             }
+         }) {
+             @Override
+             public Map<String, String> getHeaders() throws AuthFailureError {
+                 HashMap<String, String> headers = new HashMap<String, String>();
+                 user = sessionManager.getUserDetails();
+                 headers.put("Authorization", "Token" + " " + user.get("token"));
+                 Log.e("params", headers.toString());
+                 return headers;
+             }
+         };
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO Auto-generated method stub
-                Log.e("Error", error.toString());
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                user = sessionManager.getUserDetails();
-                headers.put("Authorization", "Token" + " " + user.get("token"));
-                Log.e("params", headers.toString());
-                return headers;
-            }
-        };
+         RequestQueue requestQueue = Volley.newRequestQueue(ComprobanteActivity.this);
+         requestQueue.add(req);
 
-        RequestQueue requestQueue = Volley.newRequestQueue(ComprobanteActivity.this);
-        requestQueue.add(req);
-
-    }
-
-    public void intialize(){
+     }
+ */
+    public void intialize() {
         sessionManager = new SessionManager(ComprobanteActivity.this);
         user = sessionManager.getUserDetails();
         titular = (Button) findViewById(R.id.titular);

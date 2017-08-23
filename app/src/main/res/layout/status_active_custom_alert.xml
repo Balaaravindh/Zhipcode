@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="250dp"
         android:background="#FFF">
 
 
@@ -14,24 +14,38 @@
             android:id="@+id/message"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="ESTAS SEGURO QUE DESEAS DEJAR DE ATENDER SOLICITUDES?"
+            android:text="Estás seguro de querer cerrar sesión"
             android:textAlignment="center"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
+            android:textColor="#000"
+            android:textAllCaps="true"
             app:Customfont="sanz.ttf"/>
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/message1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/message"
+            android:layout_marginTop="10dp"
+            android:text="Si Cierras sesión no recibirás notificacions de solicitudes activas"
+            android:textAllCaps="true"
+            android:textSize="14dp"
+            android:textAlignment="center" />
 
 
         <com.falconnect.zipcode.CustomWidgets.ButtonPlus
             android:id="@+id/possitive_button"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/message"
+            android:layout_below="@+id/message1"
             android:layout_marginTop="30dp"
-            android:text="SI, ESTOY SEGURO"
+            android:text="Sí, estoy seguro"
             android:layout_centerHorizontal="true"
+            android:textAllCaps="true"
             android:background="@drawable/custom_alert_postive"/>
 
         <com.falconnect.zipcode.CustomWidgets.ButtonPlus
@@ -41,6 +55,7 @@
             android:layout_below="@+id/possitive_button"
             android:layout_marginTop="5dp"
             android:text="NO"
+            android:layout_marginBottom="20dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/custom_alert_postive"/>
 

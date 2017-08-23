@@ -315,7 +315,7 @@ public class Centero_de_ayuda_Activity extends AppCompatActivity {
                 String url = "http://landing.tumotorizado.com/codigo-de-etica/";
                 Intent intent = new Intent(Centero_de_ayuda_Activity.this, WebviewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title", "CODIGO DE ETICA");
+                intent.putExtra("title", "CÓDIGO DE ÉTICO");
                 startActivity(intent);
             }
         });

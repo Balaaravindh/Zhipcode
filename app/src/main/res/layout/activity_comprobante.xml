@@ -46,7 +46,8 @@
         android:layout_below="@+id/comprobante"
         android:layout_marginTop="15dp"
         android:gravity="center"
-        android:text="A QUIEN ENTREGASTE?"
+        android:text="¿A quién entregaste?"
+        android:textAllCaps="true"
         android:textSize="20dp"
         app:Customfont="sanz.ttf" />
 
@@ -149,7 +150,8 @@
             android:layout_below="@+id/rut"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:hint="TELEFONO"
+            android:hint="Teléfono"
+            android:textAllCaps="true"
             android:singleLine="true"
             android:inputType="number"
             android:gravity="center"
@@ -181,10 +183,11 @@
         android:layout_marginTop="15dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
-        android:background="#C0C0"
-        android:text="SOLICITUD FINALIZADA"
+        android:background="#FBB03B"
+        android:text="Próximo destino"
         android:textColor="#FFF"
         android:textSize="18dp"
+        android:textAllCaps="true"
         android:visibility="gone"
         android:textStyle="bold"
         app:Customfont="sanz.ttf" />

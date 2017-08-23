@@ -1,10 +1,11 @@
 package com.falconnect.zipcode.Adapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public interface OnStartDragListener {
-    /**
-     * Called when a view is requesting a start of a drag.
-     *
-     * @param viewHolder The holder of the view to drag.
-     */
+
     void onStartDrag(CustomerListAdapter.ItemViewHolder viewHolder);
+
+    void onNoteListChanged(ArrayList<HashMap<String, ArrayList<String>>> customers);
 }

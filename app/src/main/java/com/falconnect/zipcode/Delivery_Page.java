@@ -64,6 +64,7 @@ public class Delivery_Page extends AppCompatActivity {
     ArrayList<String> multi_long = new ArrayList<>();
     ArrayList<HashMap<String, String>> map_location = new ArrayList<>();
     private Handler handler = new Handler();
+    String job_accepted_destination_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,6 +211,7 @@ public class Delivery_Page extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
 
+
                 try {
                     String id = response.optString("id");
                     String outcome = response.optString("outcome");
@@ -250,10 +252,12 @@ public class Delivery_Page extends AppCompatActivity {
                         e1.printStackTrace();
                     }
                     if (destinations.length() == 1) {
+
                         JSONObject newjsonobject = null;
                         JSONObject location = null;
                         try {
                             newjsonobject = (JSONObject) destinations.get(0);
+                            job_accepted_destination_id = newjsonobject.optString("id");
                             location = newjsonobject.getJSONObject("location");
                         } catch (JSONException e1) {
                             e1.printStackTrace();
@@ -269,6 +273,7 @@ public class Delivery_Page extends AppCompatActivity {
                         String latitude_desti = geo_location.optString("latitude");
                         String longitude_desti = geo_location.optString("longitude");
 
+                        datas_desti.put("job_accepted_destination_id", job_accepted_destination_id);
                         datas_desti.put("community_desti", community_desti);
                         datas_desti.put("references_desti", references_desti);
                         datas_desti.put("contact_name_desti", contact_name_desti);
@@ -279,6 +284,7 @@ public class Delivery_Page extends AppCompatActivity {
                         datas_desti.put("longitude_desti", longitude_desti);
 
                         ArrayList<String> desti_values = new ArrayList<>();
+                        desti_values.add(job_accepted_destination_id);
                         desti_values.add(community_desti);
                         desti_values.add(references_desti);
                         desti_values.add(contact_name_desti);
@@ -287,16 +293,21 @@ public class Delivery_Page extends AppCompatActivity {
                         desti_values.add(email_desti);
                         desti_values.add(latitude_desti);
                         desti_values.add(longitude_desti);
+                        desti_values.add(String.valueOf(1));
+
 
                         datas_desti_multi.put(destinations.length()-1, desti_values);
                         new_all_datas.add(datas_desti_multi);
 
                     } else {
                         for (int l = 0; l < destinations.length(); l++) {
+
                             JSONObject newjsonobjects = null;
                             JSONObject location = null;
                             try {
                                 newjsonobjects = (JSONObject) destinations.get(l);
+
+                                job_accepted_destination_id = newjsonobjects.optString("id");
 
                                 location = newjsonobjects.getJSONObject("location");
                                 String community_desti_multi = location.optString("community");
@@ -315,6 +326,7 @@ public class Delivery_Page extends AppCompatActivity {
                                 multi_long.add(longitude_desti_multi);
 
                                 ArrayList<String> desti_values = new ArrayList<>();
+                                desti_values.add(job_accepted_destination_id);
                                 desti_values.add(community_desti_multi);
                                 desti_values.add(references_desti_multi);
                                 desti_values.add(contact_name_desti_multi);
@@ -323,6 +335,7 @@ public class Delivery_Page extends AppCompatActivity {
                                 desti_values.add(email_desti_multi);
                                 desti_values.add(latitude_desti_multi);
                                 desti_values.add(longitude_desti_multi);
+                                desti_values.add(String.valueOf(l + 1));
 
                                 datas_desti_multi.put(l, desti_values);
                                 new_all_datas.add(datas_desti_multi);
@@ -345,6 +358,9 @@ public class Delivery_Page extends AppCompatActivity {
                         intent.putExtra("destination_id", destination_id);
                         intent.putExtra("datas_desti_multi", datas_desti_multi);
 
+                        intent.putExtra("status", "null");
+                        intent.putExtra("was_picked", "null");
+                        intent.putExtra("json_object", response.toString());
                         startActivity(intent);
                     }else{
                         Intent intent = new Intent(Delivery_Page.this, MapsActivity.class);
@@ -355,6 +371,10 @@ public class Delivery_Page extends AppCompatActivity {
                         intent.putExtra("errand_ids", errand_ids);
                         intent.putExtra("destination_size", destination_size);
                         intent.putExtra("destination_id", destination_id);
+
+                        intent.putExtra("status", "null");
+                        intent.putExtra("was_picked", "null");
+                        intent.putExtra("json_object", response.toString());
                         startActivity(intent);
 
                         Log.e("destination_size", destination_size);

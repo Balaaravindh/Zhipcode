@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ZipCode</string>
 
     <string name="title_activity_first">FirstActivity</string>
@@ -12,5 +12,11 @@
     <string name="failed_draw">Empty line path return</string>
     <string name="server_error">Server error. Something when wrong with the server</string>
     <string name="access_token">pk.eyJ1IjoiYXJhdmluZGhqYWhhbiIsImEiOiJjajRyeGxzYWgwMXdyMnFtdDYzeDVoczN6In0.qZ23PCKQNlyCYqcnbRcPMA</string>
+
+    <string name="crop__saving">Saving picture…</string>
+    <string name="crop__wait">Please wait…</string>
+    <string name="crop__pick_error">No image sources available</string>
+    <string name="crop__done">DONE</string>
+    <string name="crop__cancel" tools:ignore="ButtonCase">CANCEL</string>
 
 </resources>

@@ -7,22 +7,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.falconnect.zipcode.R;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
-public class CustomerListAdapterMain extends RecyclerView.Adapter<CustomerListAdapterMain.ItemViewHolder> {
+public class CustomerListAdapterMain extends RecyclerView.Adapter<CustomerListAdapterMain.ItemViewHolder> implements RutaAdapter {
 
     Context mContext;
-    ArrayList<String> customers;
-    ArrayList<String> customers_address;
+    String dest_size, communitys;
+    ArrayList<String> directions;
+    public HashMap<String, ArrayList<String>> ruta_postion_details;
 
-    public CustomerListAdapterMain(ArrayList<String> customersss, ArrayList<String> customers_addresssss, Context context) {
-        customers = customersss;
-        customers_address = customers_addresssss;
+
+
+    public CustomerListAdapterMain(Context context, String destination_size, String community,
+                                   HashMap<String, ArrayList<String>> ruta_postion_detail, ArrayList<String> direction) {
         mContext = context;
+        dest_size = destination_size;
+        communitys = community;
+        ruta_postion_details = ruta_postion_detail;
+        directions = direction;
+
     }
 
 
@@ -36,16 +42,32 @@ public class CustomerListAdapterMain extends RecyclerView.Adapter<CustomerListAd
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
 
-        holder.direction_orgin.setText(customers.get(position));
-        holder.orgin_address.setText(customers_address.get(position));
-        holder.destination_points_number.setText(String.valueOf(position));
+        if (position == 0){
+            holder.direction_orgin.setText("DIRECTION ORGIN");
+            holder.orgin_address.setText(communitys);
+            holder.destination_points_number.setText("0");
+        }else {
+            holder.direction_orgin.setText(directions.get(position));
+            holder.orgin_address.setText(ruta_postion_details.get(String.valueOf(position)).get(9));
+            holder.destination_points_number.setText(String.valueOf(position));
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return customers.size();
+        return directions.size();
     }
+
+    @Override
+    public String getItem(int position) {
+
+        return ruta_postion_details.get(String.valueOf(position)).get(position);
+
+    }
+
+
+
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public final TextView direction_orgin, orgin_address,destination_points_number;

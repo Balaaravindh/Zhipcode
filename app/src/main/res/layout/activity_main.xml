@@ -139,13 +139,20 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/listcontents"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttons"
-        android:background="#9D9D9D"
-        android:divider="#FFF"
-        android:dividerHeight="1dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/buttons">
+
+        <ListView
+            android:id="@+id/listcontents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9D9D9D"
+            android:divider="#FFF"
+            android:dividerHeight="1dp" />
+
+    </FrameLayout>
 
 </RelativeLayout>

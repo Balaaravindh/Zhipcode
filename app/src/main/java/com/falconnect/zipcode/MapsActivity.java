@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -30,7 +31,10 @@ import com.falconnect.zipcode.MapModules.GPSTracker;
 import com.falconnect.zipcode.SessionManager.Orgin_destination_identy;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.annotations.Sprite;
+import com.mapbox.mapboxsdk.annotations.SpriteFactory;
 import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.views.MapView;
@@ -56,11 +60,17 @@ public class MapsActivity extends AppCompatActivity {
     ArrayList<HashMap<Integer, ArrayList<String>>> values;
     TextView address_text, destination_position, address_text1, address_text11, address_text4;
     TextView address_text4_second;
-    ImageView call_image, sms_image;
+    ImageView call_image, sms_image, whatsapp_image;
+
+    LinearLayout zhipcode, contacto;
+
+    String json_object;
 
     //MAp REZISE
-
     RelativeLayout map_first_screen;
+
+    String was_picked, status;
+
 
     //
     GPSTracker gps;
@@ -69,7 +79,7 @@ public class MapsActivity extends AppCompatActivity {
     double latitude;
     double longitude;
     String origin, destination;
-    RelativeLayout ruta, question, call_layout;
+    RelativeLayout ruta, call_layout;
 
     String number;
 
@@ -109,6 +119,10 @@ public class MapsActivity extends AppCompatActivity {
         destination_id = getIntent().getStringExtra("destination_id");
         destination_size = getIntent().getStringExtra("destination_size");
 
+        was_picked = getIntent().getStringExtra("was_picked");
+        status = getIntent().getStringExtra("status");
+
+        json_object = getIntent().getStringExtra("json_object");
 
         if(values == null){
 
@@ -158,7 +172,6 @@ public class MapsActivity extends AppCompatActivity {
         green_button = (Button) findViewById(R.id.green_button);
         gray_button = (Button) findViewById(R.id.gray_button);
         ruta = (RelativeLayout) findViewById(R.id.ruta);
-        question = (RelativeLayout) findViewById(R.id.question);
 
         map_first_screen = (RelativeLayout) findViewById(R.id.map_first_screen);
 
@@ -174,6 +187,12 @@ public class MapsActivity extends AppCompatActivity {
         address_text4 = (TextView) findViewById(R.id.address_text4);
         address_text4_second = (TextView) findViewById(R.id.address_text4_second);
 
+        contacto = (LinearLayout) findViewById(R.id.contacto);
+        zhipcode = (LinearLayout) findViewById(R.id.zhipcode);
+
+
+
+        destination_position.setText(datas_desti_multi.get(0).get(9));
 
         if (indexs.getVisibility() == View.VISIBLE) {
             if(identity_string.get("origin").equals("origin")) {
@@ -188,10 +207,10 @@ public class MapsActivity extends AppCompatActivity {
             }else{
                 buttons_layouts.setVisibility(View.VISIBLE);
                 red_button.setVisibility(View.GONE);
-                address_text.setText(datas_desti_multi.get(0).get(0));
-                address_text1.setText(datas_desti_multi.get(0).get(1));
-                address_text4.setText("TELEFONO :" + datas_desti_multi.get(0).get(3) +
-                        " \n" + "Nombre   :" + datas_desti_multi.get(0).get(2));
+                address_text.setText(datas_desti_multi.get(0).get(1));
+                address_text1.setText(datas_desti_multi.get(0).get(2));
+                address_text4.setText("TELEFONO :" + datas_desti_multi.get(0).get(4) +
+                        " \n" + "Nombre   :" + datas_desti_multi.get(0).get(3));
             }
         }else if (indexs_second.getVisibility() == View.VISIBLE) {
             if(identity_string.get("origin").equals("origin")) {
@@ -204,8 +223,8 @@ public class MapsActivity extends AppCompatActivity {
             }else{
                 buttons_layouts.setVisibility(View.VISIBLE);
                 red_button.setVisibility(View.GONE);
-                address_text4_second.setText("TELEFONO :" + datas_desti_multi.get(0).get(3) +
-                        " \n" + "Nombre   :" + datas_desti_multi.get(0).get(2));
+                address_text4_second.setText("TELEFONO :" + datas_desti_multi.get(0).get(4) +
+                        " \n" + "Nombre   :" + datas_desti_multi.get(0).get(3));
             }
         }
 
@@ -218,18 +237,40 @@ public class MapsActivity extends AppCompatActivity {
         }else{
             buttons_layouts.setVisibility(View.VISIBLE);
             red_button.setVisibility(View.GONE);
-            address_text4_second.setText("TELEFONO :" + datas_desti_multi.get(0).get(3) +
-                    " \n" + "Nombre   :" + datas_desti_multi.get(0).get(2));
+            address_text4_second.setText("TELEFONO :" + datas_desti_multi.get(0).get(4) +
+                    " \n" + "Nombre   :" + datas_desti_multi.get(0).get(3));
         }
 
         call_image = (ImageView) findViewById(R.id.call_image);
         sms_image = (ImageView) findViewById(R.id.sms_image);
 
+        whatsapp_image = (ImageView) findViewById(R.id.whatsapp_image);
+
+        whatsapp_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PackageManager pm = getPackageManager();
+                Intent waIntent = new Intent(Intent.ACTION_SEND);
+                waIntent.setType("text/plain");
+                String text = "YOUR TEXT HERE";
+                try {
+                    PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+                waIntent.setPackage("com.whatsapp");
+                waIntent.putExtra(Intent.EXTRA_TEXT, text);
+                startActivity(Intent.createChooser(waIntent, "Share with"));
+            }
+        });
 
         call_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                number =  "9999999999";
+                number =  address_text4.getText().toString();
+                number = number.replace("TELEFONO :", "");
+                number = number.replace("Nombre   :", "");
+                number = number.replace(datas_desti_multi.get(0).get(3), "");
                 AlertDialog alertbox = new AlertDialog.Builder(MapsActivity.this)
                         .setMessage("Do you want to Call to this "  + number)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -261,7 +302,10 @@ public class MapsActivity extends AppCompatActivity {
         call_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                number = "9999999999";
+                number =  address_text4.getText().toString();
+                number = number.replace("TELEFONO :", "");
+                number = number.replace("Nombre   :", "");
+                number = number.replace(datas_desti_multi.get(0).get(3), "");
                 AlertDialog alertbox = new AlertDialog.Builder(MapsActivity.this)
                         .setMessage("Do you want to Call to this " + number)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -293,7 +337,10 @@ public class MapsActivity extends AppCompatActivity {
         sms_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String number = "9999999999";
+                number =  address_text4.getText().toString();
+                number = number.replace("TELEFONO :", "");
+                number = number.replace("Nombre   :", "");
+                number = number.replace(datas_desti_multi.get(0).get(3), "");
 
                 AlertDialog alertbox = new AlertDialog.Builder(MapsActivity.this)
                         .setMessage("Do you want to Message to this " + number)
@@ -313,6 +360,22 @@ public class MapsActivity extends AppCompatActivity {
             }
         });
 
+        if (status == null || was_picked == null || status.equals("null") || was_picked.equals("null")){
+
+        }else{
+            red_button.setVisibility(View.GONE);
+            buttons_layouts.setVisibility(View.VISIBLE);
+            orgin_destination_identy.createOrginDatas("destination");
+            address_text.setText(datas_desti_multi.get(0).get(1));
+            address_text1.setText(datas_desti_multi.get(0).get(2));
+            address_text4.setText("TELEFONO :" + datas_desti_multi.get(0).get(4) +
+                    " \n" + "Nombre   :" + datas_desti_multi.get(0).get(3));
+            address_text4_second.setText("TELEFONO :" + datas_desti_multi.get(0).get(4) +
+                    " \n" + "Nombre   :" + datas_desti_multi.get(0).get(3));
+
+            destination_position.setText(datas_desti_multi.get(0).get(9));
+        }
+
 
         red_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -320,14 +383,14 @@ public class MapsActivity extends AppCompatActivity {
                 red_button.setVisibility(View.GONE);
                 buttons_layouts.setVisibility(View.VISIBLE);
                 orgin_destination_identy.createOrginDatas("destination");
-                address_text.setText(datas_desti_multi.get(0).get(0));
-                address_text1.setText(datas_desti_multi.get(0).get(1));
-                address_text4.setText("TELEFONO :" + datas_desti_multi.get(0).get(3) +
-                        " \n" + "Nombre   :" + datas_desti_multi.get(0).get(2));
-                address_text4_second.setText("TELEFONO :" + datas_desti_multi.get(0).get(3) +
-                        " \n" + "Nombre   :" + datas_desti_multi.get(0).get(2));
+                address_text.setText(datas_desti_multi.get(0).get(1));
+                address_text1.setText(datas_desti_multi.get(0).get(2));
+                address_text4.setText("TELEFONO :" + datas_desti_multi.get(0).get(4) +
+                        " \n" + "Nombre   :" + datas_desti_multi.get(0).get(3));
+                address_text4_second.setText("TELEFONO :" + datas_desti_multi.get(0).get(4) +
+                        " \n" + "Nombre   :" + datas_desti_multi.get(0).get(3));
 
-
+                destination_position.setText(datas_desti_multi.get(0).get(9));
             }
         });
 
@@ -337,17 +400,26 @@ public class MapsActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MapsActivity.this, RutaActivity.class);
                 intent.putExtra("destination_size", destination_size);
+                intent.putExtra("json_object", json_object);
                 startActivity(intent);
 
             }
         });
 
-        question.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
+        contacto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                whatsapp_image.setVisibility(View.GONE);
             }
         });
+        zhipcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                whatsapp_image.setVisibility(View.VISIBLE);
+            }
+        });
+
 
         green_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -419,9 +491,9 @@ public class MapsActivity extends AppCompatActivity {
                     intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                     startActivity(intent);
                 } else {
-                    String uri = "http://maps.google.com/maps?saddr=" +  orgin_Datas.get("latitude") + "," +  orgin_Datas.get("longitude")
-                            + "&daddr=" + datas_desti_multi.get(0).get(6) + "," +
-                            datas_desti_multi.get(0).get(7);
+                    String uri = "http://maps.google.com/maps?saddr=" + latitude + "," + longitude
+                            + "&daddr=" + datas_desti_multi.get(0).get(7) + "," +
+                            datas_desti_multi.get(0).get(8);
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                     intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                     startActivity(intent);
@@ -551,6 +623,28 @@ public class MapsActivity extends AppCompatActivity {
     }
 
     private void detail_sendRequest() {
+
+        SpriteFactory spriteFactory = new SpriteFactory(mapView);
+
+        int[] images = {
+                R.drawable.blue_one,
+                R.drawable.blue_two,
+                R.drawable.blue_three,
+                R.drawable.blue_four,
+                R.drawable.blue_five,
+                R.drawable.blue_six,
+                R.drawable.blue_seven,
+                R.drawable.blue_eight,
+                R.drawable.blue_nine,
+                R.drawable.blue_ten
+        };
+
+        List<Integer> new_image = new ArrayList<>();
+
+        for (int i = 0; i < Integer.parseInt(destination_size); i++){
+            new_image.add(images[i]);
+        }
+
         if (gps.canGetLocation()) {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
@@ -602,16 +696,22 @@ public class MapsActivity extends AppCompatActivity {
 
             mapView.setCenterCoordinate(new com.mapbox.mapboxsdk.geometry.LatLng(latitude, longitude));
 
+            Sprite icon_str_Address = spriteFactory.fromResource(R.drawable.start_addr);
+
             //Current Location Marker
             mapView.addMarker(new com.mapbox.mapboxsdk.annotations.MarkerOptions()
-                    .position(new com.mapbox.mapboxsdk.geometry.LatLng(latitude, longitude)));
+                    .position(new com.mapbox.mapboxsdk.geometry.LatLng(latitude, longitude))
+                    .icon(icon_str_Address));
 
             //Orgin Location
             double orgin_latitude = Double.parseDouble(orgin_Datas.get("latitude"));
             double orgin_longitude = Double.parseDouble(orgin_Datas.get("longitude"));
 
+            Sprite icon_orgin = spriteFactory.fromResource(R.drawable.blue_zero);
+
             mapView.addMarker(new com.mapbox.mapboxsdk.annotations.MarkerOptions()
-                    .position(new com.mapbox.mapboxsdk.geometry.LatLng(orgin_latitude, orgin_longitude)));
+                    .position(new com.mapbox.mapboxsdk.geometry.LatLng(orgin_latitude, orgin_longitude))
+                    .icon(icon_orgin));
 
             final List<com.mapbox.mapboxsdk.geometry.LatLng> mListLatLng = new ArrayList<>();
 
@@ -619,12 +719,15 @@ public class MapsActivity extends AppCompatActivity {
             mListLatLng.add(new com.mapbox.mapboxsdk.geometry.LatLng(orgin_latitude, orgin_longitude));
 
             for (int i = 0; i < datas_desti_multi.size(); i++){
-                double lat = Double.valueOf(datas_desti_multi.get(i).get(6));
-                double lng = Double.valueOf(datas_desti_multi.get(i).get(7));
-                mListLatLng.add(new com.mapbox.mapboxsdk.geometry.LatLng(lat, lat));
+                double lat = Double.valueOf(datas_desti_multi.get(i).get(7));
+                double lng = Double.valueOf(datas_desti_multi.get(i).get(8));
+                mListLatLng.add(new com.mapbox.mapboxsdk.geometry.LatLng(lat, lng));
+
+                Sprite icon = spriteFactory.fromResource(new_image.get(i));
 
                 mapView.addMarker(new com.mapbox.mapboxsdk.annotations.MarkerOptions()
-                        .position(new com.mapbox.mapboxsdk.geometry.LatLng(lat, lat)));
+                        .position(new com.mapbox.mapboxsdk.geometry.LatLng(lat, lng))
+                        .icon(icon));
             }
 
             com.mapbox.mapboxsdk.annotations.PolylineOptions polylineOptions = new com.mapbox.mapboxsdk.annotations.PolylineOptions()

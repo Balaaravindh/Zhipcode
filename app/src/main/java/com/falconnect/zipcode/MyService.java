@@ -67,6 +67,10 @@ public class MyService extends Service {
             e.printStackTrace();
         }
 
+
+        Log.e("json_object", BASE_URL);
+        Log.e("json_object", json_object.toString());
+
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, BASE_URL, json_object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

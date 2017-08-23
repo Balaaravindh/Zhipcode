@@ -66,12 +66,12 @@
                 android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EDITAR CONTRASENA"
+                android:text="EDITAR EMAIL"
                 android:textColor="#FFF"
                 android:textSize="16dp"
                 app:Customfont="sanz.ttf"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="135dp"/>
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
 
         </RelativeLayout>
 

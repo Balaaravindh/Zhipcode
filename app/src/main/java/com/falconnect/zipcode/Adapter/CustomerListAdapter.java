@@ -4,37 +4,50 @@ import android.content.Context;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.falconnect.zipcode.Model.RutaPageModel;
 import com.falconnect.zipcode.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 
 public class CustomerListAdapter extends
-        RecyclerView.Adapter<CustomerListAdapter.ItemViewHolder>
-        implements ItemTouchHelperAdapter {
+        RecyclerView.Adapter<CustomerListAdapter.ItemViewHolder> implements ItemTouchHelperAdapter {
 
     Context mContext;
-    ArrayList<String> customers;
-    ArrayList<String> customers_address;
+    String dest_size, communitys;
+    ArrayList<String> directions;
+    public static HashMap<String, ArrayList<String>> ruta_postion_details;
+    public static ArrayList<HashMap<String, ArrayList<String>>> ruta_postion_change = new ArrayList<>();
 
     private OnStartDragListener mDragStartListener;
     private OnCustomerListChangedListener mListChangedListener;
 
-    public CustomerListAdapter(ArrayList<String> customersss,ArrayList<String> customers_addresssss,  Context context,
+    public CustomerListAdapter(Context context, String destination_size, String community,
+                               HashMap<String, ArrayList<String>> ruta_postion_detail, ArrayList<String> direction,
                                OnStartDragListener dragLlistener,
                                OnCustomerListChangedListener listChangedListener) {
-        customers = customersss;
-        customers_address = customers_addresssss;
+
         mContext = context;
         mDragStartListener = dragLlistener;
         mListChangedListener = listChangedListener;
+
+        dest_size = destination_size;
+        communitys = community;
+        ruta_postion_details = ruta_postion_detail;
+        directions = direction;
+
+        for (int j = 0; j < directions.size(); j++){
+            ruta_postion_change.add(ruta_postion_details);
+        }
     }
 
 
@@ -48,9 +61,15 @@ public class CustomerListAdapter extends
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
 
-        holder.direction_orgin.setText(customers.get(position));
-        holder.orgin_address.setText(customers_address.get(position));
-        holder.destination_points_number.setText(String.valueOf(position));
+        if (position == 0){
+            holder.direction_orgin.setText("DIRECTION ORGIN");
+            holder.orgin_address.setText(communitys);
+            holder.destination_points_number.setText("0");
+        }else {
+            holder.direction_orgin.setText(directions.get(position));
+            holder.orgin_address.setText(ruta_postion_details.get(String.valueOf(position)).get(9));
+            holder.destination_points_number.setText(String.valueOf(position));
+        }
 
         holder.card_destination.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -69,7 +88,14 @@ public class CustomerListAdapter extends
 
     @Override
     public int getItemCount() {
-        return customers.size();
+        return directions.size();
+    }
+
+    @Override
+    public String getItem(int position) {
+
+        return ruta_postion_details.get(String.valueOf(position)).get(position);
+
     }
 
     @Override
@@ -78,8 +104,14 @@ public class CustomerListAdapter extends
         if (fromPosition == 0 || toPosition == 0){
 
         }else {
-            Collections.swap(customers, fromPosition, toPosition);
-            mListChangedListener.onNoteListChanged(customers, customers_address);
+
+            Collections.swap(ruta_postion_change, fromPosition, toPosition);
+            Collections.swap(directions, fromPosition, toPosition);
+
+            mListChangedListener.onNoteListChanged(ruta_postion_change);
+
+            mListChangedListener.onNoteListChanged_Sample(directions);
+
             notifyItemMoved(fromPosition, toPosition);
         }
     }
@@ -105,7 +137,7 @@ public class CustomerListAdapter extends
 
         @Override
         public void onItemSelected() {
-            //itemView.setBahttp://valokafor.com/wp-admin/post.php?post=1804&action=edit#ckgroundColor(Color.LTGRAY);
+
         }
 
         @Override

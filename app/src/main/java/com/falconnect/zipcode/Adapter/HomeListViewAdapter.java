@@ -114,6 +114,7 @@ public class HomeListViewAdapter extends ArrayAdapter<String> {
 
         }
 
+
         holder.category_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,6 +142,8 @@ public class HomeListViewAdapter extends ArrayAdapter<String> {
 
         return convertView;
     }
+
+
 
     private class ViewHolder {
         TextView lacastellana, altamira, entregas;

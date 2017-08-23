@@ -357,7 +357,7 @@ public class ProfileActivity extends AppCompatActivity {
                     barProgressDialog.dismiss();
 
                     profile_details.add(mobile_number);
-                    profile_details.add("CAMBIAR CONTRASENA");
+                    profile_details.add("CAMBIAR CONTRASEÑA");
                     profile_details.add(main_email);
 
                     profile_name.setText(firstname + " " + lastname);

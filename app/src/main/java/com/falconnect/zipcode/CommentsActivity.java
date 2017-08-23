@@ -1,21 +1,38 @@
 package com.falconnect.zipcode;
 
+import android.*;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -28,6 +45,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.falconnect.zipcode.Adapter.BilleteraListViewAdapter;
+import com.falconnect.zipcode.Crop.Crop;
 import com.falconnect.zipcode.SessionManager.SessionManager;
 
 import org.json.JSONArray;
@@ -35,11 +53,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 public class CommentsActivity extends AppCompatActivity {
 
@@ -57,10 +82,13 @@ public class CommentsActivity extends AppCompatActivity {
     ArrayList<String> multi_lat;
     ArrayList<String> multi_long;
     ImageView camera_image;
-    boolean clicked = false;
     public static String imagebase64;
     public static String encodedImage;
-
+    public static final int RequestPermissionCode = 1;
+    Bitmap Bgimage;
+    File Cameraimagepath;
+    byte[] Bgimagebyte = null;
+    ByteArrayOutputStream bao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,45 +133,80 @@ public class CommentsActivity extends AppCompatActivity {
         } else {
         }
 
-        if(destination_size == null){
+        if (destination_size == null) {
 
-        }else{
+        } else {
 
         }
 
         camera_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final List<String> photo_list = new ArrayList<>();
-                photo_list.add("Tomar foto");
-                photo_list.add("Galería");
-                photo_list.add("Eliminar foto");
-                final AlertDialog.Builder builder = new AlertDialog.Builder(CommentsActivity.this);
-                final ArrayAdapter<String> aa1 = new ArrayAdapter<String>(CommentsActivity.this,
-                        R.layout.sort_single_item, R.id.list, photo_list);
-                builder.setSingleChoiceItems(aa1, 0, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int item) {
-                        if (photo_list.get(item) == "Tomar foto") {
-                            clicked = true;
-                            Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(i, 0);
-                            dialog.dismiss();
-                        }else if (photo_list.get(item) == "Galería") {
-                            clicked = true;
-                            Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(i, 1);
-                            dialog.dismiss();
-                        } else if (photo_list.get(item) == "Eliminar foto") {
-                            clicked = true;
-                            Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.camera);
-                            scaleDown(largeIcon, 200, true);
-                            imagebase64 = encodedImage;
-                            Log.e("imagebase64", imagebase64);
+
+                final Dialog dialog = new Dialog(CommentsActivity.this, R.style.MaterialDialogSheet);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.image_pickup_alert);
+                dialog.setCancelable(true);
+                dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setGravity(Gravity.BOTTOM);
+                dialog.show();
+
+                LinearLayout take_image = (LinearLayout) dialog.findViewById(R.id.take_image);
+                take_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (ContextCompat.checkSelfPermission(CommentsActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(CommentsActivity.this, new String[]{android.Manifest.permission.CAMERA}, 100);
+                            } else {
+                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                Cameraimagepath = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath(),
+                                        "File_" + UUID.randomUUID().toString()+".jpg");
+                                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(Cameraimagepath));
+                                startActivityForResult(intent, 200);
+                                dialog.dismiss();
+                            }
+                        } else {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            Cameraimagepath = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath(),
+                                    "File_" + UUID.randomUUID().toString()+".jpg");
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(Cameraimagepath));
+                            Log.d("imagepath",Cameraimagepath.getAbsolutePath());
+                            startActivityForResult(intent, 200);
                             dialog.dismiss();
                         }
                     }
                 });
-                builder.show();
+
+                LinearLayout select_image = (LinearLayout) dialog.findViewById(R.id.select_image);
+                select_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Crop.pickImage(CommentsActivity.this);
+                        dialog.dismiss();
+                    }
+                });
+
+                LinearLayout remove = (LinearLayout) dialog.findViewById(R.id.remove);
+                remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Glide.with(CommentsActivity.this)
+                                .load(R.drawable.camerared)
+                                .into(camera_image);
+
+                        dialog.dismiss();
+                    }
+                });
+
+                RelativeLayout cancelar = (RelativeLayout) dialog.findViewById(R.id.cancelar);
+                cancelar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 
@@ -163,131 +226,72 @@ public class CommentsActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
-
-            if (clicked == true) {
-
-                clicked = false;
-
-                Uri selectedImage = data.getData();
-
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                if (cursor == null) {
-
-                } else {
-                    cursor.moveToFirst();
-
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    cursor.close();
-
-                    Glide.with(getApplicationContext())
-                            .load(selectedImage)
-                            .asBitmap()
-                            .into(camera_image);
-
-                    Bitmap bitmap = null;
-
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    //convert(bitmap);
-                    scaleDown(bitmap, 400, true);
-                }
+    protected void onActivityResult(int requestCode, int resultCode, Intent result) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        if (resultCode == 100) {
+            if (ContextCompat.checkSelfPermission(CommentsActivity.this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Cameraimagepath = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath(),
+                        "File_"+ UUID.randomUUID().toString()+".jpg");
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(Cameraimagepath));
+                startActivityForResult(intent, 200);
             }
-        }else if (requestCode == 0 && resultCode == RESULT_OK && null != data) {
+        } else if (requestCode == Crop.REQUEST_PICK) {
+            Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+            Crop.of(result.getData(), destination).asSquare().start(this);
+        } else if (requestCode == 200) {
+            Log.d("imagepath",Cameraimagepath.getAbsolutePath());
+            Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+            Crop.of(Uri.fromFile(Cameraimagepath), destination).asSquare().start(this);
+            camera_image.setImageURI(destination);
+            camera_image.buildDrawingCache();
+            Bgimage = camera_image.getDrawingCache();
+            bao = new ByteArrayOutputStream();
+            Bgimage.compress(Bitmap.CompressFormat.JPEG, 50, bao);
+            Bgimagebyte = bao.toByteArray();
+            encodedImage = Base64.encodeToString(Bgimagebyte, Base64.NO_WRAP);
+            imagebase64 = encodedImage;
+            Log.e("imagebase64", imagebase64);
 
-            if (clicked == true) {
+        } else if (requestCode == Crop.REQUEST_CROP) {
+            camera_image.setImageURI(Crop.getOutput(result));
+            camera_image.buildDrawingCache();
+            Bgimage = camera_image.getDrawingCache();
 
-                clicked = false;
-
-                Uri selectedImage = data.getData();
-
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                if (cursor == null) {
-
-                } else {
-                    cursor.moveToFirst();
-
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    cursor.close();
-
-                    Glide.with(getApplicationContext())
-                            .load(selectedImage)
-                            .asBitmap()
-                            .into(camera_image);
-
-                    Bitmap bitmap = null;
-
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    //convert(bitmap);
-                    scaleDown(bitmap, 400, true);
-                }
-            }
-        } else {
-            Log.i("SonaSys", "resultCode: " + resultCode);
+            bao = new ByteArrayOutputStream();
+            Bgimage.compress(Bitmap.CompressFormat.JPEG, 50, bao);
+            Bgimagebyte = bao.toByteArray();
+            encodedImage = Base64.encodeToString(Bgimagebyte, Base64.NO_WRAP);
+            imagebase64 = encodedImage;
+            Log.e("imagebase64", imagebase64);
         }
     }
 
-    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize, boolean filter) {
-        float ratio = Math.min(maxImageSize / realImage.getWidth(),
-                maxImageSize / realImage.getHeight());
-        int width = Math.round(ratio * realImage.getWidth());
-        int height = Math.round(ratio * realImage.getHeight());
-
-        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
-                height, filter);
-
-        convert(newBitmap);
-
-        return newBitmap;
-    }
-
-    public static String convert(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 10, outputStream);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, outputStream);
-
-        encodedImage = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
-
-        imagebase64 = encodedImage;
-        Log.e("imagebase64", imagebase64);
-
-        return encodedImage;
-    }
 
     private void negative_thumbs() {
-
-            Intent intent = new Intent(CommentsActivity.this, Negative_comments.class);
-            intent.putExtra("errand_ids", errand_ids);
-            intent.putExtra("destination_id", destination_id);
-            startActivity(intent);
-            CommentsActivity.this.finish();
-
+        Intent intent = new Intent(CommentsActivity.this, Negative_comments.class);
+        intent.putExtra("errand_ids", errand_ids);
+        intent.putExtra("destination_id", destination_id);
+        startActivity(intent);
+        CommentsActivity.this.finish();
     }
 
     private void postive_thumbs() {
 
         final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/";
 
+        if (imagebase64 == "" || imagebase64 == null) {
+            imagebase64 = "";
+            Log.e("imagebase64", imagebase64);
+        }
+
         JSONObject thumbs_user = new JSONObject();
         try {
             thumbs_user.put("client_rate", "good");
+            thumbs_user.put("manifest", imagebase64);
+            Log.e("asdasdas", thumbs_user.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -333,6 +337,8 @@ public class CommentsActivity extends AppCompatActivity {
         image = (RelativeLayout) findViewById(R.id.image_pickup);
         camera_image = (ImageView) findViewById(R.id.camera_image);
 
+
     }
+
 
 }

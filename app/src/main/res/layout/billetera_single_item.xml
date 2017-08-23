@@ -1,64 +1,65 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/category_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/first_dates"
-            android:layout_width="200dp"
-            android:layout_height="70dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0">
 
             <com.falconnect.zipcode.CustomWidgets.CustomTextView
                 android:id="@+id/datesss"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                app:Customfont="sanz.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
                 android:text="01/03/2017"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                app:Customfont="sanz.ttf" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <View
             android:id="@+id/viewsss"
             android:layout_width="1dp"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:layout_toRightOf="@+id/first_dates"
             android:background="#C0C0C0" />
 
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/viewsss">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0">
 
             <com.falconnect.zipcode.CustomWidgets.CustomTextView
                 android:id="@+id/amount_text"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                app:Customfont="sanz.ttf"
+                android:text="900"
                 android:textSize="16dp"
-                android:text="900" />
+                app:Customfont="sanz.ttf" />
 
-        </RelativeLayout>
-    </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
     <View
+        android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/view2"
-        android:background="#C0C0C0"
-        android:layout_below="@+id/category_item"/>
+        android:layout_below="@+id/category_item"
+        android:background="#C0C0C0" />
 
 </RelativeLayout>

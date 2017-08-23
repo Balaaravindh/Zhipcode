@@ -65,8 +65,10 @@ public class BilleteraActivity extends AppCompatActivity {
     SessionManager sessionManager;
     HashMap<String, String> user;
     boolean status;
+    Button ver_todos;
     boolean want_payments;
     RelativeLayout bank_edit;
+
     String id, token, idoc, mobile_number, photo, address, bank_code, account_num, payment, bank_name, busy, available_for_deliveries, available_for_multiple;;
     String main_id, username, firstname, lastname, main_email, balance;
     RelativeLayout below;
@@ -79,7 +81,7 @@ public class BilleteraActivity extends AppCompatActivity {
     RelativeLayout profile_page;
     ImageView profile_pic;
     TextView profile_name;
-    TextView profile_name_edit;
+    TextView profile_name_edit, ultimos_pagos;
     ToggleButton toggleButton, single_status, multi_status;
     ImageView nav_icon_drawer;
     RelativeLayout second_layout;
@@ -89,6 +91,8 @@ public class BilleteraActivity extends AppCompatActivity {
 
     //ProgressDialog
     ProgressDialog barProgressDialog;
+
+    RelativeLayout details, total_details;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +167,21 @@ public class BilleteraActivity extends AppCompatActivity {
             single_status.setChecked(false);
             multi_status.setChecked(true);
         }
+
+        details = (RelativeLayout) findViewById(R.id.details);
+        ultimos_pagos = (TextView) findViewById(R.id.ultimos_pagos);
+        ultimos_pagos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -312,6 +331,14 @@ public class BilleteraActivity extends AppCompatActivity {
             button_cobrar.setBackgroundColor(Color.parseColor("#C0C0C0"));
         }
 
+        total_details = (RelativeLayout) findViewById(R.id.total_details);
+        total_details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         button_cobrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -328,6 +355,7 @@ public class BilleteraActivity extends AppCompatActivity {
                 positive_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        dialog.dismiss();
                         final Dialog dialogs = new Dialog(BilleteraActivity.this);
                         dialogs.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         dialogs.setContentView(R.layout.continue_billing);
@@ -336,9 +364,7 @@ public class BilleteraActivity extends AppCompatActivity {
                         positive_buttons.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                dialog.dismiss();
-
-                                user = sessionManager.getUserDetails();
+                                 user = sessionManager.getUserDetails();
                                 if (user.get("want_payment").equals("true")) {
                                     want_payments = false;
                                     Log.e("trueeeee", "false");
@@ -380,11 +406,18 @@ public class BilleteraActivity extends AppCompatActivity {
 
             }
         });
+
+        ver_todos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BilleteraActivity.this, HistrorialActivity.class);
+                startActivity(intent);
+                BilleteraActivity.this.finish();
+            }
+        });
     }
 
     private void status_check_multi() {
-        //Progress Bar
-        barProgressDialog = ProgressDialog.show(BilleteraActivity.this, "Cargando...", "Por Favor Espera...", true);
         final String URL = ConstantAPI.REGISTER_API + user.get("id") + "/";
         Log.e("url", URL);
         JSONObject jsonObject_user = new JSONObject();
@@ -427,8 +460,7 @@ public class BilleteraActivity extends AppCompatActivity {
                             photo, bank_name, bank_code, account_num, payment,
                             main_id, username, firstname, lastname, main_email, balance, available_for_deliveries, available_for_multiple, busy);
 
-                    barProgressDialog.dismiss();
-                } catch (JSONException e) {
+                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -614,9 +646,17 @@ public class BilleteraActivity extends AppCompatActivity {
                     white_image.setVisibility(View.GONE);
                     barProgressDialog.dismiss();
 
-                    billeteraListViewAdapter = new BilleteraListViewAdapter(BilleteraActivity.this, datess, amount);
-                    date_billetera.setAdapter(billeteraListViewAdapter);
-
+                    if (datess.size() > 3){
+                        ArrayList<String> new_Dates = new ArrayList<>();
+                        for (int i = 0; i < 3; i++){
+                            new_Dates.add(datess.get(i));
+                        }
+                        billeteraListViewAdapter = new BilleteraListViewAdapter(BilleteraActivity.this, new_Dates, amount);
+                        date_billetera.setAdapter(billeteraListViewAdapter);
+                    }else{
+                        billeteraListViewAdapter = new BilleteraListViewAdapter(BilleteraActivity.this, datess, amount);
+                        date_billetera.setAdapter(billeteraListViewAdapter);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -681,6 +721,7 @@ public class BilleteraActivity extends AppCompatActivity {
         header_search_list = (RelativeLayout)  findViewById(R.id.header_search_list);
         frame_layout = (FrameLayout) findViewById(R.id.frame_layout);
 
+        ver_todos = (Button) findViewById(R.id.ver_todos);
 
     }
 

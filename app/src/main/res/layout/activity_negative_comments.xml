@@ -63,8 +63,9 @@
         android:layout_marginRight="20dp"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
-        android:text="CUENTANOS BREVEMENTE POR QUE TU CALIFICACION ES NEGATIVA"
+        android:text="Cuéntanos brevemente por qué tu calificación es negativa"
         android:textSize="18dp"
+        android:textAllCaps="true"
         android:textStyle="bold"
         app:Customfont="sanz.ttf" />
 
@@ -77,6 +78,7 @@
         android:layout_marginTop="20dp"
         android:singleLine="true"
         app:Customfont="sanz.ttf"
+        android:hint="Tu observación"
         android:layout_centerHorizontal="true"/>
 
     <RelativeLayout
@@ -91,11 +93,12 @@
             android:id="@+id/enviar_opinion"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:text="ENVIAR OPINION"
+            android:text="Enviar opinión"
             android:textColor="#fff"
             android:background="#39B54A"
             app:Customfont="sanz.ttf"
             android:textSize="16dp"
+            android:textAllCaps="true"
             android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>

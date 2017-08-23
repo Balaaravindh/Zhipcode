@@ -9,7 +9,7 @@ public class NavigationDrawer {
             "BILLETERA",
             "HISTORIAL",
             "RANKING",
-            "Términos",
+            "TÉRMINOS",
             "CENTRO DE AYUDA"
     };
     

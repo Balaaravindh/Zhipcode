@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_ruta"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,7 +19,7 @@
 
         <ImageView
             android:id="@+id/nav_icon_drawer"
-            android:layout_width="30dp"
+            android:layout_width="35dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
             android:src="@drawable/back_black" />
@@ -166,8 +167,9 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/header_search_list"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="5dp"
         android:background="#C0C0C0" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/note_recycler_view"

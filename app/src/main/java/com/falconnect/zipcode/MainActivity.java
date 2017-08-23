@@ -2,6 +2,7 @@ package com.falconnect.zipcode;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +37,7 @@ import com.bumptech.glide.Glide;
 import com.falconnect.zipcode.Adapter.HomeListViewAdapter;
 import com.falconnect.zipcode.Adapter.NavigationDrawerAdapter;
 import com.falconnect.zipcode.Navigation.NavigationDrawer;
+import com.falconnect.zipcode.SessionManager.Orgin_destination_identy;
 import com.falconnect.zipcode.SessionManager.SessionManager;
 import com.navdrawer.SimpleSideDrawer;
 import com.onesignal.OneSignal;
@@ -51,11 +55,22 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity {
 
+    HashMap<String, String> datas = new HashMap<>();
+    HashMap<String, String> datas_desti = new HashMap<>();
+    ArrayList<String> orgins_datas = new ArrayList<>();
+    String destination_id, destination_size;
+    HashMap<String,ArrayList<String>> all_datas = new HashMap<>();
+    HashMap<Integer,ArrayList<String>> datas_desti_multi = new HashMap<>();
+    ArrayList<HashMap<Integer, ArrayList<String>>> new_all_datas = new ArrayList<>();
+    ArrayList<String> multi_lat = new ArrayList<>();
+    ArrayList<String> multi_long = new ArrayList<>();
 
+    String job_accepted_destination_id;
+
+
+    //////////////
     ListView listview;
-
     TextView rate_main;
-
     ArrayList<String> origins = new ArrayList<>();
     ArrayList<String> amount = new ArrayList<>();
     ArrayList<String> errand_types = new ArrayList<>();
@@ -96,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Permission
     public static final int RequestPermissionCode = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,9 +208,9 @@ public class MainActivity extends AppCompatActivity {
         multi_status = (ToggleButton) mNav.findViewById(R.id.multi_status);
 
         if (user.get("busy").equals("true")) {
-            toggleButton.setChecked(true);
-        } else {
             toggleButton.setChecked(false);
+        } else {
+            toggleButton.setChecked(true);
         }
 
         if (user.get("available_for_deliveries").equals("true") && user.get("available_for_multiple").equals("true")) {
@@ -369,7 +383,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void status_check_multi() {
-
         final String URL = ConstantAPI.REGISTER_API + user.get("id") + "/";
         Log.e("url", URL);
         JSONObject jsonObject_user = new JSONObject();
@@ -437,74 +450,279 @@ public class MainActivity extends AppCompatActivity {
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                String errand = null;
-                String destinations_id = null;
 
-                destinationsss = new HashMap<>();
+                String message = null;
                 try {
-                    JSONArray jsonArray = response.getJSONArray("data");
-                    destination_list = new ArrayList<>();
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonobject = (JSONObject) jsonArray.get(i);
-                        String id = jsonobject.optString("id");
-                        String outcome = jsonobject.optString("outcome");
-                        String charged_cost_messenger = jsonobject.optString("charged_cost_messenger");
-                        String errand_type = jsonobject.optString("errand_type");
-
-                        JSONObject newjsonobjects = (JSONObject) jsonArray.get(i);
-                        JSONObject origin = newjsonobjects.getJSONObject("origin");
-                        String community = origin.optString("community");
-
-                        amount.add(charged_cost_messenger);
-                        origins.add(community);
-                        errand_types.add(errand_type);
-                    }
-                    for (int j = 0; j < jsonArray.length(); j++) {
-                        JSONArray destinations = new JSONArray(jsonArray.getJSONObject(j).getString("destinations"));
-                        if (destinations.length() == 1) {
-                            JSONObject newjsonobject = (JSONObject) destinations.get(0);
-                            destinations_id = newjsonobject.optString("id");
-                            errand = newjsonobject.optString("errand");
-                            destinatio_ids.add(destinations_id);
-                            errandids.add(errand);
-
-                            JSONObject location = newjsonobject.getJSONObject("location");
-                            String desti_community = location.optString("community");
-                            destination_single.add(desti_community);
-                            destination_multi_values.add("1");
-                            ArrayList<String> val = new ArrayList<>();
-                            val.add("0");
-                            destinationsss.put(j, val);
-                        } else {
-                            destination_multi.clear();
-                            for (int l = 0; l < destinations.length(); l++) {
-                                JSONObject newjsonobjects = (JSONObject) destinations.get(l);
-                                destinations_id = newjsonobjects.optString("id");
-                                errand = newjsonobjects.optString("errand");
-
-                                JSONObject location = newjsonobjects.getJSONObject("location");
-                                String desti_community = location.optString("community");
-                                destination_multi.add(desti_community);
-                                destinationsss.put(j, destination_multi);
-                            }
-                            errandids.add(errand);
-                            destinatio_ids.add(destinations_id);
-                            destination_single.add("0");
-                            destination_multi_values.add(destinations.length() + " " + "DESTINOS");
-                        }
-                    }
-
-                    barProgressDialog.dismiss();
-
-                    Log.e("errands", String.valueOf(errandids.size()));
-
-
-                    homeListViewAdapter = new HomeListViewAdapter(MainActivity.this, origins, errandids,destinatio_ids, destination_single, destination_multi_values, destinationsss, amount, errand_types);
-                    listview.setAdapter(homeListViewAdapter);
-
+                    message = response.getString("message");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                final JSONObject job_accepted = response.optJSONObject("job_accepted");
+
+                if (job_accepted == null){
+
+                    String errand = null;
+                    String destinations_id = null;
+
+                    destinationsss = new HashMap<>();
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("data");
+
+                        destination_list = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonobject = (JSONObject) jsonArray.get(i);
+
+                            String id = jsonobject.optString("id");
+                            String outcome = jsonobject.optString("outcome");
+                            String charged_cost_messenger = jsonobject.optString("charged_cost_messenger");
+                            String errand_type = jsonobject.optString("errand_type");
+
+                            JSONObject newjsonobjects = (JSONObject) jsonArray.get(i);
+                            JSONObject origin = newjsonobjects.getJSONObject("origin");
+                            String community = origin.optString("community");
+
+                            amount.add(charged_cost_messenger);
+                            origins.add(community);
+                            errand_types.add(errand_type);
+                        }
+                        for (int j = 0; j < jsonArray.length(); j++) {
+                            JSONArray destinations = new JSONArray(jsonArray.getJSONObject(j).getString("destinations"));
+                            if (destinations.length() == 1) {
+                                JSONObject newjsonobject = (JSONObject) destinations.get(0);
+                                destinations_id = newjsonobject.optString("id");
+                                errand = newjsonobject.optString("errand");
+                                destinatio_ids.add(destinations_id);
+                                errandids.add(errand);
+
+                                JSONObject location = newjsonobject.getJSONObject("location");
+                                String desti_community = location.optString("community");
+                                destination_single.add(desti_community);
+                                destination_multi_values.add("1");
+                                ArrayList<String> val = new ArrayList<>();
+                                val.add("0");
+                                destinationsss.put(j, val);
+                            } else {
+                                destination_multi.clear();
+                                for (int l = 0; l < destinations.length(); l++) {
+                                    JSONObject newjsonobjects = (JSONObject) destinations.get(l);
+                                    destinations_id = newjsonobjects.optString("id");
+                                    errand = newjsonobjects.optString("errand");
+
+                                    JSONObject location = newjsonobjects.getJSONObject("location");
+                                    String desti_community = location.optString("community");
+                                    destination_multi.add(desti_community);
+                                    destinationsss.put(j, destination_multi);
+                                }
+                                errandids.add(errand);
+                                destinatio_ids.add(destinations_id);
+                                destination_single.add("0");
+                                destination_multi_values.add(destinations.length() + " " + "DESTINOS");
+                            }
+                        }
+
+                        barProgressDialog.dismiss();
+
+                       /* if (homeListViewAdapter == null){
+
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setMessage(message);
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            builder.show();
+
+                        }else{
+
+                        }*/
+                        homeListViewAdapter = new HomeListViewAdapter(MainActivity.this, origins, errandids, destinatio_ids, destination_single, destination_multi_values, destinationsss, amount, errand_types);
+                        listview.setAdapter(homeListViewAdapter);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    Log.e("errands", "null");
+                    try {
+                        String job_accepted_id = job_accepted.optString("id");
+                        String status =  job_accepted.optString("status");
+                        String was_picked =  job_accepted.optString("was_picked");
+
+                        String outcome = job_accepted.optString("outcome");
+                        String charged_cost_messenger = job_accepted.optString("charged_cost_messenger");
+                        String errand_type = job_accepted.optString("errand_type");
+
+                        JSONObject originss = job_accepted.getJSONObject("origin");
+                        String community = originss.optString("community");
+                        String references = originss.optString("references");
+                        String contact_name = originss.optString("contact_name");
+                        String phone_number1 = originss.optString("phone_number1");
+                        String phone_number2 = originss.optString("phone_number2");
+                        String email = originss.optString("email");
+
+                        JSONObject geos = originss.getJSONObject("geolocation");
+                        String latitude = geos.optString("latitude");
+                        String longitude = geos.optString("longitude");
+
+                        datas.put("id", job_accepted_id);
+                        datas.put("outcome", outcome);
+                        datas.put("charged_cost_messenger", charged_cost_messenger);
+                        datas.put("errand_type", errand_type);
+                        datas.put("community", community);
+                        datas.put("references", references);
+                        datas.put("contact_name", contact_name);
+                        datas.put("phone_number1", phone_number1);
+                        datas.put("phone_number2", phone_number2);
+                        datas.put("email", email);
+                        datas.put("latitude", latitude);
+                        datas.put("longitude", longitude);
+
+                        all_datas.put("origin", orgins_datas);
+
+                        JSONArray destinationsssss = null;
+                        try {
+                            destinationsssss = new JSONArray(job_accepted.getString("destinations"));
+
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+                        if (destinationsssss.length() == 1) {
+                            destination_size = String.valueOf(destinationsssss.length());
+
+                            JSONObject newjsonobjectsss = null;
+                            JSONObject locationss = null;
+                            try {
+                                newjsonobjectsss = (JSONObject) destinationsssss.get(0);
+                                job_accepted_destination_id = newjsonobjectsss.optString("id");
+
+                                locationss = newjsonobjectsss.getJSONObject("location");
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
+                            }
+                            String community_desti = locationss.optString("community");
+                            String references_desti = locationss.optString("references");
+                            String contact_name_desti = locationss.optString("contact_name");
+                            String phone_number1_desti = locationss.optString("phone_number1");
+                            String phone_number2_desti = locationss.optString("phone_number2");
+                            String email_desti = locationss.optString("email");
+
+                            JSONObject geo_locationss = locationss.getJSONObject("geolocation");
+                            String latitude_desti = geo_locationss.optString("latitude");
+                            String longitude_desti = geo_locationss.optString("longitude");
+
+                            datas_desti.put("id", job_accepted_destination_id);
+                            datas_desti.put("community_desti", community_desti);
+                            datas_desti.put("references_desti", references_desti);
+                            datas_desti.put("contact_name_desti", contact_name_desti);
+                            datas_desti.put("phone_number1_desti", phone_number1_desti);
+                            datas_desti.put("phone_number2_desti", phone_number2_desti);
+                            datas_desti.put("email_desti", email_desti);
+                            datas_desti.put("latitude_desti", latitude_desti);
+                            datas_desti.put("longitude_desti", longitude_desti);
+
+                            ArrayList<String> desti_values = new ArrayList<>();
+                            desti_values.add(job_accepted_destination_id);
+                            desti_values.add(community_desti);
+                            desti_values.add(references_desti);
+                            desti_values.add(contact_name_desti);
+                            desti_values.add(phone_number1_desti);
+                            desti_values.add(phone_number2_desti);
+                            desti_values.add(email_desti);
+                            desti_values.add(latitude_desti);
+                            desti_values.add(longitude_desti);
+                            desti_values.add(String.valueOf(1));
+
+                            datas_desti_multi.put(destinationsssss.length() - 1, desti_values);
+                            new_all_datas.add(datas_desti_multi);
+
+                        } else {
+                            destination_size = String.valueOf(destinationsssss.length());
+                            for (int l = 0; l < destinationsssss.length(); l++) {
+
+                                JSONObject newjsonobjects = null;
+                                JSONObject location = null;
+                                try {
+                                    newjsonobjects = (JSONObject) destinationsssss.get(l);
+
+                                    job_accepted_destination_id = newjsonobjects.optString("id");
+
+                                    location = newjsonobjects.getJSONObject("location");
+                                    String community_desti_multi = location.optString("community");
+                                    String references_desti_multi = location.optString("references");
+                                    String contact_name_desti_multi = location.optString("contact_name");
+                                    String phone_number1_desti_multi = location.optString("phone_number1");
+                                    String phone_number2_desti_multi = location.optString("phone_number2");
+                                    String email_desti_multi = location.optString("email");
+
+                                    JSONObject geo_location_multi = location.getJSONObject("geolocation");
+
+                                    String latitude_desti_multi = geo_location_multi.optString("latitude");
+                                    String longitude_desti_multi = geo_location_multi.optString("longitude");
+
+                                    multi_lat.add(latitude_desti_multi);
+                                    multi_long.add(longitude_desti_multi);
+
+                                    ArrayList<String> desti_values = new ArrayList<>();
+                                    desti_values.add(job_accepted_destination_id);
+                                    desti_values.add(community_desti_multi);
+                                    desti_values.add(references_desti_multi);
+                                    desti_values.add(contact_name_desti_multi);
+                                    desti_values.add(phone_number1_desti_multi);
+                                    desti_values.add(phone_number2_desti_multi);
+                                    desti_values.add(email_desti_multi);
+                                    desti_values.add(latitude_desti_multi);
+                                    desti_values.add(longitude_desti_multi);
+                                    desti_values.add(String.valueOf(l + 1));
+
+                                    datas_desti_multi.put(l, desti_values);
+                                    new_all_datas.add(datas_desti_multi);
+
+                                } catch (JSONException e1) {
+                                    e1.printStackTrace();
+                                }
+
+                            }
+                        }
+                        Orgin_destination_identy orgin_destination_identy = new Orgin_destination_identy(MainActivity.this);
+                        orgin_destination_identy.createOrginDatas("origin");
+
+                        barProgressDialog.dismiss();
+
+                        if (destinationsssss.length() == 1) {
+                            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                            intent.putExtra("origin_datas", datas);
+                            intent.putExtra("datas_desti", datas_desti);
+                            intent.putExtra("errand_ids", job_accepted_id);
+                            intent.putExtra("destination_size", destination_size);
+                            intent.putExtra("destination_id", job_accepted_destination_id);
+                            intent.putExtra("datas_desti_multi", datas_desti_multi);
+                            intent.putExtra("status", status);
+                            intent.putExtra("was_picked", was_picked);
+                            intent.putExtra("json_object", job_accepted.toString());
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                            intent.putExtra("origin_datas", datas);
+                            intent.putExtra("datas_desti_multi", datas_desti_multi);
+                            intent.putExtra("multi_lat", multi_lat);
+                            intent.putExtra("multi_long", multi_long);
+                            intent.putExtra("errand_ids", job_accepted_id);
+                            intent.putExtra("destination_size", destination_size);
+                            intent.putExtra("destination_id", job_accepted_destination_id);
+                            intent.putExtra("status", status);
+                            intent.putExtra("was_picked", was_picked);
+                            intent.putExtra("json_object", job_accepted.toString());
+
+                            startActivity(intent);
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                ///else end
 
             }
         }, new Response.ErrorListener() {
@@ -605,10 +823,7 @@ public class MainActivity extends AppCompatActivity {
         third = (RelativeLayout) findViewById(R.id.third);
         refresh = (RelativeLayout) findViewById(R.id.refresh);
 
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
+
 
     }
 
