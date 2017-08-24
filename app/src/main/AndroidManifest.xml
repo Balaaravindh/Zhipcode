@@ -158,6 +158,8 @@
 
         <service android:name=".MyService" />
 
+        <service android:name=".SessionSaved"/>
+
         <activity
             android:name=".InternetConnectivity"
             android:screenOrientation="portrait" />

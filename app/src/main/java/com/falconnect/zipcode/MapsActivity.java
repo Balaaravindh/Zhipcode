@@ -44,6 +44,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.CALL_PHONE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 public class MapsActivity extends AppCompatActivity {
 
     String errand_ids;
@@ -89,7 +94,8 @@ public class MapsActivity extends AppCompatActivity {
     MapView mapView;
 
     RelativeLayout image_blue;
-
+    //Permission
+    public static final int RequestPermissionCode = 1;
     RelativeLayout map_fragment, indexs, indexs_second;
 
     @Override
@@ -100,6 +106,13 @@ public class MapsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        ActivityCompat.requestPermissions(MapsActivity.this, new String[]
+                {
+                        WRITE_EXTERNAL_STORAGE,
+                        ACCESS_FINE_LOCATION,
+                        ACCESS_COARSE_LOCATION,
+                        CALL_PHONE
+                }, RequestPermissionCode);
 
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.setStyleUrl(Style.MAPBOX_STREETS);
@@ -741,6 +754,24 @@ public class MapsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+
+            case RequestPermissionCode:
+
+                if (grantResults.length > 0) {
+
+                    boolean Camera = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean ReadPhoneStatePermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean Network_state = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+                    boolean Phone_state = grantResults[3] == PackageManager.PERMISSION_GRANTED;
+                }
+
+                break;
+        }
     }
 
 

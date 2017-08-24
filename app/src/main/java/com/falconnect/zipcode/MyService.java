@@ -13,6 +13,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.falconnect.zipcode.MapModules.GPSTracker;
+import com.falconnect.zipcode.SessionManager.SessionManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -20,9 +22,14 @@ import java.util.Map;
 
 public class MyService extends Service {
 
-    private static final int HANDLER_DELAY = 3000;
+    private static final int HANDLER_DELAY = 300000;
     GPSTracker gps;
     public static final String BASE_URL = "http://stage.zhipcode.com/api/mobile/v1/positions/";
+
+    SessionManager sessionManager;
+    HashMap<String, String > user;
+
+    String token_valid;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -31,7 +38,6 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //getting systems default ringtone
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -40,7 +46,6 @@ public class MyService extends Service {
                 handler.postDelayed(this, HANDLER_DELAY);
             }
         }, HANDLER_DELAY);
-
 
         return START_STICKY;
     }
@@ -54,12 +59,18 @@ public class MyService extends Service {
             api_integration(latitude, longitude);
 
         } else {
+            Log.e("gps.getLatitude()", "gps.getLatitude()");
         }
     }
 
     private void api_integration(double latitude, double longitude) {
 
+        sessionManager = new SessionManager(this);
+        user = sessionManager.getUserDetails();
+        token_valid = user.get("token");
+
         JSONObject json_object = new JSONObject();
+
         try {
             json_object.put("latitude", latitude);
             json_object.put("longitude", longitude);
@@ -67,15 +78,9 @@ public class MyService extends Service {
             e.printStackTrace();
         }
 
-
-        Log.e("json_object", BASE_URL);
-        Log.e("json_object", json_object.toString());
-
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, BASE_URL, json_object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
-                Log.e("response", response.toString());
 
             }
         }, new Response.ErrorListener() {
@@ -89,7 +94,9 @@ public class MyService extends Service {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Authorization", "Token"+ " "+ "d5338c866e6ba5f5381c470d8533668d58101a08");
+
+                headers.put("Authorization", "Token" + " " + token_valid);
+
                 return headers;
             }
         };

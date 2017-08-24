@@ -7,5 +7,7 @@ public interface OnStartDragListener {
 
     void onStartDrag(CustomerListAdapter.ItemViewHolder viewHolder);
 
-    void onNoteListChanged(ArrayList<HashMap<String, ArrayList<String>>> customers);
+    void onNoteListChanged( ArrayList<HashMap<String, ArrayList<String>>> customers);
+
+    void onNoteListChanged_Sample( ArrayList<ArrayList<String>> customers);
 }

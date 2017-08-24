@@ -6,7 +6,8 @@ import java.util.HashMap;
 
 public interface OnCustomerListChangedListener {
 
-    void onNoteListChanged(ArrayList<HashMap<String, ArrayList<String>>>  customers);
+    void onNoteListChanged( ArrayList<HashMap<String, ArrayList<String>>> customers);
 
-    void onNoteListChanged_Sample(ArrayList<String>  customerss);
- }
+    void onNoteListChanged_Sample(ArrayList<ArrayList<String>> customers);
+
+}

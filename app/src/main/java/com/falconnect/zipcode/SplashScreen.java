@@ -34,8 +34,6 @@ public class SplashScreen extends Activity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        startService(new Intent(this, MyService.class));
-
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
@@ -63,6 +61,9 @@ public class SplashScreen extends Activity {
                 Intent i = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(i);
                 SplashScreen.this.finish();
+
+                startService(new Intent(this, MyService.class));
+                startService(new Intent(this, SessionSaved.class));
             }
         } else {
             Intent intent = new Intent(SplashScreen.this, InternetConnectivity.class);

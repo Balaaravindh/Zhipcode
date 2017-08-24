@@ -11,12 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.falconnect.zipcode.Model.RutaPageModel;
 import com.falconnect.zipcode.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class CustomerListAdapter extends
@@ -27,9 +28,10 @@ public class CustomerListAdapter extends
     ArrayList<String> directions;
     public static HashMap<String, ArrayList<String>> ruta_postion_details;
     public static ArrayList<HashMap<String, ArrayList<String>>> ruta_postion_change = new ArrayList<>();
-
     private OnStartDragListener mDragStartListener;
     private OnCustomerListChangedListener mListChangedListener;
+
+    ArrayList<ArrayList<String>> new_Array_list = new ArrayList<>();
 
     public CustomerListAdapter(Context context, String destination_size, String community,
                                HashMap<String, ArrayList<String>> ruta_postion_detail, ArrayList<String> direction,
@@ -45,9 +47,14 @@ public class CustomerListAdapter extends
         ruta_postion_details = ruta_postion_detail;
         directions = direction;
 
-        for (int j = 0; j < directions.size(); j++){
+        for (int j = 0; j < directions.size(); j++) {
             ruta_postion_change.add(ruta_postion_details);
         }
+
+        for (int i = 0; i < ruta_postion_detail.size(); i++){
+            new_Array_list.add(ruta_postion_detail.get(String.valueOf(i)));
+        }
+
     }
 
 
@@ -61,25 +68,16 @@ public class CustomerListAdapter extends
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
 
-        if (position == 0){
-            holder.direction_orgin.setText("DIRECTION ORGIN");
-            holder.orgin_address.setText(communitys);
-            holder.destination_points_number.setText("0");
-        }else {
-            holder.direction_orgin.setText(directions.get(position));
-            holder.orgin_address.setText(ruta_postion_details.get(String.valueOf(position)).get(9));
-            holder.destination_points_number.setText(String.valueOf(position));
-        }
+
+        holder.direction_orgin.setText(directions.get(position));
+        holder.orgin_address.setText(new_Array_list.get(position).get(9));
+        holder.destination_points_number.setText(String.valueOf(position + 1));
 
         holder.card_destination.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (position == 0){
-
-                }else {
-                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                        mDragStartListener.onStartDrag(holder);
-                    }
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onStartDrag(holder);
                 }
                 return false;
             }
@@ -101,19 +99,13 @@ public class CustomerListAdapter extends
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
 
-        if (fromPosition == 0 || toPosition == 0){
+        Collections.swap(new_Array_list, fromPosition, toPosition);
+        mListChangedListener.onNoteListChanged_Sample(new_Array_list);
+        notifyItemMoved(fromPosition, toPosition);
 
-        }else {
+        swap(fromPosition, toPosition, new_Array_list);
 
-            Collections.swap(ruta_postion_change, fromPosition, toPosition);
-            Collections.swap(directions, fromPosition, toPosition);
 
-            mListChangedListener.onNoteListChanged(ruta_postion_change);
-
-            mListChangedListener.onNoteListChanged_Sample(directions);
-
-            notifyItemMoved(fromPosition, toPosition);
-        }
     }
 
     @Override
@@ -123,7 +115,7 @@ public class CustomerListAdapter extends
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder implements
             ItemTouchHelperViewHolder {
-        public final TextView direction_orgin, orgin_address,destination_points_number;
+        public final TextView direction_orgin, orgin_address, destination_points_number;
         public final CardView card_destination;
 
         public ItemViewHolder(View itemView) {
@@ -144,5 +136,17 @@ public class CustomerListAdapter extends
         public void onItemClear() {
             itemView.setBackgroundColor(0);
         }
+    }
+
+    public void swap(int x, int y, ArrayList<ArrayList<String>> myList) {
+
+        ArrayList<String> s = myList.get(x);
+        ArrayList<String> ss = myList.get(y);
+
+        myList.set(x, ss);
+        myList.set(y, s);
+
+        Log.e("size_1", myList.toString());
+
     }
 }
