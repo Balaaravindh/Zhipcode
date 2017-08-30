@@ -10,11 +10,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" />
 
+    <uses-feature android:name="android.hardware.camera" />
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -23,10 +22,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/app_icon_client"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:largeHeap="true"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDr8TlW6qpxYoDTO4sTDFMAspOlMv3Re6A" />
@@ -35,20 +33,17 @@
             android:name="com.sec.android.app.multiwindow"
             android:required="false" />
 
-        <!--Multi Window-->
+        <!-- Multi Window -->
         <meta-data
             android:name="com.sec.android.support.multiwindow"
             android:value="true" />
-
         <meta-data
-            tools:replace="android:value"
             android:name="android.support.VERSION"
-            android:value="25.3.1" />
-
+            android:value="25.3.1"
+            tools:replace="android:value" />
         <meta-data
             android:name="com.sec.android.multiwindow.DEFAULT_SIZE_W"
             android:value="632.0dip" />
-
         <meta-data
             android:name="com.sec.android.multiwindow.DEFAULT_SIZE_H"
             android:value="598.0dip" />
@@ -59,15 +54,13 @@
             android:label="ZipCode"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".FirstActivity"
             android:screenOrientation="portrait" />
@@ -157,21 +150,19 @@
             android:screenOrientation="portrait" />
 
         <service android:name=".MyService" />
-
-        <service android:name=".SessionSaved"/>
+        <service android:name=".SessionSaved" />
 
         <activity
             android:name=".InternetConnectivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Crop.CropImageActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Crop.MonitoredActivity"
             android:screenOrientation="portrait" />
-
+        <activity android:name=".SpecialErrandAssign" />
+        <activity android:name=".No_EntregadoActivity"></activity>
     </application>
 
 </manifest>

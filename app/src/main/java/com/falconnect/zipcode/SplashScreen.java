@@ -62,7 +62,10 @@ public class SplashScreen extends Activity {
                 startActivity(i);
                 SplashScreen.this.finish();
 
+                ///Location Services
                 startService(new Intent(this, MyService.class));
+
+                ///Session Saved Services
                 startService(new Intent(this, SessionSaved.class));
             }
         } else {

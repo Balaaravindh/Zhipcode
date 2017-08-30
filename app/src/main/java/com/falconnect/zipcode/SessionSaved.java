@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 public class SessionSaved extends Service {
 
-    private static final int HANDLER_DELAY = 300000;
+    private static final int HANDLER_DELAY = 60000;
 
     SessionManager sessionManager;
     HashMap<String, String> user;

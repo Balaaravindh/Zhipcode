@@ -71,19 +71,38 @@ public class Centero_de_FooterAdapter extends RecyclerView.Adapter<Centero_de_Fo
                     Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
                     mContext.startActivity(intent);
                 }else if (singleItem_sell.getSellfooterid_() == 2) {
+
                     ///whatsapp
-                    PackageManager pm=mContext.getPackageManager();
-                    Intent waIntent = new Intent(Intent.ACTION_SEND);
-                    waIntent.setType("text/plain");
-                    String text = "YOUR TEXT HERE";
+//                    PackageManager pm=mContext.getPackageManager();
+//                    Intent waIntent = new Intent(Intent.ACTION_SEND);
+//                    waIntent.setType("text/plain");
+//                    String text = "YOUR TEXT HERE";
+//                    try {
+//                        PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+//                    } catch (PackageManager.NameNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//                    waIntent.setPackage("com.whatsapp");
+//                    waIntent.putExtra(Intent.EXTRA_TEXT, text);
+//                    mContext.startActivity(Intent.createChooser(waIntent, "Share with"));
+
                     try {
-                        PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-                    } catch (PackageManager.NameNotFoundException e) {
-                        e.printStackTrace();
+                        final String number = "+56951341300";
+                       /* Uri uri = Uri.parse("smsto:" + number);
+                        Intent sendIntent = new Intent(Intent.ACTION_SEND, uri);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hi Zipcode");
+                        sendIntent.setType("text/plain");
+                        sendIntent.setPackage("com.whatsapp");
+                        mContext.startActivity(sendIntent);*/
+
+                        Uri uri = Uri.parse("smsto:" + number);
+                        Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+                        i.setPackage("com.whatsapp");
+                        mContext.startActivity(Intent.createChooser(i, ""));
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
                     }
-                    waIntent.setPackage("com.whatsapp");
-                    waIntent.putExtra(Intent.EXTRA_TEXT, text);
-                    mContext.startActivity(Intent.createChooser(waIntent, "Share with"));
 
                 } else if (singleItem_sell.getSellfooterid_() == 3) {
                     //email

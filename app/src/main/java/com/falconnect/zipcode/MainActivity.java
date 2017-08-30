@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -37,6 +38,7 @@ import com.bumptech.glide.Glide;
 import com.falconnect.zipcode.Adapter.HomeListViewAdapter;
 import com.falconnect.zipcode.Adapter.NavigationDrawerAdapter;
 import com.falconnect.zipcode.Navigation.NavigationDrawer;
+import com.falconnect.zipcode.SessionManager.JsonObject;
 import com.falconnect.zipcode.SessionManager.Orgin_destination_identy;
 import com.falconnect.zipcode.SessionManager.SessionManager;
 import com.navdrawer.SimpleSideDrawer;
@@ -91,13 +93,14 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout header_search_list, second_rate;
     ArrayList<String> errandids = new ArrayList<>();
     ArrayList<String> destinatio_ids = new ArrayList<>();
+    JsonObject jsonObject;
     boolean status;
     RelativeLayout second_layout;
 
     ///Navigation Items
     RelativeLayout profile_page;
     ImageView profile_pic;
-    TextView profile_name;
+    TextView profile_name, second_name, second_name_rate;
     ToggleButton toggleButton, single_status, multi_status;
     String id, token, idoc, mobile_number, photo, bank_code, account_num, payment, bank_name, busy, available_for_deliveries, available_for_multiple;;
     String main_id, username, firstname, lastname, main_email, balance;
@@ -108,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
     ///Listview click event
     RelativeLayout third, refresh;
+
+    FrameLayout frame_layouts;
 
     //Permission
     public static final int RequestPermissionCode = 1;
@@ -169,8 +174,15 @@ public class MainActivity extends AppCompatActivity {
         //NAVIGATE TO PROFILE SCREEN
         profile_page = (RelativeLayout) mNav.findViewById(R.id.profile_page);
         profile_name = (TextView) mNav.findViewById(R.id.profile_name);
+        second_name = (TextView) mNav.findViewById(R.id.second_name);
 
         profile_name.setText(user.get("first_name") + " " + user.get("last_name"));
+        second_name.setText(user.get("first_name") + " " + user.get("last_name"));
+
+        second_name_rate = (TextView) mNav.findViewById(R.id.second_name_rate);
+        String vals = user.get("balance");
+        vals = vals.replace(".0", "");
+        second_name_rate.setText(vals);
 
         profile_page.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,6 +241,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
                 if (isChecked == true) {
+                    single_status.setEnabled(true);
+                    multi_status.setEnabled(true);
                     user = sessionManager.getUserDetails();
                     if (user.get("busy").equals("true")) {
                         status = false;
@@ -247,6 +261,12 @@ public class MainActivity extends AppCompatActivity {
                     positive_button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            single_status.setEnabled(false);
+                            multi_status.setEnabled(false);
+                            status_active_multi = false;
+                            single_status.setChecked(false);
+                            status_active_multi = false;
+                            multi_status.setChecked(false);
                             user = sessionManager.getUserDetails();
                             if (user.get("busy").equals("true")) {
                                 status = false;
@@ -281,14 +301,14 @@ public class MainActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_deliveries").equals("true")) {
                         status_active = false;
-                        status_active_multi = true;
-                        multi_status.setChecked(true);
+//                        status_active_multi = true;
+//                        multi_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_deliveries").equals("false")) {
                         status_active = true;
-                        status_active_multi = false;
-                        multi_status.setChecked(false);
+//                        status_active_multi = false;
+//                        multi_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
@@ -296,21 +316,20 @@ public class MainActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_deliveries").equals("true")) {
                         status_active = false;
-                        status_active_multi = true;
-                        multi_status.setChecked(true);
+//                        status_active_multi = true;
+//                        multi_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_deliveries").equals("false")) {
                         status_active = true;
-                        status_active_multi = false;
-                        multi_status.setChecked(false);
+//                        status_active_multi = false;
+//                        multi_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
                 }
             }
         });
-
         multi_status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -318,14 +337,14 @@ public class MainActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_multiple").equals("true")) {
                         status_active_multi = false;
-                        status_active = true;
-                        single_status.setChecked(true);
+//                        status_active = true;
+//                        single_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_multiple").equals("false")) {
                         status_active_multi = true;
-                        status_active = false;
-                        single_status.setChecked(false);
+//                        status_active = false;
+//                        single_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
@@ -333,14 +352,14 @@ public class MainActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_multiple").equals("true")) {
                         status_active_multi = false;
-                        status_active = true;
-                        single_status.setChecked(true);
+                        //status_active = true;
+                        //single_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_multiple").equals("false")) {
                         status_active_multi = true;
-                        status_active = false;
-                        single_status.setChecked(false);
+                        //status_active = false;
+                        //single_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
@@ -376,6 +395,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(MainActivity.this, NavigationDrawer.web, NavigationDrawer.imageId);
         listnew = (ListView) mNav.findViewById(R.id.nav_list_view);
         listnew.setAdapter(adapter);
+
+        frame_layouts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         dashboard_datas();
 
@@ -522,21 +548,6 @@ public class MainActivity extends AppCompatActivity {
 
                         barProgressDialog.dismiss();
 
-                       /* if (homeListViewAdapter == null){
-
-                            final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                            builder.setMessage(message);
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                            builder.show();
-
-                        }else{
-
-                        }*/
                         homeListViewAdapter = new HomeListViewAdapter(MainActivity.this, origins, errandids, destinatio_ids, destination_single, destination_multi_values, destinationsss, amount, errand_types);
                         listview.setAdapter(homeListViewAdapter);
 
@@ -544,7 +555,7 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }else {
-                    Log.e("errands", "null");
+
                     try {
                         String job_accepted_id = job_accepted.optString("id");
                         String status =  job_accepted.optString("status");
@@ -612,6 +623,8 @@ public class MainActivity extends AppCompatActivity {
                             String latitude_desti = geo_locationss.optString("latitude");
                             String longitude_desti = geo_locationss.optString("longitude");
 
+                            String observation = newjsonobjectsss.optString("observation");
+
                             datas_desti.put("id", job_accepted_destination_id);
                             datas_desti.put("community_desti", community_desti);
                             datas_desti.put("references_desti", references_desti);
@@ -621,6 +634,7 @@ public class MainActivity extends AppCompatActivity {
                             datas_desti.put("email_desti", email_desti);
                             datas_desti.put("latitude_desti", latitude_desti);
                             datas_desti.put("longitude_desti", longitude_desti);
+                            datas_desti.put("observation", observation);
 
                             ArrayList<String> desti_values = new ArrayList<>();
                             desti_values.add(job_accepted_destination_id);
@@ -633,6 +647,7 @@ public class MainActivity extends AppCompatActivity {
                             desti_values.add(latitude_desti);
                             desti_values.add(longitude_desti);
                             desti_values.add(String.valueOf(1));
+                            desti_values.add(observation);
 
                             datas_desti_multi.put(destinationsssss.length() - 1, desti_values);
                             new_all_datas.add(datas_desti_multi);
@@ -645,9 +660,7 @@ public class MainActivity extends AppCompatActivity {
                                 JSONObject location = null;
                                 try {
                                     newjsonobjects = (JSONObject) destinationsssss.get(l);
-
                                     job_accepted_destination_id = newjsonobjects.optString("id");
-
                                     location = newjsonobjects.getJSONObject("location");
                                     String community_desti_multi = location.optString("community");
                                     String references_desti_multi = location.optString("references");
@@ -660,6 +673,9 @@ public class MainActivity extends AppCompatActivity {
 
                                     String latitude_desti_multi = geo_location_multi.optString("latitude");
                                     String longitude_desti_multi = geo_location_multi.optString("longitude");
+
+                                    String observation = newjsonobjects.optString("observation");
+
 
                                     multi_lat.add(latitude_desti_multi);
                                     multi_long.add(longitude_desti_multi);
@@ -675,6 +691,8 @@ public class MainActivity extends AppCompatActivity {
                                     desti_values.add(latitude_desti_multi);
                                     desti_values.add(longitude_desti_multi);
                                     desti_values.add(String.valueOf(l + 1));
+                                    desti_values.add(observation);
+
 
                                     datas_desti_multi.put(l, desti_values);
                                     new_all_datas.add(datas_desti_multi);
@@ -701,6 +719,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("status", status);
                             intent.putExtra("was_picked", was_picked);
                             intent.putExtra("json_object", job_accepted.toString());
+                            jsonObject.createjson_object(job_accepted.toString());
                             startActivity(intent);
                         } else {
                             Intent intent = new Intent(MainActivity.this, MapsActivity.class);
@@ -714,7 +733,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("status", status);
                             intent.putExtra("was_picked", was_picked);
                             intent.putExtra("json_object", job_accepted.toString());
-
+                            jsonObject.createjson_object(job_accepted.toString());
                             startActivity(intent);
 
                         }
@@ -823,7 +842,9 @@ public class MainActivity extends AppCompatActivity {
         third = (RelativeLayout) findViewById(R.id.third);
         refresh = (RelativeLayout) findViewById(R.id.refresh);
 
+        frame_layouts = (FrameLayout) findViewById(R.id.frame_layouts);
 
+        jsonObject = new JsonObject(MainActivity.this);
 
     }
 

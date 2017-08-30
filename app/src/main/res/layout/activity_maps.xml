@@ -75,7 +75,8 @@
             <RelativeLayout
                 android:id="@+id/indexs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <RelativeLayout
                     android:id="@+id/image_blue"
@@ -236,9 +237,9 @@
                             <com.falconnect.zipcode.CustomWidgets.CustomTextView
                                 android:id="@+id/address_text11"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
                                 android:layout_below="@+id/directions_text11"
-                                android:text="Preguntar al vigilante por el paquete de Carmen men Electra, debe firmar planilla de recibo. Cualquier cosa ilamar."
+                                android:text=""
                                 android:textSize="14dp"
                                 app:Customfont="sanz.ttf" />
 
@@ -323,49 +324,19 @@
                 android:visibility="gone">
 
                 <RelativeLayout
-                    android:id="@+id/image_blue_second"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:id="@+id/position_layout"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:background="#29ABE2">
 
                     <com.falconnect.zipcode.CustomWidgets.CustomTextView
-                        android:id="@+id/destination_position_second"
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal|center_vertical"
                         android:text="0"
                         android:textColor="#FFF"
-                        android:textSize="16dp"
-                        app:Customfont="sanz.ttf" />
-
-                    <RelativeLayout
-                        android:id="@+id/mNavigation_second"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:background="#173E84">
-
-
-                        <ImageView
-                            android:id="@+id/image_navigation_second"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="3dp"
-                            android:src="@drawable/navigation" />
-
-                        <com.falconnect.zipcode.CustomWidgets.ButtonPlus
-                            android:layout_width="50dp"
-                            android:layout_height="25dp"
-                            android:layout_below="@+id/image_navigation_second"
-                            android:background="#173E84"
-                            android:text="NAV"
-                            android:textAllCaps="false"
-                            android:textColor="#FFF"
-                            android:textSize="16dp"
-                            app:Customfont="sanz.ttf" />
-
-                    </RelativeLayout>
+                        android:layout_centerInParent="true"
+                        android:textSize="18dp"
+                        android:id="@+id/positions"/>
 
                 </RelativeLayout>
 
@@ -373,8 +344,7 @@
                     android:id="@+id/details_listview_second"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@+id/image_blue_second">
+                    android:layout_toRightOf="@+id/position_layout">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -385,13 +355,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp">
+                            android:layout_marginRight="50dp">
 
                             <com.falconnect.zipcode.CustomWidgets.CustomTextView
                                 android:id="@+id/directions_text4_second"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="CLIENETE TITULAR"
+                                android:text="Dirección"
                                 android:textColor="#000"
                                 android:textSize="16dp"
                                 android:textStyle="bold"
@@ -407,27 +377,47 @@
                                 android:textStyle="bold"
                                 app:Customfont="sanz.ttf" />
 
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/image_blue_second"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:background="#29ABE2"
+                            android:layout_marginRight="5dp"
+                            android:layout_alignParentRight="true">
+
                             <RelativeLayout
-                                android:id="@+id/call_layout_second"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginTop="15dp"
-                                android:background="#000">
+                                android:id="@+id/mNavigation_second"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:background="#173E84">
+
 
                                 <ImageView
-                                    android:id="@+id/call_above_second"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
+                                    android:id="@+id/image_navigation_second"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_marginTop="3dp"
                                     android:layout_centerHorizontal="true"
-                                    android:layout_centerVertical="true"
-                                    android:src="@drawable/callingwhite" />
+                                    android:src="@drawable/navigation_white" />
+
+                                <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+                                    android:layout_width="50dp"
+                                    android:layout_height="25dp"
+                                    android:layout_below="@+id/image_navigation_second"
+                                    android:background="#173E84"
+                                    android:text="NAV"
+                                    android:textAllCaps="false"
+                                    android:textColor="#FFF"
+                                    android:textSize="16dp"
+                                    app:Customfont="sanz.ttf" />
 
                             </RelativeLayout>
 
                         </RelativeLayout>
-
 
                     </RelativeLayout>
 

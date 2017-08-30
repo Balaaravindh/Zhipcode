@@ -2,8 +2,10 @@ package com.falconnect.zipcode;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -220,73 +222,86 @@ public class ChangePasswordActivity extends AppCompatActivity {
         change_password_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 first_pass = change_pass.getText().toString().trim();
                 confirm_passs = confirm_pass.getText().toString().trim();
-                if(first_pass.equals(confirm_passs)){
-                    barProgressDialog = ProgressDialog.show(ChangePasswordActivity.this, "Cargando...", "Por Favor Espera...", true);
-                    final String URL = ConstantAPI.EDIT_PROFILE_NAME + user.get("id") + "/";
-                    Log.e("URL", URL);
-                    JSONObject jsonObject_user_name = new JSONObject();
-                    JSONObject jsonObject_user = new JSONObject();
-                    try {
-                        jsonObject_user.put("password", confirm_passs);
-                        jsonObject_user_name.put("user", jsonObject_user);
-                        Log.e("jsObjRequest", jsonObject_user_name.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.PATCH, URL, jsonObject_user_name, new Response.Listener<JSONObject>() {
+                if (first_pass.equals("") || first_pass == null || confirm_pass.equals("") || confirm_pass == null) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(ChangePasswordActivity.this);
+                    builder.setTitle("Error");
+                    builder.setMessage("Por favor ingrese la observación");
+                    builder.setPositiveButton("De Acuerdo", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onResponse(JSONObject response) {
-                            Log.e("Response", response.toString());
-                            try {
-                                id = response.getString("id");
-                                token = response.getString("token");
-                                idoc = response.getString("idoc");
-                                mobile_number = response.getString("mobile_number");
-                                photo = response.getString("photo");
-                                bank_code = response.getString("bank_code");
-                                bank_name = response.getString("bank_name");
-                                account_num = response.getString("rut_account_number");
-                                payment = response.getString("want_payment");
-                                busy = response.getString("busy");
-
-                                JSONObject jsonArray = response.getJSONObject("user");
-
-                                main_id = jsonArray.getString("id");
-                                username = jsonArray.getString("username");
-                                firstname = jsonArray.getString("first_name");
-                                lastname = jsonArray.getString("last_name");
-                                main_email = jsonArray.getString("email");
-                                balance = jsonArray.getString("balance");
-
-                                barProgressDialog.dismiss();
-
-                                ChangePasswordActivity.this.finish();
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    }, new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            // TODO Auto-generated method stub
-                            Log.e("Error" , error.toString());
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
                     });
-
-                    RequestQueue requestQueue = Volley.newRequestQueue(ChangePasswordActivity.this);
-                    requestQueue.add(jsObjRequest);
+                    builder.show();
                 }else{
-                    Toast.makeText(ChangePasswordActivity.this, "Password Mis - Match", Toast.LENGTH_SHORT).show();
+                    if (first_pass.equals(confirm_passs)) {
+                        barProgressDialog = ProgressDialog.show(ChangePasswordActivity.this, "Cargando...", "Por Favor Espera...", true);
+                        final String URL = ConstantAPI.EDIT_PROFILE_NAME + user.get("id") + "/";
+                        Log.e("URL", URL);
+                        JSONObject jsonObject_user_name = new JSONObject();
+                        JSONObject jsonObject_user = new JSONObject();
+                        try {
+                            jsonObject_user.put("password", confirm_passs);
+                            jsonObject_user_name.put("user", jsonObject_user);
+                            Log.e("jsObjRequest", jsonObject_user_name.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.PATCH, URL, jsonObject_user_name, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.e("Response", response.toString());
+                                try {
+                                    id = response.getString("id");
+                                    token = response.getString("token");
+                                    idoc = response.getString("idoc");
+                                    mobile_number = response.getString("mobile_number");
+                                    photo = response.getString("photo");
+                                    bank_code = response.getString("bank_code");
+                                    bank_name = response.getString("bank_name");
+                                    account_num = response.getString("rut_account_number");
+                                    payment = response.getString("want_payment");
+                                    busy = response.getString("busy");
+
+                                    JSONObject jsonArray = response.getJSONObject("user");
+
+                                    main_id = jsonArray.getString("id");
+                                    username = jsonArray.getString("username");
+                                    firstname = jsonArray.getString("first_name");
+                                    lastname = jsonArray.getString("last_name");
+                                    main_email = jsonArray.getString("email");
+                                    balance = jsonArray.getString("balance");
+
+                                    barProgressDialog.dismiss();
+
+                                    ChangePasswordActivity.this.finish();
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }, new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // TODO Auto-generated method stub
+                                Log.e("Error", error.toString());
+                            }
+                        });
+
+                        RequestQueue requestQueue = Volley.newRequestQueue(ChangePasswordActivity.this);
+                        requestQueue.add(jsObjRequest);
+                    } else {
+                        Toast.makeText(ChangePasswordActivity.this, "Password Mis - Match", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
         });
+
 
     }
 

@@ -16,8 +16,6 @@ import com.falconnect.zipcode.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class CustomerListAdapter extends
@@ -30,6 +28,8 @@ public class CustomerListAdapter extends
     public static ArrayList<HashMap<String, ArrayList<String>>> ruta_postion_change = new ArrayList<>();
     private OnStartDragListener mDragStartListener;
     private OnCustomerListChangedListener mListChangedListener;
+
+    int Toposition,Fromposition;
 
     ArrayList<ArrayList<String>> new_Array_list = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class CustomerListAdapter extends
             ruta_postion_change.add(ruta_postion_details);
         }
 
-        for (int i = 0; i < ruta_postion_detail.size(); i++){
+        for (int i = 0; i < directions.size(); i++){
             new_Array_list.add(ruta_postion_detail.get(String.valueOf(i)));
         }
 
@@ -68,20 +68,25 @@ public class CustomerListAdapter extends
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
 
+        //holder.direction_orgin.setText(directions.get(position));
+        holder.destination_points_number.setText(String.valueOf(position));
 
-        holder.direction_orgin.setText(directions.get(position));
-        holder.orgin_address.setText(new_Array_list.get(position).get(9));
-        holder.destination_points_number.setText(String.valueOf(position + 1));
-
-        holder.card_destination.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                    mDragStartListener.onStartDrag(holder);
+        if (position == 0){
+            holder.direction_orgin.setText("DIRECCION ORIGIN");
+            holder.orgin_address.setText(communitys);
+        }else{
+            holder.direction_orgin.setText("DIRECCION " + " " + String.valueOf(position));
+            holder.orgin_address.setText(ruta_postion_details.get(String.valueOf(position)).get(9));
+            holder.card_destination.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                        mDragStartListener.onStartDrag(holder);
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -99,22 +104,35 @@ public class CustomerListAdapter extends
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
 
-        Collections.swap(new_Array_list, fromPosition, toPosition);
-        mListChangedListener.onNoteListChanged_Sample(new_Array_list);
-        notifyItemMoved(fromPosition, toPosition);
 
-        swap(fromPosition, toPosition, new_Array_list);
+        if(fromPosition == 0 || toPosition == 0){
 
+        }else{
+            Collections.swap(new_Array_list, fromPosition, toPosition);
+            mListChangedListener.onNoteListChanged_Sample(new_Array_list);
+            notifyItemMoved(fromPosition, toPosition);
 
+            Fromposition = fromPosition;
+            Toposition = toPosition;
+        }
+    }
+
+    public void swapItems(int itemAIndex, int itemBIndex) {
+        //make sure to check if dataset is null and if itemA and itemB are valid indexes.
+        String firstitem = directions.get(itemAIndex);
+        String itemB = directions.get(itemBIndex);
+        directions.set(itemAIndex, itemB);
+        directions.set(itemBIndex, firstitem);
+        notifyDataSetChanged();
+        //This will trigger onBindViewHolder method from the adapter.
     }
 
     @Override
     public void onItemDismiss(int position) {
-
+        swapItems(Fromposition, Toposition);
     }
 
-    public static class ItemViewHolder extends RecyclerView.ViewHolder implements
-            ItemTouchHelperViewHolder {
+    public static class ItemViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
         public final TextView direction_orgin, orgin_address, destination_points_number;
         public final CardView card_destination;
 
@@ -138,15 +156,4 @@ public class CustomerListAdapter extends
         }
     }
 
-    public void swap(int x, int y, ArrayList<ArrayList<String>> myList) {
-
-        ArrayList<String> s = myList.get(x);
-        ArrayList<String> ss = myList.get(y);
-
-        myList.set(x, ss);
-        myList.set(y, s);
-
-        Log.e("size_1", myList.toString());
-
-    }
 }

@@ -196,8 +196,9 @@ public class Negative_comments extends AppCompatActivity {
     }
 
     public void negative_comment() {
-        final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/";
+        final ProgressDialog barProgressDialog = ProgressDialog.show(Negative_comments.this, "Cargando...", "Por Favor Espera...", true);
 
+        final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/";
 
         if (imagebase64 == "" || imagebase64 == null) {
             imagebase64 = "";
@@ -217,11 +218,14 @@ public class Negative_comments extends AppCompatActivity {
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, thumbs_user, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.e("Response", response.toString());
+                barProgressDialog.dismiss();
+
+                String charged_cost_messenger = response.optString("charged_cost_messenger");
 
                 Intent intent = new Intent(Negative_comments.this, Finalizar_Activity_three.class);
                 intent.putExtra("errand_ids", errand_ids);
                 intent.putExtra("destination_id", destination_id);
+                intent.putExtra("charged_cost_messenger", charged_cost_messenger);
                 startActivity(intent);
 
                 Negative_comments.this.finish();
@@ -263,10 +267,10 @@ public class Negative_comments extends AppCompatActivity {
             Crop.of(result.getData(), destination).asSquare().start(this);
         } else if (requestCode == 200) {
             Log.d("imagepath",Cameraimagepath.getAbsolutePath());
-            Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+            Uri destination = Uri.fromFile(new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath(),
+                    "File_"+ UUID.randomUUID().toString()+".jpg"));
             Crop.of(Uri.fromFile(Cameraimagepath), destination).asSquare().start(this);
             camera_image.setImageURI(destination);
-
             camera_image.buildDrawingCache();
             Bgimage = camera_image.getDrawingCache();
             bao = new ByteArrayOutputStream();

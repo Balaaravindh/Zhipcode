@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.media.Image;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -78,7 +79,7 @@ public class Delivery_Page extends AppCompatActivity {
         initilize();
         sessionManager = new SessionManager(Delivery_Page.this);
         user = sessionManager.getUserDetails();
-
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putString("destinations", "null").apply();
         origin = getIntent().getStringExtra("origin");
         amount = getIntent().getStringExtra("amount");
         errand_type = getIntent().getStringExtra("errand_type");
@@ -273,6 +274,9 @@ public class Delivery_Page extends AppCompatActivity {
                         String latitude_desti = geo_location.optString("latitude");
                         String longitude_desti = geo_location.optString("longitude");
 
+                        String observation = response.optString("observation");
+
+
                         datas_desti.put("job_accepted_destination_id", job_accepted_destination_id);
                         datas_desti.put("community_desti", community_desti);
                         datas_desti.put("references_desti", references_desti);
@@ -282,6 +286,7 @@ public class Delivery_Page extends AppCompatActivity {
                         datas_desti.put("email_desti", email_desti);
                         datas_desti.put("latitude_desti", latitude_desti);
                         datas_desti.put("longitude_desti", longitude_desti);
+                        datas_desti.put("observation", observation);
 
                         ArrayList<String> desti_values = new ArrayList<>();
                         desti_values.add(job_accepted_destination_id);
@@ -294,7 +299,7 @@ public class Delivery_Page extends AppCompatActivity {
                         desti_values.add(latitude_desti);
                         desti_values.add(longitude_desti);
                         desti_values.add(String.valueOf(1));
-
+                        desti_values.add(observation);
 
                         datas_desti_multi.put(destinations.length()-1, desti_values);
                         new_all_datas.add(datas_desti_multi);
@@ -322,6 +327,8 @@ public class Delivery_Page extends AppCompatActivity {
                                 String latitude_desti_multi = geo_location_multi.optString("latitude");
                                 String longitude_desti_multi = geo_location_multi.optString("longitude");
 
+                                String observation = response.optString("observation");
+
                                 multi_lat.add(latitude_desti_multi);
                                 multi_long.add(longitude_desti_multi);
 
@@ -336,6 +343,7 @@ public class Delivery_Page extends AppCompatActivity {
                                 desti_values.add(latitude_desti_multi);
                                 desti_values.add(longitude_desti_multi);
                                 desti_values.add(String.valueOf(l + 1));
+                                desti_values.add(observation);
 
                                 datas_desti_multi.put(l, desti_values);
                                 new_all_datas.add(datas_desti_multi);

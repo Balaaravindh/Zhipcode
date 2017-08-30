@@ -64,9 +64,10 @@
 
             <com.falconnect.zipcode.CustomWidgets.CustomTextView
                 android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="EDITAR EMAIL"
+                android:textAlignment="center"
                 android:textColor="#FFF"
                 android:textSize="16dp"
                 app:Customfont="sanz.ttf"

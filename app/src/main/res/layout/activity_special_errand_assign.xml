@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.falconnect.zipcode.SpecialErrandAssign">
+
+    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+        android:id="@+id/tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Tienes una solicitud pegada"
+        android:textAllCaps="true"
+        android:textColor="#000"
+        android:textSize="16dp"
+        app:Customfont="sanz.ttf" />
+
+    <com.falconnect.zipcode.CustomWidgets.CustomTextView
+        android:id="@+id/tittle_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tittle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="¿Quieres Aceptarlo?"
+        android:textAllCaps="true"
+        android:textColor="#000"
+        android:textSize="16dp"
+        app:Customfont="sanz.ttf" />
+
+    <RelativeLayout
+        android:id="@+id/gana_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tittle_single"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp">
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/gana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="GANA"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/gana_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gana"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="10000"
+            android:textColor="#F34236"
+            android:textSize="30dp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/destinos_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gana_details"
+        android:layout_marginTop="15dp">
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/errand_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="MULTIDESTINOS"
+            android:textColor="#000"
+            android:textSize="18dp"
+            app:Customfont="sanz.ttf" />
+
+        <ImageView
+            android:id="@+id/errand_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/errand_type"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="20dp" />
+
+        <ImageView
+            android:id="@+id/errand_destination_size"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/errand_type"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="20dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/accept_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/destinos_details"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="60dp"
+        android:background="#39B54A">
+
+        <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+            android:id="@+id/accept_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/green_button"
+            android:text="ACEPTAR MISIÓN"
+            android:textColor="#FFF"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/accept_button"
+            android:src="@drawable/checked" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/decline_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/accept_button_layout"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:background="#F34235">
+
+        <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+            android:id="@+id/decline_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/red_button"
+            android:layout_centerInParent="true"
+            android:text="DECLINAR MISIÓN"
+            android:textColor="#FFF"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/decline_button"
+            android:src="@drawable/close_cancel" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

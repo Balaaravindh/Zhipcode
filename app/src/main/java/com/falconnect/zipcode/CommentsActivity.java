@@ -3,6 +3,7 @@ package com.falconnect.zipcode;
 import android.*;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -86,7 +87,7 @@ public class CommentsActivity extends AppCompatActivity {
     public static String encodedImage;
     public static final int RequestPermissionCode = 1;
     Bitmap Bgimage;
-    File Cameraimagepath;
+    public static File Cameraimagepath;
     byte[] Bgimagebyte = null;
     ByteArrayOutputStream bao;
 
@@ -162,6 +163,7 @@ public class CommentsActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                 Cameraimagepath = new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath(),
                                         "File_" + UUID.randomUUID().toString()+".jpg");
+                                Log.d("imagepath",Cameraimagepath.getAbsolutePath());
                                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(Cameraimagepath));
                                 startActivityForResult(intent, 200);
                                 dialog.dismiss();
@@ -243,7 +245,8 @@ public class CommentsActivity extends AppCompatActivity {
             Crop.of(result.getData(), destination).asSquare().start(this);
         } else if (requestCode == 200) {
             Log.d("imagepath",Cameraimagepath.getAbsolutePath());
-            Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+            Uri destination = Uri.fromFile(new File(android.os.Environment.getExternalStorageDirectory().getAbsolutePath(),
+                    "File_"+ UUID.randomUUID().toString()+".jpg"));
             Crop.of(Uri.fromFile(Cameraimagepath), destination).asSquare().start(this);
             camera_image.setImageURI(destination);
             camera_image.buildDrawingCache();
@@ -279,7 +282,7 @@ public class CommentsActivity extends AppCompatActivity {
     }
 
     private void postive_thumbs() {
-
+        final ProgressDialog barProgressDialog = ProgressDialog.show(CommentsActivity.this, "Cargando...", "Por Favor Espera...", true);
         final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/";
 
         if (imagebase64 == "" || imagebase64 == null) {
@@ -298,11 +301,15 @@ public class CommentsActivity extends AppCompatActivity {
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, thumbs_user, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.e("Response", response.toString());
+
+                barProgressDialog.dismiss();
+
+                String charged_cost_messenger = response.optString("charged_cost_messenger");
 
                 Intent intent = new Intent(CommentsActivity.this, Finalizar_Activity_three.class);
                 intent.putExtra("errand_ids", errand_ids);
                 intent.putExtra("destination_id", destination_id);
+                intent.putExtra("charged_cost_messenger", charged_cost_messenger);
                 startActivity(intent);
                 CommentsActivity.this.finish();
             }

@@ -1,13 +1,17 @@
 package com.falconnect.zipcode;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -17,7 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.falconnect.zipcode.Adapter.VerTodosAdapter;
 import com.falconnect.zipcode.SessionManager.Orgin_destination_identy;
 import com.falconnect.zipcode.SessionManager.SessionManager;
 
@@ -27,87 +30,177 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class VerTODOS extends AppCompatActivity {
+public class SpecialErrandAssign extends AppCompatActivity {
 
-
-    ArrayList<String> destination_array = new ArrayList<>();
-
-    TextView amount_total;
-    ListView vertodos_lisview;
-    VerTodosAdapter verTodosAdapter;
-    String amount;
-    Button next;
-    String errand_ids;
+    RelativeLayout accept_button_layout, decline_button_layout;
+    TextView gana_amount, errand_type;
+    ImageView errand_image, errand_destination_size;
     HashMap<String, String> datas = new HashMap<>();
-    HashMap<String, String> datas_desti = new HashMap<>();
-    SessionManager sessionManager;
-    HashMap<String, String> user;
-    String destination_id, destination_size;
-
+    HashMap<String,ArrayList<String>> all_datas = new HashMap<>();
     ArrayList<String> orgins_datas = new ArrayList<>();
-    HashMap<String, ArrayList<String>> all_datas = new HashMap<>();
-    HashMap<Integer, ArrayList<String>> datas_desti_multi = new HashMap<>();
     String job_accepted_destination_id;
+    String charged_cost_messenger, errand_type_string, id, num_destinations;
+    HashMap<String, String> datas_desti = new HashMap<>();
+    HashMap<Integer,ArrayList<String>> datas_desti_multi = new HashMap<>();
     ArrayList<HashMap<Integer, ArrayList<String>>> new_all_datas = new ArrayList<>();
-
     ArrayList<String> multi_lat = new ArrayList<>();
     ArrayList<String> multi_long = new ArrayList<>();
+    String destination_id;
+
+    SessionManager sessionManager;
+    HashMap<String, String> user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ver_todos);
+        setContentView(R.layout.activity_special_errand_assign);
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
         initilize();
 
-        errand_ids = getIntent().getStringExtra("errand_id");
-        destination_id = getIntent().getStringExtra("destination_id");
-        destination_array = getIntent().getStringArrayListExtra("destination_array");
-        destination_size = getIntent().getStringExtra("destination_size");
-        errand_ids = getIntent().getStringExtra("errand_ids");
-        amount = getIntent().getStringExtra("amount");
 
-        amount = amount.replace(".00", "");
-        amount_total.setText(amount);
+        //    "job_queued": {
+        //        "charged_cost_messenger": 11231,
+        //        "errand_type": "MULTIDESTINOS",
+        //        "id": 1602
+        //        "num_destinations" = 6;
+        //    }
 
-        destination_array = getIntent().getStringArrayListExtra("destination_array");
+        int[] images = {
+                R.drawable.blue_one,
+                R.drawable.blue_two,
+                R.drawable.blue_three,
+                R.drawable.blue_four,
+                R.drawable.blue_five,
+                R.drawable.blue_six,
+                R.drawable.blue_seven,
+                R.drawable.blue_eight,
+                R.drawable.blue_nine,
+                R.drawable.blue_ten
+        };
 
-        Log.e("destination_array", destination_array.toString());
 
-        verTodosAdapter = new VerTodosAdapter(VerTODOS.this, destination_array);
-        vertodos_lisview.setAdapter(verTodosAdapter);
+        charged_cost_messenger = getIntent().getStringExtra("charged_cost_messenger");
+        errand_type_string = getIntent().getStringExtra("errand_type");
+        id = getIntent().getStringExtra("id");
+        num_destinations = getIntent().getStringExtra("num_destinations");
 
-        next.setOnClickListener(new View.OnClickListener() {
+
+        gana_amount.setText(charged_cost_messenger);
+        errand_type.setText(errand_type_string);
+
+        errand_destination_size.setBackgroundResource(images[Integer.parseInt(num_destinations) - 1]);
+
+        if (errand_type_string.equals("MULTIDESTINOS")){
+            errand_image.setBackgroundResource(R.drawable.entregamultidestinodashboard);
+        }else{
+            errand_image.setBackgroundResource(R.drawable.entregadashboard);
+        }
+
+        accept_button_layout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                data_get();
+            public void onClick(View v) {
+                assign_special_errands();
+            }
+        });
+
+        decline_button_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                declin_special_errands();
             }
         });
 
     }
 
-    public void initilize() {
-        sessionManager = new SessionManager(VerTODOS.this);
-        user = sessionManager.getUserDetails();
-        amount_total = (TextView) findViewById(R.id.amount_total);
-        vertodos_lisview = (ListView) findViewById(R.id.destination_listview);
+    private void declin_special_errands() {
+        final String URL = ConstantAPI.CANCEL_ERRANDS + id + "/cancel_errand/";
 
-        next = (Button) findViewById(R.id.next);
-    }
-
-    public void data_get() {
-
-        final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/assign_errand/";
+        Log.e("URL", URL);
 
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+
+                String result = response.optString("result");
+                String message = response.optString("message");
+
+                if (result.equals("1")){
+
+                    Intent intent = new Intent(SpecialErrandAssign.this, MainActivity.class);
+                    startActivity(intent);
+
+                }else{
+                    final Dialog dialog = new Dialog(SpecialErrandAssign.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.status_active_custom_alert);
+                    TextView messages = (TextView) dialog.findViewById(R.id.message);
+                    messages.setText("¿Seguro que quieres cancelar el encargo?");
+                    messages.setAllCaps(true);
+
+                    TextView message1 = (TextView) dialog.findViewById(R.id.message1);
+                    message1.setText(message);
+
+                    final Button positive_button = (Button) dialog.findViewById(R.id.possitive_button);
+                    positive_button.setText("SI, ESTOY SEGURO");
+                    positive_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    Button negative_button = (Button) dialog.findViewById(R.id.negative_button);
+                    negative_button.setText("NO");
+                    negative_button.setTextColor(Color.RED);
+                    negative_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO Auto-generated method stub
+                Log.e("Error", error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                user = sessionManager.getUserDetails();
+                headers.put("Authorization", "Token"+ " "+ user.get("token"));
+                Log.e("params", headers.toString());
+                return headers;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(SpecialErrandAssign.this);
+        requestQueue.add(req);
+    }
+
+    private void assign_special_errands() {
+
+        final String URL = ConstantAPI.ERRAND_ASSIGN + id + "/assign_errand/";
+
+        Log.e("URL", URL);
+
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
                 try {
                     String id = response.optString("id");
                     String outcome = response.optString("outcome");
@@ -242,15 +335,15 @@ public class VerTODOS extends AppCompatActivity {
 
                         }
                     }
-                    Orgin_destination_identy orgin_destination_identy = new Orgin_destination_identy(VerTODOS.this);
+                    Orgin_destination_identy orgin_destination_identy = new Orgin_destination_identy(SpecialErrandAssign.this);
                     orgin_destination_identy.createOrginDatas("origin");
 
                     if(destinations.length() == 1){
-                        Intent intent = new Intent(VerTODOS.this, MapsActivity.class);
+                        Intent intent = new Intent(SpecialErrandAssign.this, MapsActivity.class);
                         intent.putExtra("origin_datas", datas);
                         intent.putExtra("datas_desti", datas_desti);
-                        intent.putExtra("errand_ids", errand_ids);
-                        intent.putExtra("destination_size", destination_size);
+                        intent.putExtra("errand_ids", id);
+                        intent.putExtra("destination_size", num_destinations);
                         intent.putExtra("destination_id", destination_id);
                         intent.putExtra("datas_desti_multi", datas_desti_multi);
 
@@ -259,13 +352,13 @@ public class VerTODOS extends AppCompatActivity {
                         intent.putExtra("json_object", response.toString());
                         startActivity(intent);
                     }else{
-                        Intent intent = new Intent(VerTODOS.this, MapsActivity.class);
+                        Intent intent = new Intent(SpecialErrandAssign.this, MapsActivity.class);
                         intent.putExtra("origin_datas", datas);
                         intent.putExtra("datas_desti_multi", datas_desti_multi);
                         intent.putExtra("multi_lat", multi_lat);
                         intent.putExtra("multi_long", multi_long);
-                        intent.putExtra("errand_ids", errand_ids);
-                        intent.putExtra("destination_size", destination_size);
+                        intent.putExtra("errand_ids", id);
+                        intent.putExtra("destination_size", num_destinations);
                         intent.putExtra("destination_id", destination_id);
 
                         intent.putExtra("status", "null");
@@ -273,13 +366,14 @@ public class VerTODOS extends AppCompatActivity {
                         intent.putExtra("json_object", response.toString());
                         startActivity(intent);
 
-                        Log.e("destination_size", destination_size);
+                        Log.e("destination_size", num_destinations);
                     }
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
                 // TODO Auto-generated method stub
@@ -290,13 +384,27 @@ public class VerTODOS extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 user = sessionManager.getUserDetails();
-                headers.put("Authorization", "Token" + " " + user.get("token"));
+                headers.put("Authorization", "Token"+ " "+ user.get("token"));
                 Log.e("params", headers.toString());
                 return headers;
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(VerTODOS.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(SpecialErrandAssign.this);
         requestQueue.add(req);
+    }
+
+    public void initilize(){
+        sessionManager = new SessionManager(SpecialErrandAssign.this);
+
+        gana_amount = (TextView) findViewById(R.id.gana_amount);
+        errand_type = (TextView) findViewById(R.id.errand_type);
+
+        errand_image = (ImageView) findViewById(R.id.errand_image);
+        errand_destination_size = (ImageView) findViewById(R.id.errand_destination_size);
+
+        accept_button_layout = (RelativeLayout) findViewById(R.id.accept_button_layout);
+        decline_button_layout = (RelativeLayout) findViewById(R.id.decline_button_layout);
+
     }
 }

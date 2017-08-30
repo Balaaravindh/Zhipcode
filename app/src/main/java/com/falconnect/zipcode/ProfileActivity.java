@@ -144,9 +144,9 @@ public class ProfileActivity extends AppCompatActivity {
         multi_status = (ToggleButton) mNav.findViewById(R.id.multi_status);
 
         if (user.get("busy").equals("true")) {
-            toggleButton.setChecked(true);
-        }else{
             toggleButton.setChecked(false);
+        } else {
+            toggleButton.setChecked(true);
         }
 
         if (user.get("available_for_deliveries").equals("true") && user.get("available_for_multiple").equals("true")) {
@@ -164,8 +164,9 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
-
                 if (isChecked == true) {
+                    single_status.setEnabled(true);
+                    multi_status.setEnabled(true);
                     user = sessionManager.getUserDetails();
                     if (user.get("busy").equals("true")) {
                         status = false;
@@ -184,7 +185,12 @@ public class ProfileActivity extends AppCompatActivity {
                     positive_button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            single_status.setEnabled(false);
+                            multi_status.setEnabled(false);
+                            status_active_multi = false;
+                            single_status.setChecked(false);
+                            status_active_multi = false;
+                            multi_status.setChecked(false);
                             user = sessionManager.getUserDetails();
                             if (user.get("busy").equals("true")) {
                                 status = false;
@@ -219,14 +225,14 @@ public class ProfileActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_deliveries").equals("true")) {
                         status_active = false;
-                        status_active_multi = true;
-                        multi_status.setChecked(true);
+//                        status_active_multi = true;
+//                        multi_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_deliveries").equals("false")) {
                         status_active = true;
-                        status_active_multi = false;
-                        multi_status.setChecked(false);
+//                        status_active_multi = false;
+//                        multi_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
@@ -234,21 +240,20 @@ public class ProfileActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_deliveries").equals("true")) {
                         status_active = false;
-                        status_active_multi = true;
-                        multi_status.setChecked(true);
+//                        status_active_multi = true;
+//                        multi_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_deliveries").equals("false")) {
                         status_active = true;
-                        status_active_multi = false;
-                        multi_status.setChecked(false);
+//                        status_active_multi = false;
+//                        multi_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
                 }
             }
         });
-
         multi_status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -256,14 +261,14 @@ public class ProfileActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_multiple").equals("true")) {
                         status_active_multi = false;
-                        status_active = true;
-                        single_status.setChecked(true);
+//                        status_active = true;
+//                        single_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_multiple").equals("false")) {
                         status_active_multi = true;
-                        status_active = false;
-                        single_status.setChecked(false);
+//                        status_active = false;
+//                        single_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
@@ -271,14 +276,14 @@ public class ProfileActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_multiple").equals("true")) {
                         status_active_multi = false;
-                        status_active = true;
-                        single_status.setChecked(true);
+                        //status_active = true;
+                        //single_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_multiple").equals("false")) {
                         status_active_multi = true;
-                        status_active = false;
-                        single_status.setChecked(false);
+                        //status_active = false;
+                        //single_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }

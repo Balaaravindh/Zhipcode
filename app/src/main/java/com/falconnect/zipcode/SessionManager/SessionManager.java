@@ -106,7 +106,6 @@ public class SessionManager {
     }
 
     public void  clear(){
-        Log.e("600000", "600000");
         editor.clear();
         editor.commit();
         Intent intente = new Intent(_context, LoginActivity.class);

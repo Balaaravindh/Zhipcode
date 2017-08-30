@@ -134,6 +134,8 @@ public class HomeListViewAdapter extends ArrayAdapter<String> {
                     }
                     intent.putExtra("destination_array", des);
                     intent.putExtra("destination_size", String.valueOf(des.size()));
+                    intent.putExtra("one", "1");
+
                 }
                 intent.putExtra("errand_type", errand_type.get(position));
                 context.startActivity(intent);

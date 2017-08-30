@@ -70,8 +70,8 @@
                 android:textColor="#FFF"
                 android:textSize="16dp"
                 app:Customfont="sanz.ttf"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="130dp"/>
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 

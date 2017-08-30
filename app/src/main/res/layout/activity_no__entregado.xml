@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.falconnect.zipcode.No_EntregadoActivity">
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/close_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:id="@+id/close"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/close"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/close_layout"
+        android:layout_marginTop="10dp">
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/title_text"
+            android:text="PEDIDO NO ENTREGADO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="#000"
+            android:layout_marginTop="30dp"
+            android:textAllCaps="true"
+            app:Customfont="sanz.ttf"
+            android:layout_centerHorizontal="true"/>
+
+        <com.falconnect.zipcode.CustomWidgets.CustomTextView
+            android:id="@+id/message_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_text"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textAlignment="center"
+            android:textSize="14dp"
+            app:Customfont="sanz.ttf"
+            android:textColor="#000"
+            android:text="POR FAVOR INDICA LA RAZÓN PARA LA QUE LA ORDEN NO PUEDE SER ENTREGADA"/>
+
+
+        <com.falconnect.zipcode.CustomWidgets.CEditText
+            android:id="@+id/observation_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_below="@+id/message_text"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:inputType="text"
+            android:hint="Tu Observación" />
+
+        <com.falconnect.zipcode.CustomWidgets.ButtonPlus
+            android:id="@+id/envira_observation"
+            android:layout_width="250dp"
+            android:textColor="#000"
+            android:textSize="16dp"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="50dp"
+            android:text="ENVIAR OBSERVACIÓN"
+            android:background="@drawable/centero_de_button"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/observation_cancel"/>
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

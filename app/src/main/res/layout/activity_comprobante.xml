@@ -103,7 +103,6 @@
         android:hint="OBSERVACION"
         android:gravity="center"
         android:textSize="16dp"
-        android:singleLine="true"
         android:visibility="gone"
         android:textStyle="bold"
         app:Customfont="sanz.ttf" />
@@ -126,7 +125,6 @@
             android:gravity="center"
             android:textSize="16dp"
             android:singleLine="true"
-            android:textStyle="bold"
             app:Customfont="sanz.ttf" />
 
         <com.falconnect.zipcode.CustomWidgets.CEditText
@@ -140,7 +138,6 @@
             android:singleLine="true"
             android:gravity="center"
             android:textSize="16dp"
-            android:textStyle="bold"
             app:Customfont="sanz.ttf" />
 
         <com.falconnect.zipcode.CustomWidgets.CEditText
@@ -155,7 +152,6 @@
             android:singleLine="true"
             android:inputType="number"
             android:gravity="center"
-            android:textSize="16dp"
             android:textStyle="bold"
             app:Customfont="sanz.ttf" />
 
@@ -168,7 +164,6 @@
             android:layout_marginTop="5dp"
             android:hint="OBSERVACION"
             android:gravity="center"
-            android:singleLine="true"
             android:textSize="16dp"
             android:textStyle="bold"
             app:Customfont="sanz.ttf" />

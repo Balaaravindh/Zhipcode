@@ -1,5 +1,7 @@
 package com.falconnect.zipcode;
 
+import android.app.ProgressDialog;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.falconnect.zipcode.SessionManager.Jsonstr;
 import com.falconnect.zipcode.SessionManager.SessionManager;
 
 import org.json.JSONException;
@@ -61,8 +65,9 @@ public class ComprobanteActivity extends AppCompatActivity {
     SessionManager sessionManager;
     HashMap<String, String> user;
     int value;
-    JSONObject thumbs_user = new JSONObject();
+    ProgressDialog barProgressDialog;
 
+    JSONObject thumbs_user = new JSONObject();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,31 +179,58 @@ public class ComprobanteActivity extends AppCompatActivity {
                     api_function();
                 } else if (value == 1) {
                     observacion_text = observacion.getText().toString();
-
-                    try {
-                        thumbs_user.put("was_delivered_to_watchman", true);
-                        thumbs_user.put("delivery_remarks", observacion_text);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (observacion_text.equals("")){
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(ComprobanteActivity.this);
+                        builder.setTitle("Error");
+                        builder.setMessage("Por favor ingrese la observación");
+                        builder.setPositiveButton("De Acuerdo", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.show();
+                    }else{
+                        try {
+                            thumbs_user.put("was_delivered_to_watchman", true);
+                            thumbs_user.put("delivery_remarks", observacion_text);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        api_function();
                     }
-                    api_function();
                 } else if (value == 2) {
                     nombre_text = nombre.getText().toString();
                     obse_text_otro = observacion_otro.getText().toString();
                     telefono_text = telefono.getText().toString();
                     rut_text = rut.getText().toString();
 
-                    try {
-                        thumbs_user.put("was_delivered_to_watchman", true);
-                        thumbs_user.put("delivery_contact_name", nombre_text);
-                        thumbs_user.put("delivery_contact_rut", rut_text);
-                        thumbs_user.put("delivery_contact_phone", telefono_text);
-                        thumbs_user.put("delivery_remarks", obse_text_otro);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
 
-                    api_function();
+                    if (nombre_text.equals("") || obse_text_otro.equals("") || telefono_text.equals("")
+                            || rut_text.equals("")){
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(ComprobanteActivity.this);
+                        builder.setTitle("Error");
+                        builder.setMessage("Por favor ingrese la observación");
+                        builder.setPositiveButton("De Acuerdo", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.show();
+                    }else {
+                        try {
+                            thumbs_user.put("was_delivered_to_watchman", true);
+                            thumbs_user.put("delivery_contact_name", nombre_text);
+                            thumbs_user.put("delivery_contact_rut", rut_text);
+                            thumbs_user.put("delivery_contact_phone", telefono_text);
+                            thumbs_user.put("delivery_remarks", obse_text_otro);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        api_function();
+                    }
                 }
             }
         });
@@ -208,23 +240,32 @@ public class ComprobanteActivity extends AppCompatActivity {
 
 
     private void api_function() {
+
+        barProgressDialog = ProgressDialog.show(ComprobanteActivity.this, "Cargando...", "Por Favor Espera...", true);
+        destination_id = datas_desti_multi.get(0).get(0);
         final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/destinations/" + destination_id + "/";
 
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, thumbs_user, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.e("Response", response.toString());
-                Log.e("datas_desti_multi", datas_desti_multi.toString());
-
+                barProgressDialog.dismiss();
                 if (datas_desti_multi.size() != 0) {
                     datas_desti_multi.remove(0);
                     for (int i = 0; i < datas_desti_multi.size(); i++) {
                         datas_desti_multi_values.put(i, datas_desti_multi.get(i + 1));
                     }
-
+                    Log.e("errand_ids", errand_ids.toString());
+                    Log.e("destination_id", destination_id.toString());
                     Log.e("datas_desti_multi", String.valueOf(datas_desti_multi_values.size()));
                     Log.e("datas_desti_multi", datas_desti_multi_values.toString());
                 }
+                String Storedata = PreferenceManager.getDefaultSharedPreferences(ComprobanteActivity.this).getString("destinations", "null");
+                if(Storedata != "null") {
+                    PreferenceManager.getDefaultSharedPreferences(ComprobanteActivity.this).edit().putString("destinations", Storedata +"$"+ destination_id).apply();
+                } else {
+                    PreferenceManager.getDefaultSharedPreferences(ComprobanteActivity.this).edit().putString("destinations", destination_id).apply();
+                }
+
                 if (datas_desti_multi.size() == 0) {
                     Intent intent = new Intent(ComprobanteActivity.this, CommentsActivity.class);
                     intent.putExtra("errand_ids", errand_ids);
@@ -267,122 +308,6 @@ public class ComprobanteActivity extends AppCompatActivity {
         requestQueue.add(req);
     }
 
-    /* private void otro_fun() {
-
-         final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/destinations/" + destination_id + "/";
-
-         JSONObject thumbs_user = new JSONObject();
-         try {
-             thumbs_user.put("was_delivered_to_watchman", true);
-             thumbs_user.put("delivery_contact_name", nombre_text);
-             thumbs_user.put("delivery_contact_rut", rut_text);
-             thumbs_user.put("delivery_contact_phone", telefono_text);
-             thumbs_user.put("delivery_remarks", obse_text_otro);
-         } catch (JSONException e) {
-             e.printStackTrace();
-         }
-         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, thumbs_user, new Response.Listener<JSONObject>() {
-             @Override
-             public void onResponse(JSONObject response) {
-                 Log.e("Response", response.toString());
-                 if(destination_size.equals("1")){
-                     Intent intent = new Intent(ComprobanteActivity.this, CommentsActivity.class);
-                     intent.putExtra("errand_ids", errand_ids);
-                     intent.putExtra("destination_id", destination_id);
-                     intent.putExtra("destination_size", destination_size);
-                     startActivity(intent);
-                     ComprobanteActivity.this.finish();
-                 }else{
-                     Intent intent = new Intent(ComprobanteActivity.this, MapsActivity.class);
-                     intent.putExtra("errand_ids", errand_ids);
-                     intent.putExtra("destination_id", destination_id);
-                     intent.putExtra("destination_size", destination_size);
-                     intent.putExtra("origin_datas", orgin_Datas);
-                     intent.putExtra("datas_desti_multi", datas_desti_multi);
-                     intent.putExtra("multi_lat", multi_lat);
-                     intent.putExtra("multi_long", multi_long);
-                     startActivity(intent);
-                     ComprobanteActivity.this.finish();
-                 }
-             }
-         }, new Response.ErrorListener() {
-
-             @Override
-             public void onErrorResponse(VolleyError error) {
-                 // TODO Auto-generated method stub
-                 Log.e("Error", error.toString());
-             }
-         }) {
-             @Override
-             public Map<String, String> getHeaders() throws AuthFailureError {
-                 HashMap<String, String> headers = new HashMap<String, String>();
-                 user = sessionManager.getUserDetails();
-                 headers.put("Authorization", "Token" + " " + user.get("token"));
-                 Log.e("params", headers.toString());
-                 return headers;
-             }
-         };
-
-         RequestQueue requestQueue = Volley.newRequestQueue(ComprobanteActivity.this);
-         requestQueue.add(req);
-     }
-
-     private void vigilante_conserje_fun() {
-         final String URL = ConstantAPI.ERRAND_ASSIGN + errand_ids + "/destinations/" + destination_id + "/";
-         JSONObject thumbs_user = new JSONObject();
-         try {
-             thumbs_user.put("was_delivered_to_watchman", true);
-             thumbs_user.put("delivery_remarks", observacion_text);
-         } catch (JSONException e) {
-             e.printStackTrace();
-         }
-         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH, URL, thumbs_user, new Response.Listener<JSONObject>() {
-             @Override
-             public void onResponse(JSONObject response) {
-                 Log.e("Response", response.toString());
-                 if(destination_size.equals("1")){
-                     Intent intent = new Intent(ComprobanteActivity.this, CommentsActivity.class);
-                     intent.putExtra("errand_ids", errand_ids);
-                     intent.putExtra("destination_id", destination_id);
-                     intent.putExtra("destination_size", destination_size);
-                     startActivity(intent);
-                     ComprobanteActivity.this.finish();
-                 }else{
-                     Intent intent = new Intent(ComprobanteActivity.this, MapsActivity.class);
-                     intent.putExtra("errand_ids", errand_ids);
-                     intent.putExtra("destination_id", destination_id);
-                     intent.putExtra("destination_size", destination_size);
-                     intent.putExtra("origin_datas", orgin_Datas);
-                     intent.putExtra("datas_desti_multi", datas_desti_multi);
-                     intent.putExtra("multi_lat", multi_lat);
-                     intent.putExtra("multi_long", multi_long);
-                     startActivity(intent);
-                     ComprobanteActivity.this.finish();
-                 }
-             }
-         }, new Response.ErrorListener() {
-
-             @Override
-             public void onErrorResponse(VolleyError error) {
-                 // TODO Auto-generated method stub
-                 Log.e("Error", error.toString());
-             }
-         }) {
-             @Override
-             public Map<String, String> getHeaders() throws AuthFailureError {
-                 HashMap<String, String> headers = new HashMap<String, String>();
-                 user = sessionManager.getUserDetails();
-                 headers.put("Authorization", "Token" + " " + user.get("token"));
-                 Log.e("params", headers.toString());
-                 return headers;
-             }
-         };
-
-         RequestQueue requestQueue = Volley.newRequestQueue(ComprobanteActivity.this);
-         requestQueue.add(req);
-
-     }
- */
     public void intialize() {
         sessionManager = new SessionManager(ComprobanteActivity.this);
         user = sessionManager.getUserDetails();

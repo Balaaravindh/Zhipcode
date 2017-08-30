@@ -81,7 +81,7 @@ public class BilleteraActivity extends AppCompatActivity {
     RelativeLayout profile_page;
     ImageView profile_pic;
     TextView profile_name;
-    TextView profile_name_edit, ultimos_pagos;
+    TextView second_name, second_name_rate, ultimos_pagos;
     ToggleButton toggleButton, single_status, multi_status;
     ImageView nav_icon_drawer;
     RelativeLayout second_layout;
@@ -125,6 +125,17 @@ public class BilleteraActivity extends AppCompatActivity {
 
         profile_name.setText(user.get("first_name") + " " + user.get("last_name"));
 
+        profile_name = (TextView) mNav.findViewById(R.id.profile_name);
+        second_name = (TextView) mNav.findViewById(R.id.second_name);
+
+        profile_name.setText(user.get("first_name") + " " + user.get("last_name"));
+        second_name.setText(user.get("first_name") + " " + user.get("last_name"));
+
+        second_name_rate = (TextView) mNav.findViewById(R.id.second_name_rate);
+        String vals = user.get("balance");
+        vals = vals.replace(".0", "");
+        second_name_rate.setText(vals);
+
         profile_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,10 +162,12 @@ public class BilleteraActivity extends AppCompatActivity {
         single_status = (ToggleButton) mNav.findViewById(R.id.single_status);
         multi_status = (ToggleButton) mNav.findViewById(R.id.multi_status);
 
+
+
         if (user.get("busy").equals("true")) {
-            toggleButton.setChecked(true);
-        }else{
             toggleButton.setChecked(false);
+        } else {
+            toggleButton.setChecked(true);
         }
 
         if (user.get("available_for_deliveries").equals("true") && user.get("available_for_multiple").equals("true")) {
@@ -187,8 +200,9 @@ public class BilleteraActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
-
                 if (isChecked == true) {
+                    single_status.setEnabled(true);
+                    multi_status.setEnabled(true);
                     user = sessionManager.getUserDetails();
                     if (user.get("busy").equals("true")) {
                         status = false;
@@ -207,7 +221,12 @@ public class BilleteraActivity extends AppCompatActivity {
                     positive_button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            single_status.setEnabled(false);
+                            multi_status.setEnabled(false);
+                            status_active_multi = false;
+                            single_status.setChecked(false);
+                            status_active_multi = false;
+                            multi_status.setChecked(false);
                             user = sessionManager.getUserDetails();
                             if (user.get("busy").equals("true")) {
                                 status = false;
@@ -231,6 +250,7 @@ public class BilleteraActivity extends AppCompatActivity {
                     });
                     dialog.show();
                 }
+
             }
         });
 
@@ -241,14 +261,14 @@ public class BilleteraActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_deliveries").equals("true")) {
                         status_active = false;
-                        status_active_multi = true;
-                        multi_status.setChecked(true);
+//                        status_active_multi = true;
+//                        multi_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_deliveries").equals("false")) {
                         status_active = true;
-                        status_active_multi = false;
-                        multi_status.setChecked(false);
+//                        status_active_multi = false;
+//                        multi_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
@@ -256,21 +276,20 @@ public class BilleteraActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_deliveries").equals("true")) {
                         status_active = false;
-                        status_active_multi = true;
-                        multi_status.setChecked(true);
+//                        status_active_multi = true;
+//                        multi_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_deliveries").equals("false")) {
                         status_active = true;
-                        status_active_multi = false;
-                        multi_status.setChecked(false);
+//                        status_active_multi = false;
+//                        multi_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
                 }
             }
         });
-
         multi_status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -278,14 +297,14 @@ public class BilleteraActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_multiple").equals("true")) {
                         status_active_multi = false;
-                        status_active = true;
-                        single_status.setChecked(true);
+//                        status_active = true;
+//                        single_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_multiple").equals("false")) {
                         status_active_multi = true;
-                        status_active = false;
-                        single_status.setChecked(false);
+//                        status_active = false;
+//                        single_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
@@ -293,14 +312,14 @@ public class BilleteraActivity extends AppCompatActivity {
                     user = sessionManager.getUserDetails();
                     if (user.get("available_for_multiple").equals("true")) {
                         status_active_multi = false;
-                        status_active = true;
-                        single_status.setChecked(true);
+                        //status_active = true;
+                        //single_status.setChecked(true);
                         Log.e("trueeeee", "false");
                         status_check_multi();
                     } else if (user.get("available_for_multiple").equals("false")) {
                         status_active_multi = true;
-                        status_active = false;
-                        single_status.setChecked(false);
+                        //status_active = false;
+                        //single_status.setChecked(false);
                         Log.e("trueeeee", "true");
                         status_check_multi();
                     }
